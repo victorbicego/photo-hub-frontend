@@ -1,0 +1,23 @@
+<div class="modal" (click)="onClose()">
+  <div class="content" (click)="$event.stopPropagation()">
+    <div class="header">
+      <div class="title">
+        <h2 *ngIf="title">{{ title }}</h2>
+      </div>
+      <button class="btn-primary" (click)="onClose()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div class="body">
+      <p>Confirme sua ação para prosseguir.</p>
+    </div>
+    <div class="actions">
+      <button class="btn-secondary" (click)="onConfirm()">
+        <span>Sim</span>
+      </button>
+      <button class="btn-primary" (click)="onClose()">
+        <span>Não</span>
+      </button>
+    </div>
+  </div>
+</div>

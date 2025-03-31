@@ -1,0 +1,40 @@
+<app-admin-header></app-admin-header>
+
+<ng-container *ngIf="!loadingHolderService.isLoading; else loading">
+  <div class="container">
+    <ng-container *ngIf="eventList.length > 0; else noEvents">
+      <div class="event-list">
+        <app-add-event-card
+          (toggleCreateEventModal)="toggleCreateEventModal()"
+        ></app-add-event-card>
+
+        <app-event-card
+          *ngFor="let event of eventList"
+          [event]="event"
+          (toggleEventHostsModal)="toggleEventHostsModal($event)"
+        ></app-event-card>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-template #noEvents>
+  <div class="no-events-message">Nenhum Evento Disponível.</div>
+</ng-template>
+
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>
+
+<app-create-event-modal
+  *ngIf="showCreateEventModal"
+  (emitClose)="closeCreateEventModal()"
+  (emitCreateEvent)="createEvent($event)"
+></app-create-event-modal>
+
+<app-event-hosts-modal
+  *ngIf="showEventHostsModal"
+  [event]="selectedEvent"
+  (emitClose)="closeEventHostsModal()"
+  (emitSaveCoHostsEvent)="saveCoHosts()"
+></app-event-hosts-modal>

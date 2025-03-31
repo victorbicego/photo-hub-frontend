@@ -1,0 +1,42 @@
+<div class="gallery-toolbar">
+  <div class="slider-container">
+    <button class="btn-primary" (click)="decreasePhotosPerRow()">
+      <span class="material-icons slider-icon large-icon">photo</span>
+    </button>
+    <input
+      type="range"
+      min="1"
+      max="16"
+      step="1"
+      [(ngModel)]="this.itensPerRowHolderService.photosPerRow"
+    />
+    <button class="btn-primary" (click)="increasePhotosPerRow()">
+      <span class="material-icons slider-icon small-icon">photo</span>
+    </button>
+  </div>
+
+  <div class="action-container">
+    <button class="btn-primary" (click)="onUploadPhoto()">
+      <span
+        *ngIf="!matchedFaceHolderService.selectedFile"
+        class="material-icons"
+        >photo_camera</span
+      >
+      <img
+        *ngIf="matchedFaceHolderService.selectedFile"
+        src="{{ selectedFileUrl }}"
+        alt=""
+      />
+    </button>
+    <button class="btn-primary" (click)="onDownload()">
+      <span class="material-icons">download</span>
+    </button>
+  </div>
+
+  <div class="action-container">
+    <button class="btn-primary" (click)="onToggleBoundingBox()">
+      <span *ngIf="!showBoundingBox" class="material-icons">person_off</span>
+      <span *ngIf="showBoundingBox" class="material-icons">person</span>
+    </button>
+  </div>
+</div>

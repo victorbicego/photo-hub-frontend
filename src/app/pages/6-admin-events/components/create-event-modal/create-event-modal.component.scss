@@ -1,0 +1,40 @@
+.modal-primary {
+  .modal-content {
+    .modal-body {
+      .form-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .input-label {
+          text-align: left;
+          min-width: 50%;
+        }
+
+        input[type="datetime-local"] {
+          max-width: 50%;
+        }
+      }
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: space-around;
+      gap: 15px;
+
+      button {
+        flex: 1;
+      }
+
+      .btn-cancel {
+        border: 1px solid var(--accent-color);
+        background-color: transparent;
+
+        &:hover {
+          background-color: var(--accent-hover);
+        }
+      }
+    }
+  }
+}

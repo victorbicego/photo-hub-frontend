@@ -1,0 +1,14 @@
+.container {
+  .event-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-gap: 20px;
+  }
+}
+
+.no-events-message {
+  text-align: center;
+  color: var(--secondary-text-color);
+  padding: 20px;
+  font-size: 1.2rem;
+}

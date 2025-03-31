@@ -1,0 +1,29 @@
+<div class="modal" (click)="onClose()">
+  <div class="content" (click)="$event.stopPropagation()">
+    <div class="header">
+      <div class="title">
+        <h2>Excluir Fotos</h2>
+      </div>
+      <button class="btn-primary" (click)="onClose()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div *ngIf="selectedPhotos.length == 0" class="body">
+      <p>Voce nao selecionou nenhuma foto.</p>
+    </div>
+    <div *ngIf="selectedPhotos.length > 0" class="body">
+      <p>
+        Voce quer excluir as <span>{{ selectedPhotos.length }}</span> fotos
+        selecionadas.
+      </p>
+    </div>
+    <div *ngIf="selectedPhotos.length > 0" class="actions">
+      <button class="btn-secondary" (click)="onDelete()">
+        <span class="bnt-text">Sim</span>
+      </button>
+      <button class="btn-primary" (click)="onClose()">
+        <span class="bnt-text">Não</span>
+      </button>
+    </div>
+  </div>
+</div>

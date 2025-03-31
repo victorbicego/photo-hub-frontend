@@ -1,0 +1,37 @@
+<nav class="dashboard-nav">
+  <ng-container *ngIf="!isAdmin; else admin">
+    <button class="btn-primary" (click)="navigateToPhotos()">
+      <span class="material-icons">photo_library</span>
+      <span class="btn-text">Photos</span>
+    </button>
+    <button class="btn-primary" (click)="navigateToFaceMatch()">
+      <span class="material-icons">face</span>
+      <span class="btn-text">Face Matching</span>
+    </button></ng-container
+  >
+  <ng-template #admin>
+    <button class="btn-primary" (click)="navigateToHome()">
+      <span class="material-icons">manage_accounts</span>
+      <span class="btn-text">Gerenciar</span>
+    </button>
+    <button class="btn-primary" (click)="navigateToEvents()">
+      <span class="material-icons">event</span>
+      <span class="btn-text">Eventos</span>
+    </button>
+    <button class="btn-primary" (click)="navigateToMyAccount()">
+      <span class="material-icons">person</span>
+      <span class="btn-text">Minha Conta</span>
+    </button></ng-template
+  >
+  <button class="btn-primary" (click)="toggleLogoutModal()">
+    <span class="material-icons">logout</span>
+    <span class="btn-text">Logout</span>
+  </button>
+</nav>
+
+<app-confirmation-modal
+  *ngIf="showLogoutModal"
+  [title]="'Você tem certeza que quer sair?'"
+  (emitClose)="closeLogoutModal()"
+  (emitConfirm)="confirmLogout()"
+></app-confirmation-modal>

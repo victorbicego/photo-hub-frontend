@@ -1,0 +1,41 @@
+<ng-container *ngIf="photos.length > 0; else noPhotos">
+  <div
+    class="gallery"
+    [style.gridTemplateColumns]="
+      'repeat(' + itensPerRowHolderService.photosPerRow + ', 1fr)'
+    "
+    [style.gridGap]="galleryGap"
+  >
+    <div
+      class="photo-card"
+      *ngFor="let photo of photos; let i = index"
+      (click)="onPhotoClick(photo, i)"
+      (dblclick)="onPhotoDblClick(i)"
+      [class.selected]="isPhotoSelected(photo)"
+    >
+      <div class="photo-container">
+        <img
+          [src]="photo.photoUrl | photoUrl"
+          alt="Photo"
+          (load)="onImageLoad($event, i)"
+        />
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<app-events-gallery-toolbar
+  (toggleDownloadPhotos)="onDownload()"
+  (toggleUploadModal)="onUpload()"
+></app-events-gallery-toolbar>
+
+<ng-template #noPhotos>
+  <div class="no-photos-message">Nenhuma Foto Disponível</div>
+</ng-template>
+
+<app-photo-preview
+  *ngIf="showPhotoPreview"
+  [photos]="photos"
+  [currentPhotoIndex]="currentPhotoIndex"
+  (emitClose)="closePreview()"
+></app-photo-preview>

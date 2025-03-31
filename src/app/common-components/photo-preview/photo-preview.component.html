@@ -1,0 +1,26 @@
+<div class="modal" (click)="onBackgroundClick($event)">
+  <button class="btn-primary close-btn" (click)="emitClose.emit()">
+    <span class="material-icons">close</span>
+  </button>
+  <button
+    class="btn-primary prev-btn"
+    (click)="onPrevPhoto()"
+    (click)="$event.stopPropagation()"
+  >
+    <span class="material-icons">chevron_left</span>
+  </button>
+  <div class="preview-image">
+    <img
+      (click)="$event.stopPropagation()"
+      [src]="photos[currentPhotoIndex].photoUrl | photoUrl"
+      alt="Preview Photo"
+    />
+  </div>
+  <button
+    class="btn-primary next-btn"
+    (click)="onNextPhoto()"
+    (click)="$event.stopPropagation()"
+  >
+    <span class="material-icons">chevron_right</span>
+  </button>
+</div>

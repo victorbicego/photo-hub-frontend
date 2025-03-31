@@ -1,0 +1,31 @@
+<div *ngIf="event" class="card">
+  <h2>{{ event.name }}</h2>
+
+  <app-event-date [event]="event"></app-event-date>
+
+  <div class="qr-code">
+    <img
+      alt="qr code"
+      [src]="'data:image/png;base64,' + convertBase64(event.qrCode)"
+    />
+  </div>
+
+  <div class="actions">
+    <button class="btn-primary" (click)="shareQrCodeByEmail(event)">
+      <i class="material-icons">email</i>
+    </button>
+    <button class="btn-primary" (click)="shareQrCodeByWhatsapp(event)">
+      <i class="fab fa-whatsapp"></i>
+    </button>
+    <button class="btn-primary" (click)="downloadQrCode(event)">
+      <i class="material-icons">file_download</i>
+    </button>
+    <button class="btn-primary" (click)="onCoHostsClick()">
+      <i class="material-icons">groups</i>
+    </button>
+  </div>
+
+  <button class="btn-primary btn-event-details" (click)="goToEvent(event)">
+    Gerenciar Fotos
+  </button>
+</div>

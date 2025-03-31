@@ -1,0 +1,37 @@
+<app-admin-header></app-admin-header>
+
+<ng-container *ngIf="!loadingHolderService.isLoading; else loading">
+  <div class="container">
+    <app-account-info-card
+      (toggleDeleteAccountModal)="toggleDeleteAccountModal()"
+      (toggleEditNameModal)="toggleUpdadUserModal()"
+      (toggleUpdatePasswordModal)="toggleUpdatePasswordModal()"
+      [hostDto]="hostDto"
+    ></app-account-info-card>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>
+
+<app-update-user-modal
+  *ngIf="showUpdateUserModal"
+  (emitClose)="closeUpdateUserModal()"
+  (emitUpdateUser)="updateHostInfo($event)"
+  [hostDto]="hostDto"
+></app-update-user-modal>
+
+<app-update-password-modal
+  *ngIf="showUpdatePasswordModal"
+  (emitClose)="closeUpdatePasswordModal()"
+  (emitUpdate)="updateHostPassword($event)"
+  [hostDto]="hostDto"
+></app-update-password-modal>
+
+<app-confirmation-modal
+  *ngIf="showDeleteAccountModal"
+  (emitClose)="closeDeleteAccountModal()"
+  (emitConfirm)="deleteHost()"
+  [title]="'Você tem certeza que deseja excluir sua conta?'"
+></app-confirmation-modal>

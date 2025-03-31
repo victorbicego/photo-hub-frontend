@@ -1,0 +1,40 @@
+.gallery {
+  display: grid;
+
+  .photo-card {
+    border: 6px solid transparent;
+    transition: border 0.2s;
+    border-radius: var(standard-border-radius);
+
+    &.selected {
+      border: 6px solid var(--accent-color);
+    }
+
+    .photo-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      aspect-ratio: 3 / 2;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.3s ease;
+      }
+    }
+
+    &:hover img {
+      cursor: pointer;
+      transform: scale(1.01);
+    }
+  }
+}
+
+.no-photos-message {
+  text-align: center;
+  color: var(--secondary-text-color);
+  padding: 20px;
+  font-size: 1.2rem;
+}

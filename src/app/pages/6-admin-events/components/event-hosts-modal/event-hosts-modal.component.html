@@ -1,0 +1,21 @@
+<div class="modal-primary" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Editar Nome</h2>
+      <button class="btn-primary" (click)="onClose()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="modal-body"></div>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="onAddCoHosts()">
+        <span class="btn-text">Salvar</span>
+      </button>
+      <button class="btn-secondary btn-cancel" (click)="onClose()">
+        <span class="btn-text">Cancelar</span>
+      </button>
+    </div>
+  </div>
+</div>

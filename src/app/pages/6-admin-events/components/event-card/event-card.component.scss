@@ -1,0 +1,40 @@
+.card {
+  .qr-code {
+    margin: 15px 0;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid var(--secondary-background-color);
+      border-radius: var(--standard-border-radius);
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 0 15px 0;
+
+    .btn-primary {
+      color: var(--accent-color);
+
+      .fab {
+        font-size: 1.2rem;
+      }
+
+      .material-icons {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .btn-event-details {
+    width: 100%;
+    border: 1px solid var(--accent-color);
+
+    &:hover {
+      background: var(--accent-hover);
+    }
+  }
+}

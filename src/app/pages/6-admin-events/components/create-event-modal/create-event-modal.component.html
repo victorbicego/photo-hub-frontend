@@ -1,0 +1,54 @@
+<div class="modal-primary" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">Editar Nome</h2>
+      <button class="btn-primary" (click)="onClose()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <input type="text" [(ngModel)]="name" placeholder="Nome do evento" />
+      </div>
+      <div class="form-group">
+        <label for="startDate" class="input-label"
+          >Data e hora de início :</label
+        >
+        <input
+          id="startDate"
+          type="datetime-local"
+          [(ngModel)]="startDate"
+          placeholder="Data e hora de início"
+        />
+      </div>
+      <div class="form-group">
+        <label for="endDate" class="input-label">Data e hora de fim :</label>
+        <input
+          id="endDate"
+          type="datetime-local"
+          [(ngModel)]="endDate"
+          placeholder="Data e hora de término"
+        />
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button
+        class="btn-secondary"
+        (click)="onSave()"
+        [disabled]="
+          !name ||
+          !startDate ||
+          !endDate ||
+          (startDate && endDate && endDate <= startDate)
+        "
+      >
+        <span class="btn-text">Salvar</span>
+      </button>
+      <button class="btn-secondary btn-cancel" (click)="onClose()">
+        <span class="btn-text">Cancelar</span>
+      </button>
+    </div>
+  </div>
+</div>

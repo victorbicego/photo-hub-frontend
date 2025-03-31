@@ -1,0 +1,23 @@
+.card {
+  height: 100%;
+
+  .add-event-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .add-event-description {
+      font-size: 0.9rem;
+      color: var(--secondary-text-color);
+    }
+
+    .btn-primary {
+      border: 1px solid var(--accent-color);
+
+      &:hover {
+        background: var(--accent-hover);
+      }
+    }
+  }
+}

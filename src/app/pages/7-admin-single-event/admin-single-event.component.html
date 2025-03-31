@@ -1,0 +1,29 @@
+<app-admin-header></app-admin-header>
+
+<ng-container *ngIf="!loadingHolderService.isLoading; else loading">
+  <div class="container"></div>
+</ng-container>
+
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>
+
+<app-delete-photos-modal
+  *ngIf="showDeleteModal"
+  [selectedPhotos]="selectedPhotos"
+  (emitClose)="closeDeleteModal()"
+  (emitDeletePhotos)="deletePhotos($event)"
+></app-delete-photos-modal>
+
+<app-upload-photo-modal
+  *ngIf="showUploadModal"
+  (emitClose)="closeUploadModal()"
+  (emitUploadPhoto)="uploadPhoto($event)"
+></app-upload-photo-modal>
+
+<app-download-photos-modal
+  *ngIf="showDownloadModal"
+  [selectedPhotos]="selectedPhotos"
+  (emitClose)="closeDownloadModal()"
+  (emitDownloadPhotos)="downloadPhotos($event)"
+></app-download-photos-modal>

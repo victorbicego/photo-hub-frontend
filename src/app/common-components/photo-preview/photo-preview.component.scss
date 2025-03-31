@@ -1,0 +1,46 @@
+.modal {
+  padding: 0 120px;
+
+  .preview-image {
+    overflow: hidden;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+
+    img {
+      max-height: 90%;
+      object-fit: contain;
+      border-radius: var(--standard-border-radius);
+    }
+  }
+
+  button {
+    position: absolute;
+  }
+
+  .close-btn {
+    top: 20px;
+    right: 50px;
+    padding: 8px;
+  }
+
+  .prev-btn {
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 4px;
+    span {
+      font-size: 30px;
+    }
+  }
+
+  .next-btn {
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 4px;
+    span {
+      font-size: 30px;
+    }
+  }
+}

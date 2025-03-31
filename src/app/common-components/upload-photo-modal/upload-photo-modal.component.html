@@ -1,0 +1,31 @@
+<div class="modal" (click)="onClose()">
+  <div class="content" (click)="$event.stopPropagation()">
+    <div class="header">
+      <h2 class="title">Upload Foto</h2>
+      <button class="btn-primary" (click)="onClose()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="upload-input-group">
+      <label class="btn-secondary" for="fileInput"> Escolha uma foto </label>
+      <input
+        id="fileInput"
+        type="file"
+        (change)="onFileSelected($event)"
+        hidden
+      />
+      <button
+        class="btn-primary"
+        (click)="onUpload()"
+        [disabled]="!selectedFile"
+      >
+        <span class="material-icons">file_upload</span>
+      </button>
+    </div>
+
+    <div *ngIf="selectedFile" class="file-name">
+      {{ selectedFile.name }}
+    </div>
+  </div>
+</div>

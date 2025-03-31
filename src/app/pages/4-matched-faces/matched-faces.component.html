@@ -1,0 +1,30 @@
+<app-header [showNav]="true" [event]="event"></app-header>
+
+<ng-container *ngIf="!loadingHolderService.isLoading; else loading">
+  <div class="container">
+    <app-matched-faces-photo-gallery
+      [matchedPhotos]="matchedPhotos"
+      [selectedPhotos]="selectedPhotos"
+      (toggleUploadModal)="toggleUploadModal()"
+      (togglDownloadModal)="toggleDownloadModal()"
+      (emitSelectedPhotos)="updateSelectedPhotosList($event)"
+    ></app-matched-faces-photo-gallery>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>
+
+<app-upload-photo-modal
+  *ngIf="showUploadModal"
+  (emitClose)="closeUploadModal()"
+  (emitUploadPhoto)="onMatch($event)"
+></app-upload-photo-modal>
+
+<app-download-photos-modal
+  *ngIf="showDownloadModal"
+  [selectedPhotos]="selectedPhotos"
+  (emitClose)="closeDownloadModal()"
+  (emitDownloadPhotos)="downloadPhotos($event)"
+></app-download-photos-modal>
