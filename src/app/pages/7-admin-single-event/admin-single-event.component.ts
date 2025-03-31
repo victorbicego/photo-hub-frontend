@@ -36,13 +36,13 @@ export class AdminSingleEventComponent {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private hostEventSerivice: HostEventService,
+    private hostEventService: HostEventService,
     public loadingHolderService: LoadingHolderService,
     private router: Router
   ) {}
 
   public ngOnInit(): void {
-    var activeId = this.activatedRoute.snapshot.paramMap.get('eventId');
+    const activeId = this.activatedRoute.snapshot.paramMap.get('eventId');
     if (activeId) {
       this.eventId = parseInt(activeId);
     }
@@ -52,15 +52,13 @@ export class AdminSingleEventComponent {
   private getPhotosFromHost(): void {
     if (this.eventId) {
       this.loadingHolderService.isLoading = true;
-      this.hostEventSerivice
+      this.hostEventService
         .getEventPhotos(this.eventId)
         .pipe(
-          finalize(
-            () => (
-              (this.loadingHolderService.isLoading = false),
-              (this.selectedPhotos = [])
-            )
-          )
+          finalize(() => {
+            this.loadingHolderService.isLoading = false;
+            this.selectedPhotos = [];
+          })
         )
         .subscribe({
           next: (response) => {
@@ -105,18 +103,16 @@ export class AdminSingleEventComponent {
   public uploadPhoto(file: File): void {
     if (this.eventId) {
       this.loadingHolderService.isLoading = true;
-      this.hostEventSerivice
+      this.hostEventService
         .uploadPhoto(this.eventId, file)
         .pipe(
-          finalize(
-            () => (
-              (this.loadingHolderService.isLoading = false),
-              (this.selectedPhotos = [])
-            )
-          )
+          finalize(() => {
+            this.loadingHolderService.isLoading = false;
+            this.selectedPhotos = [];
+          })
         )
         .subscribe({
-          next: (response) => {
+          next: () => {
             this.getPhotosFromHost();
           },
           error: (error) => {
@@ -129,21 +125,16 @@ export class AdminSingleEventComponent {
   public downloadPhotos(downloadPhotosList: PhotoDto[]): void {
     if (this.eventId) {
       this.loadingHolderService.isLoading = true;
-      var photoIds = downloadPhotosList.map((photo) => photo.id);
-      if (photoIds.length == 0) {
-        photoIds = [];
-      }
-      this.hostEventSerivice
+      const photoIds = downloadPhotosList.map((photo) => photo.id);
+      this.hostEventService
         .downloadSelectedPhotos(this.eventId, {
           idList: photoIds,
         })
         .pipe(
-          finalize(
-            () => (
-              (this.loadingHolderService.isLoading = false),
-              (this.selectedPhotos = [])
-            )
-          )
+          finalize(() => {
+            this.loadingHolderService.isLoading = false;
+            this.selectedPhotos = [];
+          })
         )
         .subscribe({
           next: (response: HttpResponse<Blob>) => {
@@ -180,17 +171,15 @@ export class AdminSingleEventComponent {
     if (this.eventId) {
       this.loadingHolderService.isLoading = true;
       const photoIds = deletePhotosList.map((photo) => photo.id);
-      this.hostEventSerivice
+      this.hostEventService
         .deleteSelectedPhotos(this.eventId, {
           idList: photoIds,
         })
         .pipe(
-          finalize(
-            () => (
-              (this.loadingHolderService.isLoading = false),
-              (this.selectedPhotos = [])
-            )
-          )
+          finalize(() => {
+            this.loadingHolderService.isLoading = false;
+            this.selectedPhotos = [];
+          })
         )
         .subscribe({
           next: () => {
