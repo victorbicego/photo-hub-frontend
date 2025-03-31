@@ -19,7 +19,7 @@ export class MatchedFacesGalleryToolbarComponent {
 
   public selectedFileUrl: string | null = null;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (this.matchedFaceHolderService.selectedFile) {
       this.selectedFileUrl = URL.createObjectURL(
         this.matchedFaceHolderService.selectedFile
@@ -27,7 +27,7 @@ export class MatchedFacesGalleryToolbarComponent {
     }
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     if (this.selectedFileUrl) {
       URL.revokeObjectURL(this.selectedFileUrl);
     }

@@ -12,6 +12,7 @@
           *ngFor="let event of eventList"
           [event]="event"
           (toggleEventHostsModal)="toggleEventHostsModal($event)"
+          (toggleEditEventModal)="toggleEditEventModal()"
         ></app-event-card>
       </div>
     </ng-container>

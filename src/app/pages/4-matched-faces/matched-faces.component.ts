@@ -48,7 +48,10 @@ export class MatchedFacesComponent {
   }
 
   private getActiveEvent(): void {
-    this.eventService.getActiveEvent().subscribe({
+    this.loadingHolderService.isLoading = true;
+    this.eventService.getActiveEvent()
+      .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
+      .subscribe({
       next: (response) => {
         this.event = response.data;
         if (this.matchedFaceHolderService.selectedFile != null) {
@@ -82,29 +85,43 @@ export class MatchedFacesComponent {
     this.selectedPhotos = selectedPhotos;
   }
 
+  public onMatch(file: File): void {
+    this.loadingHolderService.isLoading = true;
+    this.matchedFaceHolderService.selectedFile = file;
+    this.eventService
+      .getMatchedPhotos(file)
+      .pipe(
+        finalize(() => {
+          this.loadingHolderService.isLoading = false;
+          this.selectedPhotos = [];
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          this.matchedPhotos = response.data;
+        },
+        error: (error) => {
+          console.error('Error fetching photos', error);
+        },
+      });
+  }
+
   public downloadPhotos(downloadPhotosList: PhotoDto[]): void {
     this.loadingHolderService.isLoading = true;
-    var photoIds = downloadPhotosList.map((photo) => photo.id);
-    if (photoIds.length == 0) {
-      photoIds = [];
-    }
+    const photoIds = downloadPhotosList.map((photo) => photo.id);
     this.eventService
       .downloadSelectedPhotos({
         idList: photoIds,
       })
       .pipe(
-        finalize(
-          () => (
-            (this.loadingHolderService.isLoading = false),
-            (this.selectedPhotos = [])
-          )
-        )
+        finalize(() => {
+          this.loadingHolderService.isLoading = false;
+          this.selectedPhotos = [];
+        })
       )
       .subscribe({
         next: (response: HttpResponse<Blob>) => {
-          const contentDisposition = response.headers.get(
-            'content-disposition'
-          );
+          const contentDisposition = response.headers.get('content-disposition');
           let filename = 'photos.zip';
           if (contentDisposition) {
             const matches = contentDisposition.match(/filename="(.+)"/);
@@ -112,9 +129,7 @@ export class MatchedFacesComponent {
               filename = matches[1];
             }
           }
-          const blob = new Blob([response.body!], {
-            type: 'application/octet-stream',
-          });
+          const blob = new Blob([response.body!], { type: 'application/octet-stream' });
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
@@ -126,29 +141,6 @@ export class MatchedFacesComponent {
         },
         error: (error) => {
           console.error('Error downloading photos', error);
-        },
-      });
-  }
-
-  public onMatch(file: File): void {
-    this.loadingHolderService.isLoading = true;
-    this.matchedFaceHolderService.selectedFile = file;
-    this.eventService
-      .getMatchedPhotos(file)
-      .pipe(
-        finalize(
-          () => (
-            (this.loadingHolderService.isLoading = false),
-            (this.selectedPhotos = [])
-          )
-        )
-      )
-      .subscribe({
-        next: (response) => {
-          this.matchedPhotos = response.data;
-        },
-        error: (error) => {
-          console.error('Error fetching photos', error);
         },
       });
   }

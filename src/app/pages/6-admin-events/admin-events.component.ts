@@ -33,6 +33,7 @@ export class AdminEventsComponent {
 
   public showCreateEventModal = false;
   public showEventHostsModal = false;
+  public showEditEventModal = false;
 
   constructor(
     private hostEventService: HostEventService,
@@ -76,13 +77,21 @@ export class AdminEventsComponent {
     this.showEventHostsModal = false;
   }
 
+  public toggleEditEventModal():void{
+    this.showEditEventModal = true;
+  }
+
+  public closeEditEventModal():void{
+    this.showEditEventModal = false;
+  }
+
   public createEvent(createEventDto: CreateEventDto): void {
     this.loadingHolderService.isLoading = true;
     this.hostEventService
       .createEvent(createEventDto)
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
-        next: (response) => {
+        next: () => {
           this.getHostEvents();
         },
         error: (error) => {

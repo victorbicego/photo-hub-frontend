@@ -4,12 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ItensPerRowHolderService } from '../../../../services/holders/itens-per-row-holder/itens-per-row-holder.service';
 
 @Component({
-  selector: 'app-events-gallery-toolbar',
+  selector: 'app-event-gallery-toolbar',
   imports: [FormsModule, CommonModule],
-  templateUrl: './events-gallery-toolbar.component.html',
-  styleUrl: './events-gallery-toolbar.component.scss',
+  templateUrl: './event-gallery-toolbar.component.html',
+  styleUrl: './event-gallery-toolbar.component.scss',
 })
-export class EventsGalleryToolbarComponent {
+export class EventGalleryToolbarComponent {
   @Output() toggleUploadModal = new EventEmitter<void>();
   @Output() toggleDownloadPhotos = new EventEmitter<void>();
 

@@ -52,9 +52,9 @@ export class HeaderNavComponent {
   public confirmLogout(): void {
     this.authenticationService
       .logout()
-      .pipe(finalize(() => this.router.navigate(['/'])))
+      .pipe(finalize(() => this.router.navigate([''])))
       .subscribe({
-        next: (response) => {},
+        next: () => {},
         error: (error) => {
           console.error('Logout fail', error);
         },

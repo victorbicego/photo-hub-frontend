@@ -1,6 +1,6 @@
-.modal-primary {
-  .modal-content {
-    .modal-body {
+.modal {
+  .content {
+    .body {
       .form-group {
         display: flex;
         justify-content: space-between;
@@ -18,21 +18,12 @@
       }
     }
 
-    .modal-actions {
-      display: flex;
-      justify-content: space-around;
-      gap: 15px;
-
-      button {
-        flex: 1;
-      }
-
-      .btn-cancel {
+    .actions {
+      .btn-primary {
         border: 1px solid var(--accent-color);
-        background-color: transparent;
 
         &:hover {
-          background-color: var(--accent-hover);
+          background: var(--accent-hover);
         }
       }
     }

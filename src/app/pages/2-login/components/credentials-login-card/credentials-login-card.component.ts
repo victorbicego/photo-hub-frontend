@@ -16,7 +16,7 @@ export class CredentialsLoginCardComponent {
   public password = '';
 
   public onLoginWithCredentials(): void {
-    if (this.username != '' && this.password != '') {
+    if (this.username.trim() != '' && this.password.trim() != '') {
       this.emitLoginWithCredentials.emit({
         username: this.username,
         password: this.password,

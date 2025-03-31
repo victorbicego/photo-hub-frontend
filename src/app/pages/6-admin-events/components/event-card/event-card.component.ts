@@ -14,6 +14,8 @@ export class EventCardComponent {
   @Input() event: EventDto | null = null;
 
   @Output() toggleEventHostsModal = new EventEmitter<EventDto>();
+  @Output() toggleEditEventModal = new EventEmitter<EventDto>();
+
 
   constructor(private router: Router) {}
 
@@ -23,21 +25,6 @@ export class EventCardComponent {
 
   public goToEvent(event: EventDto): void {
     this.router.navigate(['/admin/event', event.id]);
-  }
-
-  public shareQrCodeByEmail(event: EventDto): void {
-    const subject = encodeURIComponent(`QR code for event ${event.name}`);
-    const body = encodeURIComponent(
-      `Here is the QR code for event ${event.name} (ID: ${event.id}).`,
-    );
-    window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
-  }
-
-  public shareQrCodeByWhatsapp(event: EventDto): void {
-    const message = encodeURIComponent(
-      `Check out the QR code for event ${event.name} (ID: ${event.id}).`,
-    );
-    window.open(`https://wa.me/?text=${message}`, '_blank');
   }
 
   public downloadQrCode(event: EventDto): void {
@@ -55,5 +42,16 @@ export class EventCardComponent {
     if (this.event) {
       this.toggleEventHostsModal.emit(this.event);
     }
+  }
+
+  public copyEventLink(event:EventDto){
+    const eventUrl = `localhost:4200/login?qrCode=${event.qrCode}`;
+    navigator.clipboard.writeText(eventUrl)
+      .then()
+      .catch((error) => console.error('Error copying event link', error));
+  }
+
+  public onEditClick (): void {
+    this.toggleEditEventModal.emit();
   }
 }

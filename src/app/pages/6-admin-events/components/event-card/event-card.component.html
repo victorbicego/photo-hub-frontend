@@ -11,17 +11,21 @@
   </div>
 
   <div class="actions">
-    <button class="btn-primary" (click)="shareQrCodeByEmail(event)">
-      <i class="material-icons">email</i>
+
+    <button class="btn-primary" (click)="copyEventLink(event)">
+      <i class="material-icons">content_copy</i>
     </button>
-    <button class="btn-primary" (click)="shareQrCodeByWhatsapp(event)">
-      <i class="fab fa-whatsapp"></i>
-    </button>
+
     <button class="btn-primary" (click)="downloadQrCode(event)">
       <i class="material-icons">file_download</i>
     </button>
+
     <button class="btn-primary" (click)="onCoHostsClick()">
       <i class="material-icons">groups</i>
+    </button>
+
+    <button class="btn-primary" (click)="onEditClick()">
+      <i class="material-icons">edit</i>
     </button>
   </div>
 

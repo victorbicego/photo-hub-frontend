@@ -24,12 +24,11 @@ export class MatchedFacesPhotoGalleryComponent {
   @Input() selectedPhotos: PhotoDto[] = [];
 
   @Output() toggleUploadModal = new EventEmitter<void>();
-  @Output() togglDownloadModal = new EventEmitter<void>();
+  @Output() toggleDownloadModal = new EventEmitter<void>();
   @Output() emitSelectedPhotos = new EventEmitter<PhotoDto[]>();
 
   private imageDimensions: { [index: number]: ImageDimension } = {};
   private clickTimeout: any = null;
-
   public showPhotoPreview: boolean = false;
   public showBoundingBox: boolean = false;
   public currentPhotoIndex: number = 0;
@@ -96,18 +95,17 @@ export class MatchedFacesPhotoGalleryComponent {
   }
 
   public onDownload(): void {
-    this.togglDownloadModal.emit();
+    this.toggleDownloadModal.emit();
   }
 
   private togglePhotoSelection(photo: PhotoDto): void {
     const index = this.selectedPhotos.findIndex((p) => p.id === photo.id);
     if (index === -1) {
       this.selectedPhotos.push(photo);
-      this.emitSelectedPhotos.emit(this.selectedPhotos);
     } else {
       this.selectedPhotos.splice(index, 1);
-      this.emitSelectedPhotos.emit(this.selectedPhotos);
     }
+    this.emitSelectedPhotos.emit(this.selectedPhotos);
   }
 
   public isPhotoSelected(photo: PhotoDto): boolean {

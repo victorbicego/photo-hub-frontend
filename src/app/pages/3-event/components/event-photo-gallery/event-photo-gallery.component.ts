@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PhotoDto } from '../../../../interfaces/photo-dto';
 import { ImageDimension } from '../../../../interfaces/image-dimension';
 import { ItensPerRowHolderService } from '../../../../services/holders/itens-per-row-holder/itens-per-row-holder.service';
-import { EventsGalleryToolbarComponent } from '../events-gallery-toolbar/events-gallery-toolbar.component';
+import { EventGalleryToolbarComponent } from '../event-gallery-toolbar/event-gallery-toolbar.component';
 import { PhotoPreviewComponent } from '../../../../common-components/photo-preview/photo-preview.component';
 import { CommonModule } from '@angular/common';
 import { PhotoUrlPipe } from '../../../../services/pipes/photo-url-pipe/photo-url.pipe';
@@ -11,7 +11,7 @@ import { PhotoUrlPipe } from '../../../../services/pipes/photo-url-pipe/photo-ur
   selector: 'app-event-photo-gallery',
   imports: [
     CommonModule,
-    EventsGalleryToolbarComponent,
+    EventGalleryToolbarComponent,
     PhotoPreviewComponent,
     PhotoUrlPipe,
   ],
@@ -23,14 +23,12 @@ export class EventPhotoGalleryComponent {
   @Input() selectedPhotos: PhotoDto[] = [];
 
   @Output() toggleUploadModal = new EventEmitter<void>();
-  @Output() togglDownloadModal = new EventEmitter<void>();
+  @Output() toggleDownloadModal = new EventEmitter<void>();
   @Output() emitSelectedPhotos = new EventEmitter<PhotoDto[]>();
 
   private imageDimensions: { [index: number]: ImageDimension } = {};
   private clickTimeout: any = null;
-
   public showPhotoPreview: boolean = false;
-  public showBoundingBox: boolean = false;
   public currentPhotoIndex: number = 0;
 
   get galleryGap(): string {
@@ -95,18 +93,17 @@ export class EventPhotoGalleryComponent {
   }
 
   public onDownload(): void {
-    this.togglDownloadModal.emit();
+    this.toggleDownloadModal.emit();
   }
 
   private togglePhotoSelection(photo: PhotoDto): void {
     const index = this.selectedPhotos.findIndex((p) => p.id === photo.id);
     if (index === -1) {
       this.selectedPhotos.push(photo);
-      this.emitSelectedPhotos.emit(this.selectedPhotos);
     } else {
       this.selectedPhotos.splice(index, 1);
-      this.emitSelectedPhotos.emit(this.selectedPhotos);
     }
+    this.emitSelectedPhotos.emit(this.selectedPhotos);
   }
 
   public isPhotoSelected(photo: PhotoDto): boolean {

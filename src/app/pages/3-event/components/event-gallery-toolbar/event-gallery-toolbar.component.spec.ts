@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventsGalleryToolbarComponent } from './events-gallery-toolbar.component';
+import { EventGalleryToolbarComponent } from './event-gallery-toolbar.component';
 
 describe('EventsGalleryToolbarComponent', () => {
-  let component: EventsGalleryToolbarComponent;
-  let fixture: ComponentFixture<EventsGalleryToolbarComponent>;
+  let component: EventGalleryToolbarComponent;
+  let fixture: ComponentFixture<EventGalleryToolbarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EventsGalleryToolbarComponent],
+      imports: [EventGalleryToolbarComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EventsGalleryToolbarComponent);
+    fixture = TestBed.createComponent(EventGalleryToolbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

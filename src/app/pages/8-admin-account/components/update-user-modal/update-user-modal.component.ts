@@ -31,10 +31,12 @@ export class UpdateUserModalComponent {
   }
 
   public onSave(): void {
-    this.emitUpdateUser.emit({
-      firstName: this.editFirstName,
-      lastName: this.editLastName,
-    });
-    this.emitClose.emit();
+    if(this.editFirstName.trim() === '' || this.editLastName.trim() === '') {
+      this.emitUpdateUser.emit({
+        firstName: this.editFirstName,
+        lastName: this.editLastName,
+      });
+      this.emitClose.emit();
+    }
   }
 }

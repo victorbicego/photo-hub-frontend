@@ -29,7 +29,6 @@ import { AccountInfoCardComponent } from './components/account-info-card/account
 })
 export class AdminAccountComponent {
   public hostDto: HostDto | null = null;
-
   public showUpdateUserModal: boolean = false;
   public showUpdatePasswordModal: boolean = false;
   public showDeleteAccountModal: boolean = false;
@@ -64,7 +63,7 @@ export class AdminAccountComponent {
       });
   }
 
-  public toggleUpdadUserModal(): void {
+  public toggleUploadUserModal(): void {
     this.showUpdateUserModal = true;
   }
 
@@ -89,11 +88,12 @@ export class AdminAccountComponent {
   }
 
   public deleteHost(): void {
+    this.loadingHolderService.isLoading = true;
     this.hostService
       .deleteHostAccount()
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
-        next: (response) => {
+        next: () => {
           this.router.navigate(['']);
         },
         error: (error) => {
@@ -103,13 +103,14 @@ export class AdminAccountComponent {
   }
 
   public updateHostPassword(newPassword: string): void {
+    this.loadingHolderService.isLoading = true;
     this.hostService
       .updateHostPassword({
         password: newPassword,
       })
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
-        next: (response) => {},
+        next: () => {},
         error: (error) => {
           console.error('Erro ao obter detalhes do evento', error);
         },
@@ -117,11 +118,12 @@ export class AdminAccountComponent {
   }
 
   public updateHostInfo(updateHostDto: UpdateHostDto): void {
+    this.loadingHolderService.isLoading = true;
     this.hostService
       .updateHostInfo(updateHostDto)
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
-        next: (response) => {
+        next: () => {
           this.checkHost();
         },
         error: (error) => {

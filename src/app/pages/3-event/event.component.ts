@@ -46,6 +46,7 @@ export class EventComponent {
   }
 
   private getActiveEvent(): void {
+    this.loadingHolderService.isLoading = true;
     this.eventService
       .getActiveEvent()
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
@@ -96,18 +97,17 @@ export class EventComponent {
   }
 
   public uploadPhoto(file: File): void {
+    this.loadingHolderService.isLoading = true;
     this.eventService
       .uploadPhoto(file)
       .pipe(
-        finalize(
-          () => (
-            (this.loadingHolderService.isLoading = false),
-            (this.selectedPhotos = [])
-          )
-        )
+        finalize(() => {
+          this.loadingHolderService.isLoading = false;
+          this.selectedPhotos = [];
+        })
       )
       .subscribe({
-        next: (response) => {
+        next: () => {
           this.loadPhotos();
         },
         error: (error) => {
@@ -118,27 +118,20 @@ export class EventComponent {
 
   public downloadPhotos(downloadPhotosList: PhotoDto[]): void {
     this.loadingHolderService.isLoading = true;
-    var photoIds = downloadPhotosList.map((photo) => photo.id);
-    if (photoIds.length == 0) {
-      photoIds = [];
-    }
+    const photoIds = downloadPhotosList.map((photo) => photo.id);
     this.eventService
       .downloadSelectedPhotos({
         idList: photoIds,
       })
       .pipe(
-        finalize(
-          () => (
-            (this.loadingHolderService.isLoading = false),
-            (this.selectedPhotos = [])
-          )
-        )
+        finalize(() => {
+          this.loadingHolderService.isLoading = false;
+          this.selectedPhotos = [];
+        })
       )
       .subscribe({
-        next: (response: HttpResponse<Blob>) => {
-          const contentDisposition = response.headers.get(
-            'content-disposition'
-          );
+        next: (response) => {
+          const contentDisposition = response.headers.get('content-disposition');
           let filename = 'photos.zip';
           if (contentDisposition) {
             const matches = contentDisposition.match(/filename="(.+)"/);
@@ -146,9 +139,7 @@ export class EventComponent {
               filename = matches[1];
             }
           }
-          const blob = new Blob([response.body!], {
-            type: 'application/octet-stream',
-          });
+          const blob = new Blob([response.body!], { type: 'application/octet-stream' });
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;

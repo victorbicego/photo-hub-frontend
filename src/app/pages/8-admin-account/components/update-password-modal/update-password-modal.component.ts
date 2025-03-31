@@ -22,7 +22,9 @@ export class UpdatePasswordModalComponent {
   }
 
   public updatePassword(): void {
-    this.emitUpdate.emit(this.newPassword);
-    this.emitClose.emit();
+    if(this.newPassword.trim() != '' && this.newPassword === this.confirmNewPassword) {
+      this.emitUpdate.emit(this.newPassword);
+      this.emitClose.emit();
+    }
   }
 }

@@ -3,7 +3,7 @@ import { HeaderComponent } from '../../common-components/header/header.component
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../common-components/loading/loading.component';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { finalize } from 'rxjs';
 import { LoginRequestDto } from '../../interfaces/login-request-dto';
 import { ResetPasswordRequestDto } from '../../interfaces/reset-password-request-dto';
@@ -35,6 +35,7 @@ export class LoginComponent {
   public showResetPasswordModal: boolean = false;
 
   constructor(
+    private activatedRoute:ActivatedRoute,
     private authenticationService: AuthenticationService,
     private eventService: EventService,
     private hostService: HostService,
@@ -43,7 +44,13 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      if (params['qrCode']) {
+        this.loginWithQrCode((params['qrCode']));
+      }
+    });
+
     this.checkHost();
   }
 
@@ -55,7 +62,7 @@ export class LoginComponent {
       .subscribe({
         next: (response) => {
           if (response.data.enabled) {
-            this.router.navigate(['']);
+            this.router.navigate(['/admin/home']);
           } else {
             this.checkActiveEvent();
           }
@@ -73,7 +80,7 @@ export class LoginComponent {
       .getActiveEvent()
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
-        next: (response) => {
+        next: () => {
           this.router.navigate(['/event']);
         },
         error: (error) => {
@@ -104,8 +111,7 @@ export class LoginComponent {
       .authenticate(loginRequestDto)
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
-        next: (response) => {
-          console.log('Login succesllfull:', response);
+        next: () => {
           this.router.navigate(['/admin/home']);
         },
         error: (error) => {
@@ -121,11 +127,11 @@ export class LoginComponent {
       .authenticateQrCode(qrCode)
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
-        next: (response) => {
-          console.log('Login succesllfull:', response);
+        next: () => {
           this.router.navigate(['/event']);
         },
         error: (error) => {
+          this.router.navigate(['/login']);
           console.error('QR code authentication failed', error);
         },
       });
@@ -139,9 +145,7 @@ export class LoginComponent {
       })
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
-        next: (response) => {
-          console.log('Email sent successfully:', response);
-        },
+        next: () => {},
         error: (error) => {
           console.error('Error sending email:', error);
         },
@@ -154,9 +158,7 @@ export class LoginComponent {
       .confirmNewPassword(resetPasswordRequestDto)
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
-        next: (response) => {
-          console.log('Password reset successfully:', response);
-        },
+        next: () => {},
         error: (error) => {
           console.error('Error resting password', error);
         },

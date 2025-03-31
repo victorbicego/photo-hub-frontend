@@ -13,7 +13,7 @@ export class PhotoPreviewComponent {
   @Input() currentPhotoIndex: number = 0;
   @Output() emitClose = new EventEmitter<void>();
 
-  public onBackgroundClick(event: MouseEvent): void {
+  public onBackgroundClick(): void {
     this.emitClose.emit();
   }
 

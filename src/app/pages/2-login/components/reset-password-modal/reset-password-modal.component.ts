@@ -28,20 +28,25 @@ export class ResetPasswordModalComponent {
   }
 
   public onSendEmail(): void {
-    if (this.email != '') {
+    if (this.email.trim() !== '') {
       this.emitSendEmail.emit(this.email);
       this.isEmailSent = true;
     }
   }
 
   public onSendCode(): void {
-    if (this.code != null) {
+    if (this.code.trim() !== '') {
       this.isCodeSent = true;
     }
   }
 
   public onResetPassword(): void {
-    if (this.email != '' && this.code != '' && this.confirmNewPassword != '') {
+    if (
+      this.email &&
+      this.code &&
+      this.confirmNewPassword &&
+      this.newPassword === this.confirmNewPassword
+    ) {
       this.emitResetPassword.emit({
         username: this.email,
         code: this.code,

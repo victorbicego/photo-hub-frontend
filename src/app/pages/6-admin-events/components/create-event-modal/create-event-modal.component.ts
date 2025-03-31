@@ -21,7 +21,7 @@ export class CreateEventModalComponent {
   }
 
   public onSave(): void {
-    if (this.name != '' && this.startDate && this.endDate)
+    if (this.name.trim() != '' && this.startDate && this.endDate)
       this.emitCreateEvent.emit({
         name: this.name,
         startDate: this.startDate,

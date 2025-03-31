@@ -16,7 +16,7 @@
       <div class="photo-container">
         <img
           [src]="photo.photoUrl | photoUrl"
-          alt="Photo"
+          [alt]="photo.id || 'Photo ' + i"
           (load)="onImageLoad($event, i)"
         />
       </div>
@@ -24,10 +24,10 @@
   </div>
 </ng-container>
 
-<app-events-gallery-toolbar
+<app-event-gallery-toolbar
   (toggleDownloadPhotos)="onDownload()"
   (toggleUploadModal)="onUpload()"
-></app-events-gallery-toolbar>
+></app-event-gallery-toolbar>
 
 <ng-template #noPhotos>
   <div class="no-photos-message">Nenhuma Foto Disponível</div>

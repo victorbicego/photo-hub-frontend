@@ -21,6 +21,7 @@
       border: none;
       background-color: transparent;
       -webkit-appearance: none;
+      outline: none;
     }
 
     /* Chrome, Safari e Opera */
@@ -32,6 +33,7 @@
       height: 14px;
       background: var(--accent-color);
       border-radius: 50%;
+      cursor: pointer;
     }
 
     /* Firefox */
@@ -42,6 +44,7 @@
       height: 14px;
       background: var(--accent-color);
       border-radius: 50%;
+      cursor: pointer;
     }
 
     /* Estilização da trilha (track) para Chrome */
