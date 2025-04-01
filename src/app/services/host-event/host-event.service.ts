@@ -61,15 +61,6 @@ export class HostEventService {
     );
   }
 
-  public deletePhoto(photoId: number): Observable<ApiResponse<void>> {
-    return this.http.delete<ApiResponse<void>>(
-      `${environment.baseUrl}/host/event/photo/${photoId}`,
-      {
-        withCredentials: true,
-      }
-    );
-  }
-
   public deleteSelectedPhotos(
     id: number,
     deletePhotoListDto: PhotoListDto
