@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { ItensPerRowHolderService } from '../../../../services/holders/itens-per-row-holder/itens-per-row-holder.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-event-gallery-toolbar',
-  imports: [FormsModule, CommonModule],
-  templateUrl: './event-gallery-toolbar.component.html',
-  styleUrl: './event-gallery-toolbar.component.scss',
+  selector: 'app-admin-event-gallery-toolbar',
+  imports: [FormsModule],
+  templateUrl: './admin-event-gallery-toolbar.component.html',
+  styleUrl: './admin-event-gallery-toolbar.component.scss',
 })
-export class EventGalleryToolbarComponent {
+export class AdminEventGalleryToolbarComponent {
   @Output() toggleUploadModal = new EventEmitter<void>();
   @Output() toggleDownloadModal = new EventEmitter<void>();
+  @Output() toggleDeleteModal = new EventEmitter<void>();
 
   constructor(public itensPerRowHolderService: ItensPerRowHolderService) {}
 
@@ -33,5 +33,9 @@ export class EventGalleryToolbarComponent {
 
   public onDownload(): void {
     this.toggleDownloadModal.emit();
+  }
+
+  public onDelete(): void {
+    this.toggleDeleteModal.emit();
   }
 }

@@ -1,0 +1,31 @@
+.modal {
+  .content {
+    .body {
+      .form-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .input-label {
+          text-align: left;
+          min-width: 50%;
+        }
+
+        input[type="datetime-local"] {
+          max-width: 50%;
+        }
+      }
+    }
+
+    .actions {
+      .btn-primary {
+        border: 1px solid var(--accent-color);
+
+        &:hover {
+          background: var(--accent-hover);
+        }
+      }
+    }
+  }
+}

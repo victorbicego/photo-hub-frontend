@@ -1,7 +1,16 @@
 <app-admin-header></app-admin-header>
 
 <ng-container *ngIf="!loadingHolderService.isLoading; else loading">
-  <div class="container"></div>
+  <div class="container">
+    <app-admin-event-photo-gallery
+      [photos]="photos"
+      [selectedPhotos]="selectedPhotos"
+      (toggleUploadModal)="toggleUploadModal()"
+      (toggleDownloadModal)="toggleDownloadModal()"
+      (toggleDeleteModal)="toggleDeleteModal()"
+      (emitSelectedPhotos)="updateSelectedPhotosList($event)"
+    ></app-admin-event-photo-gallery>
+  </div>
 </ng-container>
 
 <ng-template #loading>

@@ -31,7 +31,7 @@ export class UpdateUserModalComponent {
   }
 
   public onSave(): void {
-    if(this.editFirstName.trim() === '' || this.editLastName.trim() === '') {
+    if (this.editFirstName.trim() === '' || this.editLastName.trim() === '') {
       this.emitUpdateUser.emit({
         firstName: this.editFirstName,
         lastName: this.editLastName,

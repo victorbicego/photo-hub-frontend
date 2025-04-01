@@ -2,20 +2,24 @@
   <div class="content" (click)="$event.stopPropagation()">
     <div class="header">
       <div class="title">
-        <h2>Adicionar CoHosts</h2>
+        <h2>Editar Evento</h2>
       </div>
       <button class="btn-primary" (click)="onClose()">
         <span class="material-icons">close</span>
       </button>
     </div>
 
-    <div class="body"></div>
+    <div class="body">
+      <div class="form-group">
+        <input type="text" [(ngModel)]="name" placeholder="Nome do evento" />
+      </div>
+    </div>
 
     <div class="actions">
-      <button class="btn-secondary" (click)="onAddCoHosts()">
+      <button class="btn-secondary" (click)="onEdit()" [disabled]="!name">
         <span class="btn-text">Salvar</span>
       </button>
-      <button class="btn-secondary btn-cancel" (click)="onClose()">
+      <button class="btn-primary" (click)="onClose()">
         <span class="btn-text">Cancelar</span>
       </button>
     </div>

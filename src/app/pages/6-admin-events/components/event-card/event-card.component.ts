@@ -16,7 +16,6 @@ export class EventCardComponent {
   @Output() toggleEventHostsModal = new EventEmitter<EventDto>();
   @Output() toggleEditEventModal = new EventEmitter<EventDto>();
 
-
   constructor(private router: Router) {}
 
   public convertBase64(qr: string): string {
@@ -44,14 +43,17 @@ export class EventCardComponent {
     }
   }
 
-  public copyEventLink(event:EventDto){
+  public copyEventLink(event: EventDto) {
     const eventUrl = `localhost:4200/login?qrCode=${event.qrCode}`;
-    navigator.clipboard.writeText(eventUrl)
+    navigator.clipboard
+      .writeText(eventUrl)
       .then()
       .catch((error) => console.error('Error copying event link', error));
   }
 
-  public onEditClick (): void {
-    this.toggleEditEventModal.emit();
+  public onEditClick(): void {
+    if (this.event) {
+      this.toggleEditEventModal.emit(this.event);
+    }
   }
 }

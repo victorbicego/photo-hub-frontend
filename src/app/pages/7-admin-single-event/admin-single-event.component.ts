@@ -11,6 +11,7 @@ import { UploadPhotoModalComponent } from '../../common-components/upload-photo-
 import { DownloadPhotosModalComponent } from '../../common-components/download-photos-modal/download-photos-modal.component';
 import { CommonModule } from '@angular/common';
 import { DeletePhotosModalComponent } from './components/delete-photos-modal/delete-photos-modal.component';
+import { AdminEventPhotoGalleryComponent } from './components/admin-event-photo-gallery/admin-event-photo-gallery.component';
 
 @Component({
   selector: 'app-admin-single-event',
@@ -21,6 +22,7 @@ import { DeletePhotosModalComponent } from './components/delete-photos-modal/del
     UploadPhotoModalComponent,
     DownloadPhotosModalComponent,
     DeletePhotosModalComponent,
+    AdminEventPhotoGalleryComponent,
   ],
   templateUrl: './admin-single-event.component.html',
   styleUrl: './admin-single-event.component.scss',

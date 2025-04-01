@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PhotoDto } from '../../../../interfaces/photo-dto';
 import { CommonModule } from '@angular/common';
-import { HostEventService } from '../../../../services/host-event/host-event.service';
-import { LoadingHolderService } from '../../../../services/holders/loading-holder/loading-holder.service';
 
 @Component({
   selector: 'app-delete-photos-modal',

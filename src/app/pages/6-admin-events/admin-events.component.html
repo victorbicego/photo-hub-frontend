@@ -12,8 +12,9 @@
           *ngFor="let event of eventList"
           [event]="event"
           (toggleEventHostsModal)="toggleEventHostsModal($event)"
-          (toggleEditEventModal)="toggleEditEventModal()"
-        ></app-event-card>
+          (toggleEditEventModal)="toggleEditEventModal($event)"
+        >
+        </app-event-card>
       </div>
     </ng-container>
   </div>
@@ -26,6 +27,13 @@
 <ng-template #loading>
   <app-loading></app-loading>
 </ng-template>
+
+<app-edit-event-modal
+  *ngIf="showEditEventModal"
+  [eventDto]="selectedEvent"
+  (emitClose)="closeEditEventModal()"
+  (emitEditEvent)="editEvent($event)"
+></app-edit-event-modal>
 
 <app-create-event-modal
   *ngIf="showCreateEventModal"

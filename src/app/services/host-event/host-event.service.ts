@@ -7,6 +7,7 @@ import { EventDto } from '../../interfaces/event-dto';
 import { CreateEventDto } from '../../interfaces/create-event-dto';
 import { PhotoDto } from '../../interfaces/photo-dto';
 import { PhotoListDto } from '../../interfaces/photo-list-dto';
+import { EditEventDto } from '../../interfaces/edit-event-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +41,19 @@ export class HostEventService {
   public createEvent(event: CreateEventDto): Observable<ApiResponse<EventDto>> {
     return this.http.post<ApiResponse<EventDto>>(
       `${environment.baseUrl}/host/event`,
+      event,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  public editEvent(
+    id: number,
+    event: EditEventDto
+  ): Observable<ApiResponse<EventDto>> {
+    return this.http.post<ApiResponse<EventDto>>(
+      `${environment.baseUrl}/host/event/${id}`,
       event,
       {
         withCredentials: true,

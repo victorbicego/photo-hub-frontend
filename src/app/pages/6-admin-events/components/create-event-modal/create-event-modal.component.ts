@@ -27,5 +27,6 @@ export class CreateEventModalComponent {
         startDate: this.startDate,
         endDate: this.endDate,
       });
+    this.emitClose.emit();
   }
 }

@@ -12,6 +12,8 @@ import { finalize } from 'rxjs';
 import { LoadingHolderService } from '../../services/holders/loading-holder/loading-holder.service';
 import { Router } from '@angular/router';
 import { HostEventService } from '../../services/host-event/host-event.service';
+import { EditEventModalComponent } from './components/edit-event-modal/edit-event-modal.component';
+import { EditEventDto } from '../../interfaces/edit-event-dto';
 
 @Component({
   selector: 'app-admin-events',
@@ -23,6 +25,7 @@ import { HostEventService } from '../../services/host-event/host-event.service';
     EventHostsModalComponent,
     EventCardComponent,
     AddEventCardComponent,
+    EditEventModalComponent,
   ],
   templateUrl: './admin-events.component.html',
   styleUrl: './admin-events.component.scss',
@@ -68,8 +71,8 @@ export class AdminEventsComponent {
     this.showCreateEventModal = false;
   }
 
-  public toggleEventHostsModal(event: EventDto): void {
-    this.selectedEvent = event;
+  public toggleEventHostsModal(eventDto: EventDto): void {
+    this.selectedEvent = eventDto;
     this.showEventHostsModal = true;
   }
 
@@ -77,11 +80,12 @@ export class AdminEventsComponent {
     this.showEventHostsModal = false;
   }
 
-  public toggleEditEventModal():void{
+  public toggleEditEventModal(eventDto: EventDto): void {
+    this.selectedEvent = eventDto;
     this.showEditEventModal = true;
   }
 
-  public closeEditEventModal():void{
+  public closeEditEventModal(): void {
     this.showEditEventModal = false;
   }
 
@@ -89,6 +93,30 @@ export class AdminEventsComponent {
     this.loadingHolderService.isLoading = true;
     this.hostEventService
       .createEvent(createEventDto)
+      .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.getHostEvents();
+        },
+        error: (error) => {
+          console.error('Erro ao criar evento', error);
+        },
+      });
+  }
+
+  public editEvent(map: Map<number, EditEventDto>): void {
+    const firstEntry = map.entries().next();
+
+    if (firstEntry.done) {
+      console.error('Map is empty. No event to edit.');
+      return;
+    }
+
+    const [id, editEventDto] = firstEntry.value;
+
+    this.loadingHolderService.isLoading = true;
+    this.hostEventService
+      .editEvent(id, editEventDto)
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
         next: () => {
