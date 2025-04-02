@@ -16,7 +16,7 @@
       <div class="photo-container">
         <img
           [src]="photo.photoUrl | photoUrl"
-          [alt]="photo.id || 'Photo ' + i"
+          [alt]="photo.description || 'Photo ' + i"
           (load)="onImageLoad($event, i)"
         />
       </div>

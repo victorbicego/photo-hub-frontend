@@ -13,7 +13,9 @@ import { LoadingHolderService } from '../../services/holders/loading-holder/load
 import { Router } from '@angular/router';
 import { HostEventService } from '../../services/host-event/host-event.service';
 import { EditEventModalComponent } from './components/edit-event-modal/edit-event-modal.component';
-import { EditEventDto } from '../../interfaces/edit-event-dto';
+import { UpdateEventDto } from '../../interfaces/update-event-dto';
+import {ConfirmationModalComponent} from '../../common-components/confirmation-modal/confirmation-modal.component';
+import {DeleteEventModalComponent} from './components/delete-event-modal/delete-event-modal.component';
 
 @Component({
   selector: 'app-admin-events',
@@ -26,6 +28,7 @@ import { EditEventDto } from '../../interfaces/edit-event-dto';
     EventCardComponent,
     AddEventCardComponent,
     EditEventModalComponent,
+    DeleteEventModalComponent
   ],
   templateUrl: './admin-events.component.html',
   styleUrl: './admin-events.component.scss',
@@ -37,6 +40,7 @@ export class AdminEventsComponent {
   public showCreateEventModal = false;
   public showEventHostsModal = false;
   public showEditEventModal = false;
+  public showDeleteEventModal = false;
 
   constructor(
     private hostEventService: HostEventService,
@@ -49,8 +53,9 @@ export class AdminEventsComponent {
   }
 
   private getHostEvents(): void {
+    this.loadingHolderService.isLoading = true;
     this.hostEventService
-      .getAllEventsForHost()
+      .getAllEvents()
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
         next: (response) => {
@@ -89,6 +94,15 @@ export class AdminEventsComponent {
     this.showEditEventModal = false;
   }
 
+  public toggleDeleteEventModal(eventDto: EventDto): void {
+    this.selectedEvent = eventDto;
+    this.showDeleteEventModal = true;
+  }
+
+  public closeDeleteEventModal(): void {
+    this.showDeleteEventModal = false;
+  }
+
   public createEvent(createEventDto: CreateEventDto): void {
     this.loadingHolderService.isLoading = true;
     this.hostEventService
@@ -104,7 +118,7 @@ export class AdminEventsComponent {
       });
   }
 
-  public editEvent(map: Map<number, EditEventDto>): void {
+  public editEvent(map: Map<number, UpdateEventDto>): void {
     const firstEntry = map.entries().next();
 
     if (firstEntry.done) {
@@ -116,7 +130,21 @@ export class AdminEventsComponent {
 
     this.loadingHolderService.isLoading = true;
     this.hostEventService
-      .editEvent(id, editEventDto)
+      .updateEvent(id, editEventDto)
+      .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.getHostEvents();
+        },
+        error: (error) => {
+          console.error('Erro ao criar evento', error);
+        },
+      });
+  }
+
+  public deleteEvent(eventDto: EventDto): void {
+    this.loadingHolderService.isLoading = true;
+    this.hostEventService.deleteEvent(eventDto.id)
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
         next: () => {

@@ -12,6 +12,7 @@ import { DownloadPhotosModalComponent } from '../../common-components/download-p
 import { CommonModule } from '@angular/common';
 import { DeletePhotosModalComponent } from './components/delete-photos-modal/delete-photos-modal.component';
 import { AdminEventPhotoGalleryComponent } from './components/admin-event-photo-gallery/admin-event-photo-gallery.component';
+import {BlockUsersModalComponent} from './components/block-users-modal/block-users-modal.component';
 
 @Component({
   selector: 'app-admin-single-event',
@@ -23,6 +24,7 @@ import { AdminEventPhotoGalleryComponent } from './components/admin-event-photo-
     DownloadPhotosModalComponent,
     DeletePhotosModalComponent,
     AdminEventPhotoGalleryComponent,
+    BlockUsersModalComponent
   ],
   templateUrl: './admin-single-event.component.html',
   styleUrl: './admin-single-event.component.scss',
@@ -35,6 +37,7 @@ export class AdminSingleEventComponent {
   public showUploadModal: boolean = false;
   public showDeleteModal: boolean = false;
   public showDownloadModal: boolean = false;
+  public showBlockModal:boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -55,7 +58,7 @@ export class AdminSingleEventComponent {
     if (this.eventId) {
       this.loadingHolderService.isLoading = true;
       this.hostEventService
-        .getEventPhotos(this.eventId)
+        .getPhotos(this.eventId)
         .pipe(
           finalize(() => {
             this.loadingHolderService.isLoading = false;
@@ -98,6 +101,14 @@ export class AdminSingleEventComponent {
     this.showDeleteModal = false;
   }
 
+  public toggleBlockModal():void{
+    this.showBlockModal = true;
+  }
+
+  public closeBlockModal(): void {
+    this.showBlockModal = false;
+  }
+
   public updateSelectedPhotosList(selectedPhotos: PhotoDto[]): void {
     this.selectedPhotos = selectedPhotos;
   }
@@ -129,7 +140,7 @@ export class AdminSingleEventComponent {
       this.loadingHolderService.isLoading = true;
       const photoIds = downloadPhotosList.map((photo) => photo.id);
       this.hostEventService
-        .downloadSelectedPhotos(this.eventId, {
+        .downloadPhotos(this.eventId, {
           idList: photoIds,
         })
         .pipe(
@@ -174,7 +185,7 @@ export class AdminSingleEventComponent {
       this.loadingHolderService.isLoading = true;
       const photoIds = deletePhotosList.map((photo) => photo.id);
       this.hostEventService
-        .deleteSelectedPhotos(this.eventId, {
+        .deletePhotos(this.eventId, {
           idList: photoIds,
         })
         .pipe(
@@ -189,6 +200,31 @@ export class AdminSingleEventComponent {
           },
           error: (error) => {
             console.error('Error deleting photos', error);
+          },
+        });
+    }
+  }
+
+  public blockUsers(photoDtos: PhotoDto[]): void {
+    if (this.eventId) {
+      this.loadingHolderService.isLoading = true;
+      const photoIds = photoDtos.map((photo) => photo.id);
+      this.hostEventService
+        .blockUser(this.eventId, {
+          idList: photoIds,
+        })
+        .pipe(
+          finalize(() => {
+            this.loadingHolderService.isLoading = false;
+            this.selectedPhotos = [];
+          })
+        )
+        .subscribe({
+          next: () => {
+            this.getPhotosFromHost();
+          },
+          error: (error) => {
+            console.error('Error blocking users', error);
           },
         });
     }

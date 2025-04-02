@@ -3,12 +3,11 @@
 
   .preview-image {
     overflow: hidden;
-    width: 100%;
     justify-content: center;
     display: flex;
 
     img {
-      max-height: 90%;
+      max-height: 90vh;
       object-fit: contain;
       border-radius: var(--standard-border-radius);
     }

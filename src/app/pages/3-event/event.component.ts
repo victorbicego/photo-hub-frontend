@@ -63,6 +63,7 @@ export class EventComponent {
   }
 
   private loadPhotos(): void {
+    this.loadingHolderService.isLoading = true;
     this.eventService
       .getEventPhotos()
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))

@@ -2,31 +2,33 @@
 
 <ng-container *ngIf="!loadingHolderService.isLoading; else loading">
   <div class="container">
-    <ng-container *ngIf="eventList.length > 0; else noEvents">
-      <div class="event-list">
-        <app-add-event-card
-          (toggleCreateEventModal)="toggleCreateEventModal()"
-        ></app-add-event-card>
+    <div class="event-list">
+      <app-add-event-card
+        (toggleCreateEventModal)="toggleCreateEventModal()"
+      ></app-add-event-card>
 
-        <app-event-card
-          *ngFor="let event of eventList"
-          [event]="event"
-          (toggleEventHostsModal)="toggleEventHostsModal($event)"
-          (toggleEditEventModal)="toggleEditEventModal($event)"
-        >
-        </app-event-card>
-      </div>
-    </ng-container>
+      <app-event-card
+        *ngFor="let event of eventList"
+        [event]="event"
+        (toggleEventHostsModal)="toggleEventHostsModal($event)"
+        (toggleEditEventModal)="toggleEditEventModal($event)"
+        (toggleDeleteEventModal)="toggleDeleteEventModal($event)"
+      >
+      </app-event-card>
+    </div>
   </div>
 </ng-container>
-
-<ng-template #noEvents>
-  <div class="no-events-message">Nenhum Evento Disponível.</div>
-</ng-template>
 
 <ng-template #loading>
   <app-loading></app-loading>
 </ng-template>
+
+<app-delete-event-modal
+  *ngIf="showDeleteEventModal"
+  [eventDto]="selectedEvent"
+  (emitClose)="closeDeleteEventModal()"
+  (emitDeleteEvent)="deleteEvent($event)"
+></app-delete-event-modal>
 
 <app-edit-event-modal
   *ngIf="showEditEventModal"

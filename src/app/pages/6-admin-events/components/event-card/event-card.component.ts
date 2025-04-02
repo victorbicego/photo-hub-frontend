@@ -15,6 +15,7 @@ export class EventCardComponent {
 
   @Output() toggleEventHostsModal = new EventEmitter<EventDto>();
   @Output() toggleEditEventModal = new EventEmitter<EventDto>();
+  @Output() toggleDeleteEventModal = new EventEmitter<EventDto>();
 
   constructor(private router: Router) {}
 
@@ -44,7 +45,7 @@ export class EventCardComponent {
   }
 
   public copyEventLink(event: EventDto) {
-    const eventUrl = `localhost:4200/login?qrCode=${event.qrCode}`;
+    const eventUrl = `localhost:4200/login?qrCode=${event.qrCodeData}`;
     navigator.clipboard
       .writeText(eventUrl)
       .then()
@@ -54,6 +55,12 @@ export class EventCardComponent {
   public onEditClick(): void {
     if (this.event) {
       this.toggleEditEventModal.emit(this.event);
+    }
+  }
+
+  public onDeleteClick(): void {
+    if (this.event) {
+      this.toggleDeleteEventModal.emit(this.event);
     }
   }
 }

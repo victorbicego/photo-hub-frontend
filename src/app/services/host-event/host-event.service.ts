@@ -7,7 +7,7 @@ import { EventDto } from '../../interfaces/event-dto';
 import { CreateEventDto } from '../../interfaces/create-event-dto';
 import { PhotoDto } from '../../interfaces/photo-dto';
 import { PhotoListDto } from '../../interfaces/photo-list-dto';
-import { EditEventDto } from '../../interfaces/edit-event-dto';
+import { UpdateEventDto } from '../../interfaces/update-event-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ import { EditEventDto } from '../../interfaces/edit-event-dto';
 export class HostEventService {
   constructor(private http: HttpClient) {}
 
-  public getAllEventsForHost(
+  public getAllEvents(
     search: string = '',
     sortBy: string = 'name',
     sortDirection: string = 'asc',
@@ -38,63 +38,60 @@ export class HostEventService {
     );
   }
 
-  public createEvent(event: CreateEventDto): Observable<ApiResponse<EventDto>> {
+  public createEvent(createEventDto: CreateEventDto): Observable<ApiResponse<EventDto>> {
     return this.http.post<ApiResponse<EventDto>>(
       `${environment.baseUrl}/host/event`,
-      event,
+      createEventDto,
       {
         withCredentials: true,
       }
     );
   }
 
-  public editEvent(
+  public updateEvent(
     id: number,
-    event: EditEventDto
+    editEventDto: UpdateEventDto
   ): Observable<ApiResponse<EventDto>> {
     return this.http.post<ApiResponse<EventDto>>(
       `${environment.baseUrl}/host/event/${id}`,
-      event,
+      editEventDto,
       {
         withCredentials: true,
       }
     );
   }
 
-  public deleteSelectedPhotos(
-    id: number,
-    deletePhotoListDto: PhotoListDto
-  ): Observable<ApiResponse<void>> {
-    return this.http.request<ApiResponse<void>>(
-      'delete',
-      `${environment.baseUrl}/host/event/${id}/photos`,
+  public deleteEvent(
+    id: number
+  ): Observable<ApiResponse<EventDto>> {
+    return this.http.delete<ApiResponse<EventDto>>(
+      `${environment.baseUrl}/host/event/${id}`,
       {
-        body: deletePhotoListDto,
         withCredentials: true,
       }
     );
   }
 
-  public downloadSelectedPhotos(
-    id: number,
-    downloadPhotoListDto: PhotoListDto
-  ): Observable<HttpResponse<Blob>> {
-    return this.http.post<Blob>(
-      `${environment.baseUrl}/host/event/${id}/photos/download`,
-      downloadPhotoListDto,
-      {
-        withCredentials: true,
-        observe: 'response',
-        responseType: 'blob' as 'json',
-      }
-    );
-  }
-
-  public getEventPhotos(id: number): Observable<ApiResponse<PhotoDto[]>> {
+  public getPhotos(id: number): Observable<ApiResponse<PhotoDto[]>> {
     return this.http.get<ApiResponse<PhotoDto[]>>(
       `${environment.baseUrl}/host/event/${id}/photos`,
       {
         withCredentials: true,
+      }
+    );
+  }
+
+  public downloadPhotos(
+    id: number,
+    photoListDto: PhotoListDto
+  ): Observable<HttpResponse<Blob>> {
+    return this.http.post<Blob>(
+      `${environment.baseUrl}/host/event/${id}/photos/download`,
+      photoListDto,
+      {
+        withCredentials: true,
+        observe: 'response',
+        responseType: 'blob' as 'json',
       }
     );
   }
@@ -105,6 +102,33 @@ export class HostEventService {
     return this.http.post<ApiResponse<any>>(
       `${environment.baseUrl}/host/event/${id}/photo`,
       formData,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  public deletePhotos(
+    id: number,
+    photoListDto: PhotoListDto
+  ): Observable<ApiResponse<void>> {
+    return this.http.request<ApiResponse<void>>(
+      'delete',
+      `${environment.baseUrl}/host/event/${id}/photos`,
+      {
+        body: photoListDto,
+        withCredentials: true,
+      }
+    );
+  }
+
+  public blockUser(
+    id: number,
+    photoListDto: PhotoListDto
+  ): Observable<ApiResponse<void>> {
+    return this.http.post<ApiResponse<void>>(
+      `${environment.baseUrl}/host/event/${id}/block`,
+      photoListDto,
       {
         withCredentials: true,
       }

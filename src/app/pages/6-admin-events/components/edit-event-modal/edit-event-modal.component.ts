@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EventDto } from '../../../../interfaces/event-dto';
-import { EditEventDto } from '../../../../interfaces/edit-event-dto';
+import { UpdateEventDto } from '../../../../interfaces/update-event-dto';
 
 @Component({
   selector: 'app-edit-event-modal',
@@ -13,7 +13,7 @@ export class EditEventModalComponent {
   @Input() eventDto: EventDto | null = null;
 
   @Output() emitClose = new EventEmitter<void>();
-  @Output() emitEditEvent = new EventEmitter<Map<number, EditEventDto>>();
+  @Output() emitEditEvent = new EventEmitter<Map<number, UpdateEventDto>>();
 
   public name: string = '';
 
@@ -29,7 +29,7 @@ export class EditEventModalComponent {
 
   public onEdit(): void {
     if (this.eventDto && this.name.trim() != '') {
-      let map = new Map<number, EditEventDto>([
+      let map = new Map<number, UpdateEventDto>([
         [this.eventDto?.id, { name: this.name }],
       ]);
       this.emitEditEvent.emit(map);

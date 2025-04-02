@@ -14,9 +14,18 @@ import { PhotoListDto } from '../../interfaces/photo-list-dto';
 export class EventService {
   constructor(private http: HttpClient) {}
 
+  public getActiveEvent(): Observable<ApiResponse<EventDto>> {
+    return this.http.get<ApiResponse<EventDto>>(
+      `${environment.baseUrl}/event`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
   public getEventPhotos(): Observable<ApiResponse<PhotoDto[]>> {
     return this.http.get<ApiResponse<PhotoDto[]>>(
-      `${environment.baseUrl}/event/photo/all`,
+      `${environment.baseUrl}/event/photos`,
       {
         withCredentials: true,
       }
@@ -27,7 +36,7 @@ export class EventService {
     const formData: FormData = new FormData();
     formData.append('file', file);
     return this.http.post<ApiResponse<any>>(
-      `${environment.baseUrl}/event/photo`,
+      `${environment.baseUrl}/event/photos`,
       formData,
       {
         withCredentials: true,
@@ -41,17 +50,8 @@ export class EventService {
     const formData: FormData = new FormData();
     formData.append('file', file);
     return this.http.post<ApiResponse<PhotoRecognitionDto[]>>(
-      `${environment.baseUrl}/event/photo/match`,
+      `${environment.baseUrl}/event/photos/match`,
       formData,
-      {
-        withCredentials: true,
-      }
-    );
-  }
-
-  public getActiveEvent(): Observable<ApiResponse<EventDto>> {
-    return this.http.get<ApiResponse<EventDto>>(
-      `${environment.baseUrl}/event`,
       {
         withCredentials: true,
       }

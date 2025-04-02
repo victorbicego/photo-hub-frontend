@@ -4,4 +4,5 @@ export interface EventDto {
   startDate: Date;
   endDate: Date;
   qrCode: string;
+  qrCodeData:string;
 }

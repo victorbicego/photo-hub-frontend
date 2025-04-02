@@ -16,7 +16,7 @@
       <div class="photo-container">
         <img
           [src]="photo.photoUrl | hostPhotoUrl"
-          [alt]="photo.id || 'Photo ' + i"
+          [alt]="photo.description || 'Photo ' + i"
           (load)="onImageLoad($event, i)"
         />
       </div>
@@ -28,6 +28,7 @@
   (toggleDownloadModal)="onDownload()"
   (toggleUploadModal)="onUpload()"
   (toggleDeleteModal)="onDelete()"
+  (toggleBlockModal)="onBlock()"
 ></app-admin-event-gallery-toolbar>
 
 <ng-template #noPhotos>

@@ -15,7 +15,7 @@ export class PhotoUrlPipe implements PipeTransform {
     } else {
       encodedPath = encodeURIComponent(photoPath);
     }
-    const url = `${environment.baseUrl}/event/photo?url=${encodedPath}`;
+    const url = `${environment.baseUrl}/event/photos/single?url=${encodedPath}`;
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 }

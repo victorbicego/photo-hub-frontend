@@ -3,4 +3,6 @@ export interface PhotoDto {
   photoUrl: string;
   uploadDate: Date;
   contentType: string;
+  description: string;
+  uploadedBy: string;
 }

@@ -12,6 +12,7 @@ export class AdminEventGalleryToolbarComponent {
   @Output() toggleUploadModal = new EventEmitter<void>();
   @Output() toggleDownloadModal = new EventEmitter<void>();
   @Output() toggleDeleteModal = new EventEmitter<void>();
+  @Output() toggleBlockModal = new EventEmitter<void>();
 
   constructor(public itensPerRowHolderService: ItensPerRowHolderService) {}
 
@@ -37,5 +38,9 @@ export class AdminEventGalleryToolbarComponent {
 
   public onDelete(): void {
     this.toggleDeleteModal.emit();
+  }
+
+  public onBlock():void{
+    this.toggleBlockModal.emit();
   }
 }

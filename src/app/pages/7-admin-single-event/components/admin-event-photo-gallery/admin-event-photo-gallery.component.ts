@@ -25,6 +25,7 @@ export class AdminEventPhotoGalleryComponent {
   @Output() toggleUploadModal = new EventEmitter<void>();
   @Output() toggleDownloadModal = new EventEmitter<void>();
   @Output() toggleDeleteModal = new EventEmitter<void>();
+  @Output() toggleBlockModal = new EventEmitter<void>();
   @Output() emitSelectedPhotos = new EventEmitter<PhotoDto[]>();
 
   private imageDimensions: { [index: number]: ImageDimension } = {};
@@ -99,6 +100,10 @@ export class AdminEventPhotoGalleryComponent {
 
   public onDelete(): void {
     this.toggleDeleteModal.emit();
+  }
+
+  public onBlock(): void {
+    this.toggleBlockModal.emit();
   }
 
   private togglePhotoSelection(photo: PhotoDto): void {

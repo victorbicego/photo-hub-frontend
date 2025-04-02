@@ -21,12 +21,13 @@ export class CreateEventModalComponent {
   }
 
   public onSave(): void {
-    if (this.name.trim() != '' && this.startDate && this.endDate)
+    if (this.name.trim() != '' && this.startDate && this.endDate){
+      this.emitClose.emit();
       this.emitCreateEvent.emit({
         name: this.name,
         startDate: this.startDate,
         endDate: this.endDate,
       });
-    this.emitClose.emit();
+    }
   }
 }

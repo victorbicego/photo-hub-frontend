@@ -1,0 +1,26 @@
+<dialog class="modal" (click)="onClose()">
+  <div class="content" (click)="$event.stopPropagation()">
+    <div class="header">
+      <div class="title">
+        <h2>Bloquear Usuarios</h2>
+      </div>
+      <button class="btn-primary" (click)="onClose()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    <div *ngIf="selectedPhotos.length == 0" class="body">
+      <p>Voce nao selecionou nenhuma foto.</p>
+    </div>
+    <div *ngIf="selectedPhotos.length > 0" class="body">
+      <p>Você gostaria de bloquear os IPs e usuários que enviaram essas fotos para evitar novos envios?</p>
+    </div>
+    <div *ngIf="selectedPhotos.length > 0" class="actions">
+      <button class="btn-secondary" (click)="onBlock()">
+        <span class="bnt-text">Sim</span>
+      </button>
+      <button class="btn-primary" (click)="onClose()">
+        <span class="bnt-text">Não</span>
+      </button>
+    </div>
+  </div>
+</dialog>
