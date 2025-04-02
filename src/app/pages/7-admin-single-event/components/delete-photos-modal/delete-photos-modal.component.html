@@ -9,20 +9,20 @@
       </button>
     </div>
     <div *ngIf="selectedPhotos.length == 0" class="body">
-      <p>Voce nao selecionou nenhuma foto.</p>
+      <p>Nenhuma foto foi selecionada.</p>
     </div>
     <div *ngIf="selectedPhotos.length > 0" class="body">
       <p>
-        Voce quer excluir as <span>{{ selectedPhotos.length }}</span> fotos
-        selecionadas.
+        Tem certeza de que deseja excluir as
+        <span>{{ selectedPhotos.length }}</span> fotos selecionadas?
       </p>
     </div>
     <div *ngIf="selectedPhotos.length > 0" class="actions">
       <button class="btn-secondary" (click)="onDelete()">
-        <span class="bnt-text">Sim</span>
+        <span class="bnt-text">Confirmar</span>
       </button>
       <button class="btn-primary" (click)="onClose()">
-        <span class="bnt-text">Não</span>
+        <span class="bnt-text">Cancelar</span>
       </button>
     </div>
   </div>

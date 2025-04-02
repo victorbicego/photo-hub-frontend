@@ -126,7 +126,7 @@ export class EventPhotoGalleryComponent {
     this.clickTimeout = setTimeout(() => {
       this.togglePhotoSelection(photo);
       this.clickTimeout = null;
-    }, 150);
+    }, 175);
   }
 
   public onPhotoDblClick(index: number): void {

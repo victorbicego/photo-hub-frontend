@@ -1,11 +1,11 @@
 <div class="card-container">
   <div class="card">
-    <h2>Informações</h2>
+    <h2>Dados da Conta</h2>
 
     <div class="info-container">
       <div class="info">
         <p>
-          <strong>Nome :&nbsp;</strong>
+          <strong>Nome:&nbsp;</strong>
           <span>{{ hostDto?.firstName }} {{ hostDto?.lastName }}</span>
         </p>
         <button (click)="openEditNameModal()" class="btn-primary">
@@ -15,7 +15,7 @@
 
       <div class="info">
         <p>
-          <strong>Senha :&nbsp;</strong>
+          <strong>Senha:&nbsp;</strong>
           <span>******</span>
         </p>
         <button (click)="openUpdatePasswordModal()" class="btn-primary">
@@ -25,7 +25,7 @@
 
       <div class="info">
         <p>
-          <strong>Email :&nbsp;</strong>
+          <strong>E-mail:&nbsp;</strong>
           <span>{{ hostDto?.username }}</span>
         </p>
         <button class="btn-primary btn-placeholder">
@@ -37,7 +37,7 @@
     <div class="actions">
       <button (click)="openDeleteAccountModal()" class="btn-primary">
         <span class="material-icons">delete</span>
-        <span class="btn-text">Deletar conta</span>
+        <span class="btn-text">Excluir</span>
       </button>
     </div>
   </div>

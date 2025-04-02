@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HostDto } from '../../../../interfaces/host-dto';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-update-password-modal',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './update-password-modal.component.html',
   styleUrl: './update-password-modal.component.scss',
 })

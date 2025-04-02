@@ -29,8 +29,9 @@
 
     .bounding-box {
       position: absolute;
-      border: 1.5px solid red;
+      border: 1.2px solid red;
       pointer-events: none;
+      border-radius: var(--standard-border-radius);
     }
 
     &:hover img {

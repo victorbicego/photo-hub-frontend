@@ -47,19 +47,17 @@ export class EventComponent {
 
   private getActiveEvent(): void {
     this.loadingHolderService.isLoading = true;
-    this.eventService
-      .getActiveEvent()
-      .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
-      .subscribe({
-        next: (response) => {
-          this.event = response.data;
-          this.loadPhotos();
-        },
-        error: (error) => {
-          console.error('Error fetching event details', error);
-          this.router.navigate(['']);
-        },
-      });
+    this.eventService.getActiveEvent().subscribe({
+      next: (response) => {
+        this.event = response.data;
+        this.loadPhotos();
+      },
+      error: (error) => {
+        console.error('Error fetching event details', error);
+        this.router.navigate(['']);
+        this.loadingHolderService.isLoading = false;
+      },
+    });
   }
 
   private loadPhotos(): void {
@@ -132,7 +130,9 @@ export class EventComponent {
       )
       .subscribe({
         next: (response) => {
-          const contentDisposition = response.headers.get('content-disposition');
+          const contentDisposition = response.headers.get(
+            'content-disposition'
+          );
           let filename = 'photos.zip';
           if (contentDisposition) {
             const matches = contentDisposition.match(/filename="(.+)"/);
@@ -140,7 +140,9 @@ export class EventComponent {
               filename = matches[1];
             }
           }
-          const blob = new Blob([response.body!], { type: 'application/octet-stream' });
+          const blob = new Blob([response.body!], {
+            type: 'application/octet-stream',
+          });
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;

@@ -22,10 +22,18 @@
     <button class="btn-primary" (click)="onDownload()">
       <span class="material-icons">download</span>
     </button>
-    <button class="btn-primary" (click)="onDelete()">
+    <button
+      class="btn-primary"
+      [disabled]="selectedPhotos.length <= 0"
+      (click)="onDelete()"
+    >
       <span class="material-icons">delete</span>
     </button>
-    <button class="btn-primary" (click)="onBlock()">
+    <button
+      class="btn-primary"
+      [disabled]="selectedPhotos.length <= 0"
+      (click)="onBlock()"
+    >
       <span class="material-icons">block</span>
     </button>
   </div>

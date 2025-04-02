@@ -1,33 +1,56 @@
 <dialog class="modal" (click)="onClose()">
   <div class="content" (click)="$event.stopPropagation()">
     <div class="header">
-      <div  class="title">
-        <h2>Upload Foto</h2>
+      <div class="title">
+        <h2>Enviar Foto</h2>
       </div>
       <button class="btn-primary" (click)="onClose()">
         <span class="material-icons">close</span>
       </button>
     </div>
 
+    <div class="body">
+      <p>Selecione a foto que deseja enviar para o evento.</p>
+    </div>
+
     <div class="upload-input-group">
-      <label class="btn-secondary" for="fileInput"> Escolha uma foto </label>
-      <input
-        id="fileInput"
-        type="file"
-        (change)="onFileSelected($event)"
-        hidden
-      />
+      <div class="file-container">
+        <ng-container *ngIf="selectedFile; else selectFile">
+          <div class="file-info">
+            <div class="file-name">{{ selectedFile.name }}</div>
+            <button class="btn-primary" (click)="onRemoveFile()">
+              <span class="material-icons">delete</span>
+            </button>
+          </div>
+        </ng-container>
+        <ng-template #selectFile>
+          <div class="no-file">
+            <label class="btn-secondary" for="fileInput"
+              >Selecionar Arquivo</label
+            >
+            <input
+              id="fileInput"
+              type="file"
+              (change)="onFileSelected($event)"
+              hidden
+            />
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="actions">
       <button
-        class="btn-primary"
+        class="btn-secondary"
         (click)="onUpload()"
         [disabled]="!selectedFile"
       >
         <span class="material-icons">file_upload</span>
+        <span class="btn-text">Enviar</span>
       </button>
-    </div>
-
-    <div *ngIf="selectedFile" class="file-name">
-      {{ selectedFile.name }}
+      <button class="btn-primary" (click)="onClose()">
+        <span>Cancelar</span>
+      </button>
     </div>
   </div>
 </dialog>

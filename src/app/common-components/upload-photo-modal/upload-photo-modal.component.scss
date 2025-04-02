@@ -4,8 +4,28 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 20px;
-      margin: 20px 0 20px 0;
+      gap: 10px;
+      margin-bottom: 20px;
+      width: 100%;
+
+      .file-container {
+        width: 100%;
+
+        .file-info {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+
+          .file-name {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-right: 10px;
+          }
+        }
+      }
 
       .btn-primary {
         color: var(--accent-color);
@@ -17,9 +37,14 @@
       }
     }
 
-    .file-name {
-      color: var(--secondary-text-color);
-      font-size: 0.8rem;
+    .actions {
+      .btn-primary {
+        border: 1px solid var(--accent-color);
+
+        &:hover {
+          background: var(--accent-hover);
+        }
+      }
     }
   }
 }

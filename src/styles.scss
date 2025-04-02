@@ -138,6 +138,16 @@ body {
   }
 }
 
+@media (prefers-color-scheme: light) {
+  .btn:hover {
+    color: var(--background-color);
+  }
+
+  .btn-secondary {
+    color: var(--background-color);
+  }
+}
+
 /* ==========================================================================
      Modal
      ========================================================================== */
@@ -186,7 +196,7 @@ body {
         color: var(--secondary-text-color);
       }
 
-      label{
+      label {
         color: var(--secondary-text-color);
       }
     }

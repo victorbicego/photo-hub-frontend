@@ -2,27 +2,27 @@
   <div class="content" (click)="$event.stopPropagation()">
     <div class="header">
       <div class="title">
-        <h2>Baixar Fotos</h2>
+        <h2>Download de Fotos</h2>
       </div>
       <button class="btn-primary" (click)="onClose()">
         <span class="material-icons">close</span>
       </button>
     </div>
     <div *ngIf="selectedPhotos.length == 0" class="body">
-      <p>Voce quer baixar todas as fotos ?</p>
+      <p>Deseja fazer o download de todas as fotos disponíveis?</p>
     </div>
     <div *ngIf="selectedPhotos.length > 0" class="body">
       <p>
-        Voce quer baixar as <span>{{ selectedPhotos.length }}</span> fotos
-        selecionadas ?
+        Deseja fazer o download das
+        <span>{{ selectedPhotos.length }}</span> fotos selecionadas?
       </p>
     </div>
     <div class="actions">
       <button class="btn-secondary" (click)="onDownload()">
-        <span class="bnt-text">Sim</span>
+        <span class="bnt-text">Confirmar</span>
       </button>
       <button class="btn-primary" (click)="onClose()">
-        <span class="bnt-text">Não</span>
+        <span class="bnt-text">Cancelar</span>
       </button>
     </div>
   </div>

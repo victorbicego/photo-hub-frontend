@@ -49,18 +49,19 @@ export class MatchedFacesComponent {
 
   private getActiveEvent(): void {
     this.loadingHolderService.isLoading = true;
-    this.eventService.getActiveEvent()
-      .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
-      .subscribe({
+    this.eventService.getActiveEvent().subscribe({
       next: (response) => {
         this.event = response.data;
         if (this.matchedFaceHolderService.selectedFile != null) {
           this.onMatch(this.matchedFaceHolderService.selectedFile);
+        } else {
+          this.loadingHolderService.isLoading = false;
         }
       },
       error: (error) => {
         console.error('Error fetching event details', error);
         this.router.navigate(['']);
+        this.loadingHolderService.isLoading = false;
       },
     });
   }
@@ -86,8 +87,8 @@ export class MatchedFacesComponent {
   }
 
   public onMatch(file: File): void {
-    this.loadingHolderService.isLoading = true;
     this.matchedFaceHolderService.selectedFile = file;
+    this.loadingHolderService.isLoading = true;
     this.eventService
       .getMatchedPhotos(file)
       .pipe(
@@ -121,7 +122,9 @@ export class MatchedFacesComponent {
       )
       .subscribe({
         next: (response: HttpResponse<Blob>) => {
-          const contentDisposition = response.headers.get('content-disposition');
+          const contentDisposition = response.headers.get(
+            'content-disposition'
+          );
           let filename = 'photos.zip';
           if (contentDisposition) {
             const matches = contentDisposition.match(/filename="(.+)"/);
@@ -129,7 +132,9 @@ export class MatchedFacesComponent {
               filename = matches[1];
             }
           }
-          const blob = new Blob([response.body!], { type: 'application/octet-stream' });
+          const blob = new Blob([response.body!], {
+            type: 'application/octet-stream',
+          });
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;

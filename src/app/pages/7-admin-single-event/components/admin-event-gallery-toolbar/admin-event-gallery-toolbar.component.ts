@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ItensPerRowHolderService } from '../../../../services/holders/itens-per-row-holder/itens-per-row-holder.service';
 import { FormsModule } from '@angular/forms';
+import { PhotoDto } from '../../../../interfaces/photo-dto';
 
 @Component({
   selector: 'app-admin-event-gallery-toolbar',
@@ -9,6 +10,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './admin-event-gallery-toolbar.component.scss',
 })
 export class AdminEventGalleryToolbarComponent {
+  @Input() selectedPhotos: PhotoDto[] = [];
+
   @Output() toggleUploadModal = new EventEmitter<void>();
   @Output() toggleDownloadModal = new EventEmitter<void>();
   @Output() toggleDeleteModal = new EventEmitter<void>();
@@ -40,7 +43,7 @@ export class AdminEventGalleryToolbarComponent {
     this.toggleDeleteModal.emit();
   }
 
-  public onBlock():void{
+  public onBlock(): void {
     this.toggleBlockModal.emit();
   }
 }

@@ -128,7 +128,7 @@ export class MatchedFacesPhotoGalleryComponent {
     this.clickTimeout = setTimeout(() => {
       this.togglePhotoSelection(photo);
       this.clickTimeout = null;
-    }, 150);
+    }, 175);
   }
 
   public onPhotoDblClick(index: number): void {
@@ -152,7 +152,7 @@ export class MatchedFacesPhotoGalleryComponent {
         width: `${photo.faceBoundingBox.width * 100}%`,
         height: `${photo.faceBoundingBox.height * 100}%`,
         position: 'absolute',
-        border: '2px solid red',
+        border: '1.2px solid red',
         pointerEvents: 'none',
       };
     }

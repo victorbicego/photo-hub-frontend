@@ -11,8 +11,15 @@
   </button>
   <div class="preview-image">
     <img
+      *ngIf="!isAdmin"
       (click)="$event.stopPropagation()"
       [src]="photos[currentPhotoIndex].photoUrl | photoUrl"
+      alt="Preview Photo"
+    />
+    <img
+      *ngIf="isAdmin"
+      (click)="$event.stopPropagation()"
+      [src]="photos[currentPhotoIndex].photoUrl | hostPhotoUrl"
       alt="Preview Photo"
     />
   </div>

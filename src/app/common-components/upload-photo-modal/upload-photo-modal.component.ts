@@ -30,4 +30,8 @@ export class UploadPhotoModalComponent {
   public onClose(): void {
     this.emitClose.emit();
   }
+
+  public onRemoveFile(): void {
+    this.selectedFile = null;
+  }
 }
