@@ -2,22 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-confirmation-modal',
+  selector: 'app-error-modal',
   imports: [CommonModule],
-  templateUrl: './confirmation-modal.component.html',
-  styleUrl: './confirmation-modal.component.scss',
+  templateUrl: './error-modal.component.html',
+  styleUrl: './error-modal.component.scss',
 })
-export class ConfirmationModalComponent {
+export class ErrorModalComponent {
   @Input() title: string | null = null;
   @Input() text: string | null = null;
 
   @Output() emitClose = new EventEmitter<void>();
-  @Output() emitConfirm = new EventEmitter<void>();
-
-  public onConfirm(): void {
-    this.emitConfirm.emit();
-    this.emitClose.emit();
-  }
 
   public onClose(): void {
     this.emitClose.emit();

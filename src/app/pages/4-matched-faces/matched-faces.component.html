@@ -5,8 +5,8 @@
     <app-matched-faces-photo-gallery
       [matchedPhotos]="matchedPhotos"
       [selectedPhotos]="selectedPhotos"
-      (toggleUploadModal)="toggleUploadModal()"
-      (toggleDownloadModal)="toggleDownloadModal()"
+      (openUploadModal)="openUploadModal()"
+      (openDownloadModal)="openDownloadModal()"
       (emitSelectedPhotos)="updateSelectedPhotosList($event)"
     ></app-matched-faces-photo-gallery>
   </div>

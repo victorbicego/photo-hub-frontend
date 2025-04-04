@@ -5,10 +5,10 @@
     <app-admin-event-photo-gallery
       [photos]="photos"
       [selectedPhotos]="selectedPhotos"
-      (toggleUploadModal)="toggleUploadModal()"
-      (toggleDownloadModal)="toggleDownloadModal()"
-      (toggleDeleteModal)="toggleDeleteModal()"
-      (toggleBlockModal)="toggleBlockModal()"
+      (openUploadModal)="openUploadModal()"
+      (openDownloadModal)="openDownloadModal()"
+      (openDeleteModal)="openDeleteModal()"
+      (openBlockModal)="openBlockModal()"
       (emitSelectedPhotos)="updateSelectedPhotosList($event)"
     ></app-admin-event-photo-gallery>
   </div>

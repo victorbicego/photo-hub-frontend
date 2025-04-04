@@ -29,10 +29,6 @@ export class HeaderNavComponent {
     this.router.navigate(['/match']);
   }
 
-  public navigateToHome(): void {
-    this.router.navigate(['/admin/home']);
-  }
-
   public navigateToEvents(): void {
     this.router.navigate(['/admin/events']);
   }
@@ -41,7 +37,7 @@ export class HeaderNavComponent {
     this.router.navigate(['/admin/account']);
   }
 
-  public toggleLogoutModal(): void {
+  public openLogoutModal(): void {
     this.showLogoutModal = true;
   }
 

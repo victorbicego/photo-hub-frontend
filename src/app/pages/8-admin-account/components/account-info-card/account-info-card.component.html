@@ -8,7 +8,7 @@
           <strong>Nome:&nbsp;</strong>
           <span>{{ hostDto?.firstName }} {{ hostDto?.lastName }}</span>
         </p>
-        <button (click)="openEditNameModal()" class="btn-primary">
+        <button (click)="onOpenEditNameModal()" class="btn-primary">
           <span class="material-icons">edit</span>
         </button>
       </div>
@@ -18,7 +18,7 @@
           <strong>Senha:&nbsp;</strong>
           <span>******</span>
         </p>
-        <button (click)="openUpdatePasswordModal()" class="btn-primary">
+        <button (click)="onOpenUpdatePasswordModal()" class="btn-primary">
           <span class="material-icons">edit</span>
         </button>
       </div>
@@ -35,7 +35,7 @@
     </div>
 
     <div class="actions">
-      <button (click)="openDeleteAccountModal()" class="btn-primary">
+      <button (click)="onOpenDeleteAccountModal()" class="btn-primary">
         <span class="material-icons">delete</span>
         <span class="btn-text">Excluir</span>
       </button>

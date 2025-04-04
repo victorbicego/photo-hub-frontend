@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { HeaderComponent } from '../../common-components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { PhotoRecognitionDto } from '../../interfaces/photo-recognition-dto';
@@ -14,6 +14,7 @@ import { UploadPhotoModalComponent } from '../../common-components/upload-photo-
 import { DownloadPhotosModalComponent } from '../../common-components/download-photos-modal/download-photos-modal.component';
 import { MatchedFacesPhotoGalleryComponent } from './components/matched-faces-photo-gallery/matched-faces-photo-gallery.component';
 import { LoadingComponent } from '../../common-components/loading/loading.component';
+import {FileDownloadService} from '../../services/file-download/file-download.service';
 
 @Component({
   selector: 'app-matched-faces',
@@ -28,7 +29,7 @@ import { LoadingComponent } from '../../common-components/loading/loading.compon
   templateUrl: './matched-faces.component.html',
   styleUrl: './matched-faces.component.scss',
 })
-export class MatchedFacesComponent {
+export class MatchedFacesComponent implements OnInit{
   public matchedPhotos: PhotoRecognitionDto[] = [];
   public selectedPhotos: PhotoDto[] = [];
   public event: EventDto | null = null;
@@ -38,6 +39,7 @@ export class MatchedFacesComponent {
 
   constructor(
     private eventService: EventService,
+    private fileDownloadService:FileDownloadService,
     public loadingHolderService: LoadingHolderService,
     private matchedFaceHolderService: MatchedFaceHolderService,
     private router: Router
@@ -66,7 +68,7 @@ export class MatchedFacesComponent {
     });
   }
 
-  public toggleUploadModal(): void {
+  public openUploadModal(): void {
     this.showUploadModal = true;
   }
 
@@ -74,7 +76,7 @@ export class MatchedFacesComponent {
     this.showUploadModal = false;
   }
 
-  public toggleDownloadModal(): void {
+  public openDownloadModal(): void {
     this.showDownloadModal = true;
   }
 
@@ -122,27 +124,7 @@ export class MatchedFacesComponent {
       )
       .subscribe({
         next: (response: HttpResponse<Blob>) => {
-          const contentDisposition = response.headers.get(
-            'content-disposition'
-          );
-          let filename = 'photos.zip';
-          if (contentDisposition) {
-            const matches = contentDisposition.match(/filename="(.+)"/);
-            if (matches && matches[1]) {
-              filename = matches[1];
-            }
-          }
-          const blob = new Blob([response.body!], {
-            type: 'application/octet-stream',
-          });
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = filename;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
+          this.fileDownloadService.downloadFile(response, 'photos.zip');
         },
         error: (error) => {
           console.error('Error downloading photos', error);

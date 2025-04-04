@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { AdminEventGalleryToolbarComponent } from '../admin-event-gallery-toolbar/admin-event-gallery-toolbar.component';
 import { PhotoPreviewComponent } from '../../../../common-components/photo-preview/photo-preview.component';
 import { PhotoDto } from '../../../../interfaces/photo-dto';
-import { ItensPerRowHolderService } from '../../../../services/holders/itens-per-row-holder/itens-per-row-holder.service';
+import { ItemsPerRowHolderService } from '../../../../services/holders/items-per-row-holder/items-per-row-holder.service';
 import { ImageDimension } from '../../../../interfaces/image-dimension';
 import { HostPhotoUrlPipe } from '../../../../services/pipes/host-photo-url-pipe/host-photo-url.pipe';
 
@@ -18,14 +18,14 @@ import { HostPhotoUrlPipe } from '../../../../services/pipes/host-photo-url-pipe
   templateUrl: './admin-event-photo-gallery.component.html',
   styleUrl: './admin-event-photo-gallery.component.scss',
 })
-export class AdminEventPhotoGalleryComponent {
+export class AdminEventPhotoGalleryComponent implements OnInit{
   @Input() photos: PhotoDto[] = [];
   @Input() selectedPhotos: PhotoDto[] = [];
 
-  @Output() toggleUploadModal = new EventEmitter<void>();
-  @Output() toggleDownloadModal = new EventEmitter<void>();
-  @Output() toggleDeleteModal = new EventEmitter<void>();
-  @Output() toggleBlockModal = new EventEmitter<void>();
+  @Output() openUploadModal = new EventEmitter<void>();
+  @Output() openDownloadModal = new EventEmitter<void>();
+  @Output() openDeleteModal = new EventEmitter<void>();
+  @Output() openBlockModal = new EventEmitter<void>();
   @Output() emitSelectedPhotos = new EventEmitter<PhotoDto[]>();
 
   private imageDimensions: { [index: number]: ImageDimension } = {};
@@ -52,14 +52,14 @@ export class AdminEventPhotoGalleryComponent {
       15: '14px',
       16: '14px',
     };
-    return gapMap[this.itensPerRowHolderService.photosPerRow] || '20px';
+    return gapMap[this.itemsPerRowHolderService.photosPerRow] || '20px';
   }
 
-  constructor(public itensPerRowHolderService: ItensPerRowHolderService) {}
+  constructor(public itemsPerRowHolderService: ItemsPerRowHolderService) {}
 
   public ngOnInit(): void {
     if (window.innerWidth < 768) {
-      this.itensPerRowHolderService.photosPerRow = 1;
+      this.itemsPerRowHolderService.photosPerRow = 1;
     }
   }
 
@@ -91,19 +91,19 @@ export class AdminEventPhotoGalleryComponent {
   }
 
   public onUpload(): void {
-    this.toggleUploadModal.emit();
+    this.openUploadModal.emit();
   }
 
   public onDownload(): void {
-    this.toggleDownloadModal.emit();
+    this.openDownloadModal.emit();
   }
 
   public onDelete(): void {
-    this.toggleDeleteModal.emit();
+    this.openDeleteModal.emit();
   }
 
   public onBlock(): void {
-    this.toggleBlockModal.emit();
+    this.openBlockModal.emit();
   }
 
   private togglePhotoSelection(photo: PhotoDto): void {
@@ -145,5 +145,9 @@ export class AdminEventPhotoGalleryComponent {
       this.clickTimeout = null;
     }
     this.togglePreview(index);
+  }
+
+  public trackByPhotoId(index: number, photo: PhotoDto): number {
+    return photo.id;
   }
 }

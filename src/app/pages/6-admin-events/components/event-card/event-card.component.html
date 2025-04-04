@@ -24,11 +24,11 @@
       <i class="material-icons">groups</i>
     </button>
 
-    <button class="btn-primary" (click)="onEditClick()">
+    <button  [disabled]="isPastEvent(event.startDate)" class="btn-primary" (click)="onEditClick()">
       <i class="material-icons">edit</i>
     </button>
 
-    <button class="btn-primary" (click)="onDeleteClick()">
+    <button  [disabled]="isPastEvent(event.startDate)" class="btn-primary" (click)="onDeleteClick()">
       <i class="material-icons">delete</i>
     </button>
   </div>

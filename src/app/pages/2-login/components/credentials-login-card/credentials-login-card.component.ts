@@ -9,7 +9,7 @@ import { LoginRequestDto } from '../../../../interfaces/login-request-dto';
   styleUrl: './credentials-login-card.component.scss',
 })
 export class CredentialsLoginCardComponent {
-  @Output() emitToggleResetPasswordModal = new EventEmitter<void>();
+  @Output() emitOpenResetPasswordModal = new EventEmitter<void>();
   @Output() emitLoginWithCredentials = new EventEmitter<LoginRequestDto>();
 
   public username = '';
@@ -24,7 +24,7 @@ export class CredentialsLoginCardComponent {
     }
   }
 
-  public onToggleResetPasswordModal(): void {
-    this.emitToggleResetPasswordModal.emit();
+  public onOpenResetPasswordModal(): void {
+    this.emitOpenResetPasswordModal.emit();
   }
 }

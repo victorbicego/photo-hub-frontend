@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ItensPerRowHolderService } from '../../../../services/holders/itens-per-row-holder/itens-per-row-holder.service';
+import { ItemsPerRowHolderService } from '../../../../services/holders/items-per-row-holder/items-per-row-holder.service';
 import { FormsModule } from '@angular/forms';
 import { PhotoDto } from '../../../../interfaces/photo-dto';
 
@@ -12,38 +12,38 @@ import { PhotoDto } from '../../../../interfaces/photo-dto';
 export class AdminEventGalleryToolbarComponent {
   @Input() selectedPhotos: PhotoDto[] = [];
 
-  @Output() toggleUploadModal = new EventEmitter<void>();
-  @Output() toggleDownloadModal = new EventEmitter<void>();
-  @Output() toggleDeleteModal = new EventEmitter<void>();
-  @Output() toggleBlockModal = new EventEmitter<void>();
+  @Output() openUploadModal = new EventEmitter<void>();
+  @Output() openDownloadModal = new EventEmitter<void>();
+  @Output() openDeleteModal = new EventEmitter<void>();
+  @Output() openBlockModal = new EventEmitter<void>();
 
-  constructor(public itensPerRowHolderService: ItensPerRowHolderService) {}
+  constructor(public itemsPerRowHolderService: ItemsPerRowHolderService) {}
 
   public increasePhotosPerRow(): void {
-    if (this.itensPerRowHolderService.photosPerRow < 16) {
-      this.itensPerRowHolderService.photosPerRow++;
+    if (this.itemsPerRowHolderService.photosPerRow < 16) {
+      this.itemsPerRowHolderService.photosPerRow++;
     }
   }
 
   public decreasePhotosPerRow(): void {
-    if (this.itensPerRowHolderService.photosPerRow > 1) {
-      this.itensPerRowHolderService.photosPerRow--;
+    if (this.itemsPerRowHolderService.photosPerRow > 1) {
+      this.itemsPerRowHolderService.photosPerRow--;
     }
   }
 
   public onUploadPhoto(): void {
-    this.toggleUploadModal.emit();
+    this.openUploadModal.emit();
   }
 
   public onDownload(): void {
-    this.toggleDownloadModal.emit();
+    this.openDownloadModal.emit();
   }
 
   public onDelete(): void {
-    this.toggleDeleteModal.emit();
+    this.openDeleteModal.emit();
   }
 
   public onBlock(): void {
-    this.toggleBlockModal.emit();
+    this.openBlockModal.emit();
   }
 }

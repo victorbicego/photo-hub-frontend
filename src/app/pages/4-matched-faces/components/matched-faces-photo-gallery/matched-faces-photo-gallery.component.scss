@@ -29,7 +29,7 @@
 
     .bounding-box {
       position: absolute;
-      border: 1.2px solid red;
+      border: 1.2px solid var(--attention-color);
       pointer-events: none;
       border-radius: var(--standard-border-radius);
     }
@@ -46,4 +46,26 @@
   color: var(--secondary-text-color);
   padding: 20px;
   font-size: 1.2rem;
+}
+
+.send-photo-message{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .no-matching-photos-message {
+    text-align: center;
+    color: var(--secondary-text-color);
+    padding: 20px;
+    font-size: 1.2rem;
+  }
+
+  .btn-primary{
+    width: 70px;
+    color: var(--accent-color);
+
+    .material-icons {
+      font-size: 3rem;
+    }
+  }
 }

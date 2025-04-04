@@ -1,0 +1,13 @@
+.modal {
+  .content {
+    .actions {
+      .btn-primary {
+        border: 1px solid var(--attention-color);
+
+        &:hover {
+          background: var(--attention-color);
+        }
+      }
+    }
+  }
+}

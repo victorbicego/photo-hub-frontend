@@ -3,9 +3,9 @@
 <ng-container *ngIf="!loadingHolderService.isLoading; else loading">
   <div class="container">
     <app-account-info-card
-      (toggleDeleteAccountModal)="toggleDeleteAccountModal()"
-      (toggleEditNameModal)="toggleUploadUserModal()"
-      (toggleUpdatePasswordModal)="toggleUpdatePasswordModal()"
+      (openDeleteAccountModal)="openDeleteAccountModal()"
+      (openEditNameModal)="openUploadUserModal()"
+      (openUpdatePasswordModal)="openUpdatePasswordModal()"
       [hostDto]="hostDto"
     ></app-account-info-card>
   </div>
@@ -33,5 +33,6 @@
   *ngIf="showDeleteAccountModal"
   (emitClose)="closeDeleteAccountModal()"
   (emitConfirm)="deleteHost()"
-  [title]="'Você tem certeza que deseja excluir sua conta?'"
+  [title]="'Excluir conta'"
+  [text]="'Todos os seus dados serão permanentemente removidos e não poderão ser recuperados. Deseja realmente prosseguir?'"
 ></app-confirmation-modal>

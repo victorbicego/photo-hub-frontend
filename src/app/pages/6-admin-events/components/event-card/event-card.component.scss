@@ -26,6 +26,11 @@
       .material-icons {
         font-size: 1.2rem;
       }
+
+      &:disabled{
+        border: none;
+        color: var(--secondary-text-color);
+      }
     }
   }
 

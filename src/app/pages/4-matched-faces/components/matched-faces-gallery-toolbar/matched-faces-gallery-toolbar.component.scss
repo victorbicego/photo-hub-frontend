@@ -98,6 +98,11 @@
         font-size: 1.2rem;
       }
 
+      &:disabled {
+        border: none;
+        color: var(--secondary-text-color);
+      }
+
       img {
         border: 1px solid var(--accent-color);
         border-radius: var(--standard-border-radius);

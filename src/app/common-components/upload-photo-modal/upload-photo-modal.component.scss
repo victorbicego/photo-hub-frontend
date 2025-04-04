@@ -13,16 +13,16 @@
 
         .file-info {
           display: flex;
+          justify-content: center;
           align-items: center;
-          justify-content: space-between;
           width: 100%;
 
           .file-name {
-            flex: 1;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             margin-right: 10px;
+            color: var(--text-color);
           }
         }
       }

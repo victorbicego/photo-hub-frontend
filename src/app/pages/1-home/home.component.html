@@ -1,2 +1,53 @@
 <app-header [showNav]="false" [event]="null"></app-header>
-<p>home works!</p>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Capture Every Moment</h1>
+    <p>
+      Bem-vindo ao Hub de Fotos de Eventos – o lugar onde você pode criar,
+      compartilhar e descobrir fotos incríveis de cada evento. Admins criam
+      eventos e compartilham QR codes ou links, enquanto os participantes
+      publicam suas fotos e revivem os melhores momentos.
+    </p>
+    <button class="btn-primary cta-button" (click)="onEnter()" title="Comece agora">
+      Get Started
+    </button>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature">
+    <span class="material-icons">event</span>
+    <h3>Create Events</h3>
+    <p>
+      Organize seus eventos com facilidade. Crie um evento, gere um QR Code ou
+      link e convide os participantes.
+    </p>
+  </div>
+  <div class="feature">
+    <span class="material-icons">photo_library</span>
+    <h3>Share Photos</h3>
+    <p>
+      Permita que os participantes enviem suas fotos e acompanhem todas as
+      contribuições do evento em um único lugar.
+    </p>
+  </div>
+  <div class="feature">
+    <span class="material-icons">face</span>
+    <h3>Facial Recognition</h3>
+    <p>
+      Utilize a tecnologia de reconhecimento facial para encontrar facilmente
+      as fotos em que você aparece.
+    </p>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Ready to Get Started?</h2>
+  <p>
+    Junte-se à nossa comunidade e revolucione a forma de registrar seus eventos.
+  </p>
+  <button class="btn-secondary" (click)="onEnter()" title="Inscreva-se agora">
+    Entrar Agora!
+  </button>
+</section>

@@ -9,14 +9,14 @@
       </button>
     </div>
     <div class="body">
-      <p>Você tem certeza que deseja continuar?</p>
+      <p *ngIf="text" >{{ text }}</p>
     </div>
     <div class="actions">
       <button class="btn-secondary" (click)="onConfirm()">
-        <span>Sim</span>
+        <span>Continuar</span>
       </button>
       <button class="btn-primary" (click)="onClose()">
-        <span>Não</span>
+        <span>Cancelar</span>
       </button>
     </div>
   </div>

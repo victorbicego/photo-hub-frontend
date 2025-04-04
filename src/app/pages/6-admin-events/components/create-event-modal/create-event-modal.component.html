@@ -2,7 +2,7 @@
   <div class="content" (click)="$event.stopPropagation()">
     <div class="header">
       <div class="title">
-        <h2>Editar Nome</h2>
+        <h2>Adicionar Evento</h2>
       </div>
       <button class="btn-primary" (click)="onClose()">
         <span class="material-icons">close</span>
@@ -15,22 +15,22 @@
       </div>
       <div class="form-group">
         <label for="startDate" class="input-label"
-          >Data e hora de início :</label
+          >Data e hora de início</label
         >
         <input
           id="startDate"
           type="datetime-local"
           [(ngModel)]="startDate"
-          placeholder="Data e hora de início"
+          placeholder="Selecione a data e hora de início"
         />
       </div>
       <div class="form-group">
-        <label for="endDate" class="input-label">Data e hora de fim :</label>
+        <label for="endDate" class="input-label">Data e hora de término</label>
         <input
           id="endDate"
           type="datetime-local"
           [(ngModel)]="endDate"
-          placeholder="Data e hora de término"
+          placeholder="Selecione a data e hora de término"
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AdminHeaderComponent } from '../../common-components/admin-header/admin-header.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -27,7 +27,7 @@ import { AccountInfoCardComponent } from './components/account-info-card/account
   templateUrl: './admin-account.component.html',
   styleUrl: './admin-account.component.scss',
 })
-export class AdminAccountComponent {
+export class AdminAccountComponent implements OnInit{
   public hostDto: HostDto | null = null;
   public showUpdateUserModal: boolean = false;
   public showUpdatePasswordModal: boolean = false;
@@ -63,7 +63,7 @@ export class AdminAccountComponent {
       });
   }
 
-  public toggleUploadUserModal(): void {
+  public openUploadUserModal(): void {
     this.showUpdateUserModal = true;
   }
 
@@ -71,7 +71,7 @@ export class AdminAccountComponent {
     this.showUpdateUserModal = false;
   }
 
-  public toggleUpdatePasswordModal(): void {
+  public openUpdatePasswordModal(): void {
     this.showUpdatePasswordModal = true;
   }
 
@@ -79,7 +79,7 @@ export class AdminAccountComponent {
     this.showUpdatePasswordModal = false;
   }
 
-  public toggleDeleteAccountModal(): void {
+  public openDeleteAccountModal(): void {
     this.showDeleteAccountModal = true;
   }
 
@@ -112,7 +112,7 @@ export class AdminAccountComponent {
       .subscribe({
         next: () => {},
         error: (error) => {
-          console.error('Erro ao obter detalhes do evento', error);
+          console.error('Error updating host password', error);
         },
       });
   }
@@ -127,7 +127,7 @@ export class AdminAccountComponent {
           this.checkHost();
         },
         error: (error) => {
-          console.error('Erro ao obter detalhes do evento', error);
+          console.error('Error updating host info', error);
         },
       });
   }

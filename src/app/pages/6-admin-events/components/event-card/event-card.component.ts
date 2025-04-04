@@ -13,9 +13,9 @@ import { EventDateComponent } from '../../../../common-components/event-date/eve
 export class EventCardComponent {
   @Input() event: EventDto | null = null;
 
-  @Output() toggleEventHostsModal = new EventEmitter<EventDto>();
-  @Output() toggleEditEventModal = new EventEmitter<EventDto>();
-  @Output() toggleDeleteEventModal = new EventEmitter<EventDto>();
+  @Output() openEventHostsModal = new EventEmitter<EventDto>();
+  @Output() openEditEventModal = new EventEmitter<EventDto>();
+  @Output() openDeleteEventModal = new EventEmitter<EventDto>();
 
   constructor(private router: Router) {}
 
@@ -40,7 +40,7 @@ export class EventCardComponent {
 
   public onCoHostsClick(): void {
     if (this.event) {
-      this.toggleEventHostsModal.emit(this.event);
+      this.openEventHostsModal.emit(this.event);
     }
   }
 
@@ -54,13 +54,19 @@ export class EventCardComponent {
 
   public onEditClick(): void {
     if (this.event) {
-      this.toggleEditEventModal.emit(this.event);
+      this.openEditEventModal.emit(this.event);
     }
   }
 
   public onDeleteClick(): void {
     if (this.event) {
-      this.toggleDeleteEventModal.emit(this.event);
+      this.openDeleteEventModal.emit(this.event);
     }
+  }
+
+  public isPastEvent(startDate: string | Date): boolean {
+    const eventDate = new Date(startDate);
+    const now = new Date();
+    return eventDate <= now;
   }
 }

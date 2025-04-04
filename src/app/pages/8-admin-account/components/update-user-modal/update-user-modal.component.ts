@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HostDto } from '../../../../interfaces/host-dto';
 import { UpdateHostDto } from '../../../../interfaces/update-host-dto';
@@ -10,7 +10,7 @@ import { UpdateHostDto } from '../../../../interfaces/update-host-dto';
   templateUrl: './update-user-modal.component.html',
   styleUrl: './update-user-modal.component.scss',
 })
-export class UpdateUserModalComponent {
+export class UpdateUserModalComponent implements OnInit{
   @Input() hostDto: HostDto | null = null;
 
   @Output() emitClose = new EventEmitter<void>();

@@ -2,21 +2,18 @@
   <div class="content" (click)="$event.stopPropagation()">
     <div class="header">
       <div class="title">
-        <h2>Excluir Evento</h2>
+        <h2 *ngIf="title">{{ title }}</h2>
       </div>
       <button class="btn-primary" (click)="onClose()">
         <span class="material-icons">close</span>
       </button>
     </div>
     <div class="body">
-      <p>Tem certeza de que deseja excluir este evento e todas as suas fotos?</p>
+      <p *ngIf="text" >{{ text }}</p>
     </div>
     <div class="actions">
-      <button class="btn-secondary" (click)="onDelete()">
-        <span>Sim</span>
-      </button>
       <button class="btn-primary" (click)="onClose()">
-        <span>Não</span>
+        <span>Cancelar</span>
       </button>
     </div>
   </div>

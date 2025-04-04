@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ItensPerRowHolderService } from '../../../../services/holders/itens-per-row-holder/itens-per-row-holder.service';
+import { ItemsPerRowHolderService } from '../../../../services/holders/items-per-row-holder/items-per-row-holder.service';
+import {PhotoDto} from '../../../../interfaces/photo-dto';
+import {EventDto} from '../../../../interfaces/event-dto';
 
 @Component({
   selector: 'app-event-gallery-toolbar',
@@ -10,28 +12,38 @@ import { ItensPerRowHolderService } from '../../../../services/holders/itens-per
   styleUrl: './event-gallery-toolbar.component.scss',
 })
 export class EventGalleryToolbarComponent {
-  @Output() toggleUploadModal = new EventEmitter<void>();
-  @Output() toggleDownloadModal = new EventEmitter<void>();
+  @Input() event: EventDto | null = null;
+  @Input() photos: PhotoDto[] = [];
 
-  constructor(public itensPerRowHolderService: ItensPerRowHolderService) {}
+  @Output() openUploadModal = new EventEmitter<void>();
+  @Output() openDownloadModal = new EventEmitter<void>();
+
+  constructor(public itemsPerRowHolderService: ItemsPerRowHolderService) {}
 
   public increasePhotosPerRow(): void {
-    if (this.itensPerRowHolderService.photosPerRow < 16) {
-      this.itensPerRowHolderService.photosPerRow++;
+    if (this.itemsPerRowHolderService.photosPerRow < 16) {
+      this.itemsPerRowHolderService.photosPerRow++;
     }
   }
 
   public decreasePhotosPerRow(): void {
-    if (this.itensPerRowHolderService.photosPerRow > 1) {
-      this.itensPerRowHolderService.photosPerRow--;
+    if (this.itemsPerRowHolderService.photosPerRow > 1) {
+      this.itemsPerRowHolderService.photosPerRow--;
     }
   }
 
   public onUploadPhoto(): void {
-    this.toggleUploadModal.emit();
+    this.openUploadModal.emit();
   }
 
   public onDownload(): void {
-    this.toggleDownloadModal.emit();
+    this.openDownloadModal.emit();
+  }
+
+  public isUploadEnabled(startDate: string | Date): boolean {
+    const eventDate = new Date(startDate);
+    const now = new Date();
+    const diff = eventDate.getTime() - now.getTime();
+    return diff >= 0 && diff <= 30 * 60 * 1000;
   }
 }

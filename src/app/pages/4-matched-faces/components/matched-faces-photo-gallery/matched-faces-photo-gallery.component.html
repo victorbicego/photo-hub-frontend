@@ -1,14 +1,13 @@
-<ng-container *ngIf="matchedPhotos.length > 0; else noPhotos">
+<ng-container *ngIf="matchedPhotos.length > 0; else noPhotosOrNoUploaded">
+  <!-- Gallery display code -->
   <div
     class="gallery"
-    [style.gridTemplateColumns]="
-      'repeat(' + itensPerRowHolderService.photosPerRow + ', 1fr)'
-    "
+    [style.gridTemplateColumns]="'repeat(' + itemsPerRowHolderService.photosPerRow + ', 1fr)'"
     [style.gridGap]="galleryGap"
   >
     <div
       class="photo-card"
-      *ngFor="let photo of matchedPhotos; let i = index"
+      *ngFor="let photo of matchedPhotos; let i = index; trackBy: trackByPhotoId"
       (click)="onPhotoClick(photo, i)"
       (dblclick)="onPhotoDblClick(i)"
       [class.selected]="isPhotoSelected(photo)"
@@ -29,16 +28,33 @@
   </div>
 </ng-container>
 
+<ng-template #noPhotosOrNoUploaded>
+  <ng-container *ngIf="matchedFaceHolderService.selectedFile; else noUploadedPhotos">
+    <div class="no-photos-message">Nenhuma foto encontrada com o seu rosto.</div>
+  </ng-container>
+</ng-template>
+
+<ng-template #noUploadedPhotos>
+  <div class="send-photo-message">
+    <div class="no-matching-photos-message">
+      Envie uma foto do seu rosto (por exemplo, uma selfie) para que possamos encontrar fotos onde você aparece.
+    </div>
+    <button class="btn-primary" (click)="onUpload()">
+      <span
+        class="material-icons"
+      >photo_camera</span
+      >
+    </button>
+  </div>
+</ng-template>
+
 <app-matched-faces-gallery-toolbar
+  [matchedPhotos]="matchedPhotos"
   [showBoundingBox]="showBoundingBox"
-  (toggleDownloadPhotos)="onDownload()"
-  (toggleUploadModal)="onUpload()"
+  (openDownloadPhotos)="onDownload()"
+  (openUploadModal)="onUpload()"
   (toggleBoundingBox)="toggleBoundingBox()"
 ></app-matched-faces-gallery-toolbar>
-
-<ng-template #noPhotos>
-  <div class="no-photos-message">Nenhuma Foto Disponível</div>
-</ng-template>
 
 <app-photo-preview
   *ngIf="showPhotoPreview"

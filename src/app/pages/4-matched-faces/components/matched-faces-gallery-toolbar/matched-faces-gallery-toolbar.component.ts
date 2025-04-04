@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ItensPerRowHolderService } from '../../../../services/holders/itens-per-row-holder/itens-per-row-holder.service';
+import { ItemsPerRowHolderService } from '../../../../services/holders/items-per-row-holder/items-per-row-holder.service';
 import { MatchedFaceHolderService } from '../../../../services/holders/matched-face-holder/matched-face-holder.service';
+import {PhotoRecognitionDto} from '../../../../interfaces/photo-recognition-dto';
 
 @Component({
   selector: 'app-matched-faces-gallery-toolbar',
@@ -10,11 +11,12 @@ import { MatchedFaceHolderService } from '../../../../services/holders/matched-f
   templateUrl: './matched-faces-gallery-toolbar.component.html',
   styleUrl: './matched-faces-gallery-toolbar.component.scss',
 })
-export class MatchedFacesGalleryToolbarComponent {
+export class MatchedFacesGalleryToolbarComponent implements OnInit, OnDestroy{
+  @Input() matchedPhotos: PhotoRecognitionDto[] = [];
   @Input() showBoundingBox: boolean = false;
 
-  @Output() toggleUploadModal = new EventEmitter<void>();
-  @Output() toggleDownloadPhotos = new EventEmitter<void>();
+  @Output() openUploadModal = new EventEmitter<void>();
+  @Output() openDownloadPhotos = new EventEmitter<void>();
   @Output() toggleBoundingBox = new EventEmitter<void>();
 
   public selectedFileUrl: string | null = null;
@@ -34,28 +36,28 @@ export class MatchedFacesGalleryToolbarComponent {
   }
 
   constructor(
-    public itensPerRowHolderService: ItensPerRowHolderService,
+    public itemsPerRowHolderService: ItemsPerRowHolderService,
     public matchedFaceHolderService: MatchedFaceHolderService
   ) {}
 
   public increasePhotosPerRow(): void {
-    if (this.itensPerRowHolderService.photosPerRow < 16) {
-      this.itensPerRowHolderService.photosPerRow++;
+    if (this.itemsPerRowHolderService.photosPerRow < 16) {
+      this.itemsPerRowHolderService.photosPerRow++;
     }
   }
 
   public decreasePhotosPerRow(): void {
-    if (this.itensPerRowHolderService.photosPerRow > 1) {
-      this.itensPerRowHolderService.photosPerRow--;
+    if (this.itemsPerRowHolderService.photosPerRow > 1) {
+      this.itemsPerRowHolderService.photosPerRow--;
     }
   }
 
   public onUploadPhoto(): void {
-    this.toggleUploadModal.emit();
+    this.openUploadModal.emit();
   }
 
   public onDownload(): void {
-    this.toggleDownloadPhotos.emit();
+    this.openDownloadPhotos.emit();
   }
 
   public onToggleBoundingBox(): void {

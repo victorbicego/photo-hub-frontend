@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { HeaderComponent } from '../../common-components/header/header.component';
 import { DownloadPhotosModalComponent } from '../../common-components/download-photos-modal/download-photos-modal.component';
 import { PhotoDto } from '../../interfaces/photo-dto';
@@ -7,18 +7,17 @@ import { EventService } from '../../services/event/event.service';
 import { LoadingHolderService } from '../../services/holders/loading-holder/loading-holder.service';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
-import { HttpResponse } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../common-components/loading/loading.component';
 import { UploadPhotoModalComponent } from '../../common-components/upload-photo-modal/upload-photo-modal.component';
 import { EventPhotoGalleryComponent } from './components/event-photo-gallery/event-photo-gallery.component';
+import {FileDownloadService} from '../../services/file-download/file-download.service';
 
 @Component({
   selector: 'app-event',
   imports: [
     CommonModule,
     HeaderComponent,
-    DownloadPhotosModalComponent,
     DownloadPhotosModalComponent,
     LoadingComponent,
     UploadPhotoModalComponent,
@@ -27,7 +26,7 @@ import { EventPhotoGalleryComponent } from './components/event-photo-gallery/eve
   templateUrl: './event.component.html',
   styleUrl: './event.component.scss',
 })
-export class EventComponent {
+export class EventComponent implements OnInit{
   public photos: PhotoDto[] = [];
   public selectedPhotos: PhotoDto[] = [];
   public event: EventDto | null = null;
@@ -37,6 +36,7 @@ export class EventComponent {
 
   constructor(
     private eventService: EventService,
+    private fileDownloadService:FileDownloadService,
     public loadingHolderService: LoadingHolderService,
     private router: Router
   ) {}
@@ -75,7 +75,7 @@ export class EventComponent {
       });
   }
 
-  public toggleUploadModal(): void {
+  public openUploadModal(): void {
     this.showUploadModal = true;
   }
 
@@ -83,7 +83,7 @@ export class EventComponent {
     this.showUploadModal = false;
   }
 
-  public toggleDownloadModal(): void {
+  public openDownloadModal(): void {
     this.showDownloadModal = true;
   }
 
@@ -130,27 +130,7 @@ export class EventComponent {
       )
       .subscribe({
         next: (response) => {
-          const contentDisposition = response.headers.get(
-            'content-disposition'
-          );
-          let filename = 'photos.zip';
-          if (contentDisposition) {
-            const matches = contentDisposition.match(/filename="(.+)"/);
-            if (matches && matches[1]) {
-              filename = matches[1];
-            }
-          }
-          const blob = new Blob([response.body!], {
-            type: 'application/octet-stream',
-          });
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = filename;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
+          this.fileDownloadService.downloadFile(response, 'photos.zip');
         },
         error: (error) => {
           console.error('Error downloading photos', error);

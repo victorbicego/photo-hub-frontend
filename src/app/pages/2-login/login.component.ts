@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { HeaderComponent } from '../../common-components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../common-components/loading/loading.component';
@@ -30,7 +30,7 @@ import { CredentialsLoginCardComponent } from './components/credentials-login-ca
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   public showQrCodeModal: boolean = false;
   public showResetPasswordModal: boolean = false;
 
@@ -62,7 +62,7 @@ export class LoginComponent {
       .subscribe({
         next: (response) => {
           if (response.data.enabled) {
-            this.router.navigate(['/admin/home']);
+            this.router.navigate(['/admin/events']);
           } else {
             this.checkActiveEvent();
           }
@@ -89,7 +89,7 @@ export class LoginComponent {
       });
   }
 
-  public toggleQrCodeModal(): void {
+  public openQrCodeModal(): void {
     this.showQrCodeModal = true;
   }
 
@@ -97,7 +97,7 @@ export class LoginComponent {
     this.showQrCodeModal = false;
   }
 
-  public toggleResetPasswordModal(): void {
+  public openResetPasswordModal(): void {
     this.showResetPasswordModal = true;
   }
 
@@ -112,7 +112,7 @@ export class LoginComponent {
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
         next: () => {
-          this.router.navigate(['/admin/home']);
+          this.router.navigate(['/admin/events']);
         },
         error: (error) => {
           this.loadingHolderService.isLoading = false;

@@ -4,15 +4,15 @@
   <div class="container">
     <div class="event-list">
       <app-add-event-card
-        (toggleCreateEventModal)="toggleCreateEventModal()"
+        (openCreateEventModal)="openCreateEventModal()"
       ></app-add-event-card>
 
       <app-event-card
         *ngFor="let event of eventList"
         [event]="event"
-        (toggleEventHostsModal)="toggleEventHostsModal($event)"
-        (toggleEditEventModal)="toggleEditEventModal($event)"
-        (toggleDeleteEventModal)="toggleDeleteEventModal($event)"
+        (openDeleteEventModal)="openDeleteEventModal($event)"
+        (openEditEventModal)="openEditEventModal($event)"
+        (openEventHostsModal)="openEventHostsModal($event)"
       >
       </app-event-card>
     </div>
@@ -49,3 +49,6 @@
   (emitClose)="closeEventHostsModal()"
   (emitSaveCoHostsEvent)="saveCoHosts()"
 ></app-event-hosts-modal>
+
+<app-error-modal (emitClose)="closeErrorModal()" *ngIf="showErrorModal"
+                 [text]="errorText" [title]="errorTitle"></app-error-modal>

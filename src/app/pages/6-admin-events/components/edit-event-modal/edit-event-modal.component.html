@@ -2,7 +2,7 @@
   <div class="content" (click)="$event.stopPropagation()">
     <div class="header">
       <div class="title">
-        <h2>Editar Evento</h2>
+        <h2>Editar Informações do Evento</h2>
       </div>
       <button class="btn-primary" (click)="onClose()">
         <span class="material-icons">close</span>
@@ -11,7 +11,7 @@
 
     <div class="body">
       <div class="form-group">
-        <input type="text" [(ngModel)]="name" placeholder="Nome do evento" />
+        <input type="text" [(ngModel)]="name" placeholder="Digite o nome do evento" />
       </div>
     </div>
 

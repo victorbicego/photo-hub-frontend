@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class ItensPerRowHolderService {
+export class ItemsPerRowHolderService {
   private _photosPerRow: number = 4;
 
   get photosPerRow(): number {

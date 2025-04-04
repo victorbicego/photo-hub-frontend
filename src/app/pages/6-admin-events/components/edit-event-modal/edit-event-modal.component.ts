@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EventDto } from '../../../../interfaces/event-dto';
 import { UpdateEventDto } from '../../../../interfaces/update-event-dto';
@@ -9,7 +9,7 @@ import { UpdateEventDto } from '../../../../interfaces/update-event-dto';
   templateUrl: './edit-event-modal.component.html',
   styleUrl: './edit-event-modal.component.scss',
 })
-export class EditEventModalComponent {
+export class EditEventModalComponent implements OnInit{
   @Input() eventDto: EventDto | null = null;
 
   @Output() emitClose = new EventEmitter<void>();

@@ -7,9 +7,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './qr-code-login-card.component.scss',
 })
 export class QrCodeLoginCardComponent {
-  @Output() emitToggleQrCodeModal = new EventEmitter<void>();
+  @Output() emitOpenQrCodeModal = new EventEmitter<void>();
 
-  public onToggleQrCodeModal(): void {
-    this.emitToggleQrCodeModal.emit();
+  public onOpenQrCodeModal(): void {
+    this.emitOpenQrCodeModal.emit();
   }
 }

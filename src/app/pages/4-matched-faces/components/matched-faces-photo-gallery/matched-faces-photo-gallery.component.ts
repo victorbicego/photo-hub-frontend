@@ -1,12 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { PhotoPreviewComponent } from '../../../../common-components/photo-preview/photo-preview.component';
 import { MatchedFacesGalleryToolbarComponent } from '../matched-faces-gallery-toolbar/matched-faces-gallery-toolbar.component';
 import { CommonModule } from '@angular/common';
 import { PhotoDto } from '../../../../interfaces/photo-dto';
 import { ImageDimension } from '../../../../interfaces/image-dimension';
-import { ItensPerRowHolderService } from '../../../../services/holders/itens-per-row-holder/itens-per-row-holder.service';
+import { ItemsPerRowHolderService } from '../../../../services/holders/items-per-row-holder/items-per-row-holder.service';
 import { PhotoRecognitionDto } from '../../../../interfaces/photo-recognition-dto';
 import { PhotoUrlPipe } from '../../../../services/pipes/photo-url-pipe/photo-url.pipe';
+import {MatchedFaceHolderService} from '../../../../services/holders/matched-face-holder/matched-face-holder.service';
 
 @Component({
   selector: 'app-matched-faces-photo-gallery',
@@ -19,12 +20,12 @@ import { PhotoUrlPipe } from '../../../../services/pipes/photo-url-pipe/photo-ur
   templateUrl: './matched-faces-photo-gallery.component.html',
   styleUrl: './matched-faces-photo-gallery.component.scss',
 })
-export class MatchedFacesPhotoGalleryComponent {
+export class MatchedFacesPhotoGalleryComponent implements OnInit{
   @Input() matchedPhotos: PhotoRecognitionDto[] = [];
   @Input() selectedPhotos: PhotoDto[] = [];
 
-  @Output() toggleUploadModal = new EventEmitter<void>();
-  @Output() toggleDownloadModal = new EventEmitter<void>();
+  @Output() openUploadModal = new EventEmitter<void>();
+  @Output() openDownloadModal = new EventEmitter<void>();
   @Output() emitSelectedPhotos = new EventEmitter<PhotoDto[]>();
 
   private imageDimensions: { [index: number]: ImageDimension } = {};
@@ -52,14 +53,14 @@ export class MatchedFacesPhotoGalleryComponent {
       15: '14px',
       16: '14px',
     };
-    return gapMap[this.itensPerRowHolderService.photosPerRow] || '20px';
+    return gapMap[this.itemsPerRowHolderService.photosPerRow] || '20px';
   }
 
-  constructor(public itensPerRowHolderService: ItensPerRowHolderService) {}
+  constructor(public itemsPerRowHolderService: ItemsPerRowHolderService, public matchedFaceHolderService: MatchedFaceHolderService) {}
 
   public ngOnInit(): void {
     if (window.innerWidth < 768) {
-      this.itensPerRowHolderService.photosPerRow = 1;
+      this.itemsPerRowHolderService.photosPerRow = 1;
     }
   }
 
@@ -91,11 +92,11 @@ export class MatchedFacesPhotoGalleryComponent {
   }
 
   public onUpload(): void {
-    this.toggleUploadModal.emit();
+    this.openUploadModal.emit();
   }
 
   public onDownload(): void {
-    this.toggleDownloadModal.emit();
+    this.openDownloadModal.emit();
   }
 
   private togglePhotoSelection(photo: PhotoDto): void {
@@ -152,7 +153,7 @@ export class MatchedFacesPhotoGalleryComponent {
         width: `${photo.faceBoundingBox.width * 100}%`,
         height: `${photo.faceBoundingBox.height * 100}%`,
         position: 'absolute',
-        border: '1.2px solid red',
+        border: '1.2px solid var(--attention-color)',
         pointerEvents: 'none',
       };
     }
@@ -186,8 +187,12 @@ export class MatchedFacesPhotoGalleryComponent {
       width: `${(adjustedWidth * 100).toFixed(2)}%`,
       height: `${(adjustedHeight * 100).toFixed(2)}%`,
       position: 'absolute',
-      border: '2px solid red',
+      border: '1.2px solid var(--attention-color)',
       pointerEvents: 'none',
     };
+  }
+
+  public trackByPhotoId(index: number, photo: PhotoDto): number {
+    return photo.id;
   }
 }

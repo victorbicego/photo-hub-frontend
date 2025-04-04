@@ -10,19 +10,19 @@ import { HostDto } from '../../../../interfaces/host-dto';
 export class AccountInfoCardComponent {
   @Input() hostDto: HostDto | null = null;
 
-  @Output() toggleEditNameModal = new EventEmitter<void>();
-  @Output() toggleUpdatePasswordModal = new EventEmitter<void>();
-  @Output() toggleDeleteAccountModal = new EventEmitter<void>();
+  @Output() openEditNameModal = new EventEmitter<void>();
+  @Output() openUpdatePasswordModal = new EventEmitter<void>();
+  @Output() openDeleteAccountModal = new EventEmitter<void>();
 
-  public openEditNameModal(): void {
-    this.toggleEditNameModal.emit();
+  public onOpenEditNameModal(): void {
+    this.openEditNameModal.emit();
   }
 
-  public openUpdatePasswordModal(): void {
-    this.toggleUpdatePasswordModal.emit();
+  public onOpenUpdatePasswordModal(): void {
+    this.openUpdatePasswordModal.emit();
   }
 
-  public openDeleteAccountModal(): void {
-    this.toggleDeleteAccountModal.emit();
+  public onOpenDeleteAccountModal(): void {
+    this.openDeleteAccountModal.emit();
   }
 }

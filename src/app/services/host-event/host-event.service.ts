@@ -100,7 +100,7 @@ export class HostEventService {
     const formData: FormData = new FormData();
     formData.append('file', file);
     return this.http.post<ApiResponse<any>>(
-      `${environment.baseUrl}/host/event/${id}/photo`,
+      `${environment.baseUrl}/host/event/${id}/photos`,
       formData,
       {
         withCredentials: true,

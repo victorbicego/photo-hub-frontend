@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AdminHeaderComponent } from '../../common-components/admin-header/admin-header.component';
 import { PhotoDto } from '../../interfaces/photo-dto';
 import { finalize } from 'rxjs';
@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { DeletePhotosModalComponent } from './components/delete-photos-modal/delete-photos-modal.component';
 import { AdminEventPhotoGalleryComponent } from './components/admin-event-photo-gallery/admin-event-photo-gallery.component';
 import {BlockUsersModalComponent} from './components/block-users-modal/block-users-modal.component';
+import {FileDownloadService} from '../../services/file-download/file-download.service';
 
 @Component({
   selector: 'app-admin-single-event',
@@ -29,7 +30,7 @@ import {BlockUsersModalComponent} from './components/block-users-modal/block-use
   templateUrl: './admin-single-event.component.html',
   styleUrl: './admin-single-event.component.scss',
 })
-export class AdminSingleEventComponent {
+export class AdminSingleEventComponent implements OnInit{
   public photos: PhotoDto[] = [];
   public selectedPhotos: PhotoDto[] = [];
   private eventId: number | null = null;
@@ -41,6 +42,7 @@ export class AdminSingleEventComponent {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private fileDownloadService:FileDownloadService,
     private hostEventService: HostEventService,
     public loadingHolderService: LoadingHolderService,
     private router: Router
@@ -77,7 +79,7 @@ export class AdminSingleEventComponent {
     }
   }
 
-  public toggleUploadModal(): void {
+  public openUploadModal(): void {
     this.showUploadModal = true;
   }
 
@@ -85,7 +87,7 @@ export class AdminSingleEventComponent {
     this.showUploadModal = false;
   }
 
-  public toggleDownloadModal(): void {
+  public openDownloadModal(): void {
     this.showDownloadModal = true;
   }
 
@@ -93,7 +95,7 @@ export class AdminSingleEventComponent {
     this.showDownloadModal = false;
   }
 
-  public toggleDeleteModal(): void {
+  public openDeleteModal(): void {
     this.showDeleteModal = true;
   }
 
@@ -101,7 +103,7 @@ export class AdminSingleEventComponent {
     this.showDeleteModal = false;
   }
 
-  public toggleBlockModal():void{
+  public openBlockModal():void{
     this.showBlockModal = true;
   }
 
@@ -151,27 +153,7 @@ export class AdminSingleEventComponent {
         )
         .subscribe({
           next: (response: HttpResponse<Blob>) => {
-            const contentDisposition = response.headers.get(
-              'content-disposition'
-            );
-            let filename = 'photos.zip';
-            if (contentDisposition) {
-              const matches = contentDisposition.match(/filename="(.+)"/);
-              if (matches && matches[1]) {
-                filename = matches[1];
-              }
-            }
-            const blob = new Blob([response.body!], {
-              type: 'application/octet-stream',
-            });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
+            this.fileDownloadService.downloadFile(response, 'photos.zip');
           },
           error: (error) => {
             console.error('Error downloading photos', error);

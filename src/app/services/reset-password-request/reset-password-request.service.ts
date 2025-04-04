@@ -10,6 +10,7 @@ import { ResetPasswordRequestDto } from '../../interfaces/reset-password-request
   providedIn: 'root',
 })
 export class ResetPasswordRequestService {
+
   constructor(private http: HttpClient) {}
 
   public sendResetPasswordEmail(

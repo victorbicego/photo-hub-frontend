@@ -8,7 +8,7 @@
       min="1"
       max="16"
       step="1"
-      [(ngModel)]="this.itensPerRowHolderService.photosPerRow"
+      [(ngModel)]="this.itemsPerRowHolderService.photosPerRow"
     />
     <button class="btn-primary" (click)="increasePhotosPerRow()">
       <span class="material-icons slider-icon small-icon">photo</span>
@@ -28,10 +28,10 @@
         alt=""
       />
     </button>
-    <button class="btn-primary" (click)="onDownload()">
+    <button class="btn-primary"   [disabled]="matchedPhotos.length <= 0" (click)="onDownload()">
       <span class="material-icons">download</span>
     </button>
-    <button class="btn-primary" (click)="onToggleBoundingBox()">
+    <button class="btn-primary"       [disabled]="matchedPhotos.length <= 0" (click)="onToggleBoundingBox()">
       <span *ngIf="!showBoundingBox" class="material-icons">person_off</span>
       <span *ngIf="showBoundingBox" class="material-icons">person</span>
     </button>

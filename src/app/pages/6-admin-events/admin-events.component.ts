@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AdminHeaderComponent } from '../../common-components/admin-header/admin-header.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../common-components/loading/loading.component';
@@ -16,6 +16,7 @@ import { EditEventModalComponent } from './components/edit-event-modal/edit-even
 import { UpdateEventDto } from '../../interfaces/update-event-dto';
 import {ConfirmationModalComponent} from '../../common-components/confirmation-modal/confirmation-modal.component';
 import {DeleteEventModalComponent} from './components/delete-event-modal/delete-event-modal.component';
+import {ErrorModalComponent} from '../../common-components/error-modal/error-modal.component';
 
 @Component({
   selector: 'app-admin-events',
@@ -28,12 +29,13 @@ import {DeleteEventModalComponent} from './components/delete-event-modal/delete-
     EventCardComponent,
     AddEventCardComponent,
     EditEventModalComponent,
-    DeleteEventModalComponent
+    DeleteEventModalComponent,
+    ErrorModalComponent
   ],
   templateUrl: './admin-events.component.html',
   styleUrl: './admin-events.component.scss',
 })
-export class AdminEventsComponent {
+export class AdminEventsComponent implements OnInit{
   public eventList: EventDto[] = [];
   public selectedEvent: EventDto | null = null;
 
@@ -41,6 +43,10 @@ export class AdminEventsComponent {
   public showEventHostsModal = false;
   public showEditEventModal = false;
   public showDeleteEventModal = false;
+  public showErrorModal = false;
+
+  public errorTitle: string | null = null;
+  public errorText: string | null = null;
 
   constructor(
     private hostEventService: HostEventService,
@@ -62,13 +68,13 @@ export class AdminEventsComponent {
           this.eventList = response.data;
         },
         error: (error) => {
-          console.error('Error fetching host event', error);
+          console.error('Error fetching host events', error);
           this.router.navigate(['']);
         },
       });
   }
 
-  public toggleCreateEventModal(): void {
+  public openCreateEventModal(): void {
     this.showCreateEventModal = true;
   }
 
@@ -76,7 +82,7 @@ export class AdminEventsComponent {
     this.showCreateEventModal = false;
   }
 
-  public toggleEventHostsModal(eventDto: EventDto): void {
+  public openEventHostsModal(eventDto: EventDto): void {
     this.selectedEvent = eventDto;
     this.showEventHostsModal = true;
   }
@@ -85,7 +91,7 @@ export class AdminEventsComponent {
     this.showEventHostsModal = false;
   }
 
-  public toggleEditEventModal(eventDto: EventDto): void {
+  public openEditEventModal(eventDto: EventDto): void {
     this.selectedEvent = eventDto;
     this.showEditEventModal = true;
   }
@@ -94,13 +100,19 @@ export class AdminEventsComponent {
     this.showEditEventModal = false;
   }
 
-  public toggleDeleteEventModal(eventDto: EventDto): void {
+  public openDeleteEventModal(eventDto: EventDto): void {
     this.selectedEvent = eventDto;
     this.showDeleteEventModal = true;
   }
 
   public closeDeleteEventModal(): void {
     this.showDeleteEventModal = false;
+  }
+
+  public closeErrorModal(): void {
+    this.showErrorModal = false;
+    this.errorTitle = null;
+    this.errorText = null;
   }
 
   public createEvent(createEventDto: CreateEventDto): void {
@@ -113,7 +125,7 @@ export class AdminEventsComponent {
           this.getHostEvents();
         },
         error: (error) => {
-          console.error('Erro ao criar evento', error);
+          console.error('Error creating event', error);
         },
       });
   }
@@ -122,7 +134,7 @@ export class AdminEventsComponent {
     const firstEntry = map.entries().next();
 
     if (firstEntry.done) {
-      console.error('Map is empty. No event to edit.');
+      console.error('Map is empty. No event to edit');
       return;
     }
 
@@ -137,7 +149,7 @@ export class AdminEventsComponent {
           this.getHostEvents();
         },
         error: (error) => {
-          console.error('Erro ao criar evento', error);
+          console.error('Error editing event', error);
         },
       });
   }
@@ -151,7 +163,7 @@ export class AdminEventsComponent {
           this.getHostEvents();
         },
         error: (error) => {
-          console.error('Erro ao criar evento', error);
+          console.error('Error deleting event', error);
         },
       });
   }

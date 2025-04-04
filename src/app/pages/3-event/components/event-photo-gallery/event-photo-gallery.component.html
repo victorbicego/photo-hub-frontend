@@ -2,13 +2,13 @@
   <div
     class="gallery"
     [style.gridTemplateColumns]="
-      'repeat(' + itensPerRowHolderService.photosPerRow + ', 1fr)'
+      'repeat(' + itemsPerRowHolderService.photosPerRow + ', 1fr)'
     "
     [style.gridGap]="galleryGap"
   >
     <div
       class="photo-card"
-      *ngFor="let photo of photos; let i = index"
+      *ngFor="let photo of photos; let i = index; trackBy: trackByPhotoId"
       (click)="onPhotoClick(photo, i)"
       (dblclick)="onPhotoDblClick(i)"
       [class.selected]="isPhotoSelected(photo)"
@@ -25,8 +25,10 @@
 </ng-container>
 
 <app-event-gallery-toolbar
-  (toggleDownloadModal)="onDownload()"
-  (toggleUploadModal)="onUpload()"
+  [event]="event"
+  [photos]="photos"
+  (openDownloadModal)="onDownload()"
+  (openUploadModal)="onUpload()"
 ></app-event-gallery-toolbar>
 
 <ng-template #noPhotos>

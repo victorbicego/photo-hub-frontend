@@ -3,11 +3,11 @@
 <ng-container *ngIf="!loadingHolderService.isLoading; else loading">
   <div class="container">
     <app-qr-code-login-card
-      (emitToggleQrCodeModal)="toggleQrCodeModal()"
+      (emitOpenQrCodeModal)="openQrCodeModal()"
       class="content"
     ></app-qr-code-login-card>
     <app-credentials-login-card
-      (emitToggleResetPasswordModal)="toggleResetPasswordModal()"
+      (emitOpenResetPasswordModal)="openResetPasswordModal()"
       (emitLoginWithCredentials)="loginWithCredentials($event)"
       class="content"
     ></app-credentials-login-card>

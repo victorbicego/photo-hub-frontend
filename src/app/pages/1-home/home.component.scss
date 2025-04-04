@@ -1,0 +1,82 @@
+/* Hero Section */
+.hero {
+  background: url('/background.png') center/cover no-repeat;
+  color: var(--text-color);
+  padding: 60px 20px;
+  text-align: center;
+
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+
+  .cta-button {
+    font-size: 1.1rem;
+    padding: 12px 24px;
+  }
+}
+
+/* Features Section */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 40px 20px;
+  gap: 20px;
+
+  .feature {
+    flex: 1 1 250px;
+    background: var(--secondary-background-color);
+    border-radius: var(--standard-border-radius);
+    padding: 20px;
+    text-align: center;
+
+    .material-icons {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: var(--accent-color);
+    }
+
+    h3 {
+      margin: 10px 0;
+      font-size: 1.5rem;
+      color: var(--text-color);
+    }
+
+    p {
+      font-size: 1rem;
+      color: var(--secondary-text-color);
+      line-height: 1.4;
+    }
+  }
+}
+
+/* Call-to-Action Section */
+.cta {
+  background: var(--background-color);
+  text-align: center;
+  padding: 40px 20px;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: var(--secondary-text-color);
+  }
+}

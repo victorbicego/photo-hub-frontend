@@ -3,10 +3,11 @@
 <ng-container *ngIf="!loadingHolderService.isLoading; else loading">
   <div class="container">
     <app-event-photo-gallery
+      [event]="event"
       [photos]="photos"
       [selectedPhotos]="selectedPhotos"
-      (toggleUploadModal)="toggleUploadModal()"
-      (toggleDownloadModal)="toggleDownloadModal()"
+      (openUploadModal)="openUploadModal()"
+      (openDownloadModal)="openDownloadModal()"
       (emitSelectedPhotos)="updateSelectedPhotosList($event)"
     ></app-event-photo-gallery>
   </div>

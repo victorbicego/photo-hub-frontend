@@ -7,9 +7,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './add-event-card.component.scss',
 })
 export class AddEventCardComponent {
-  @Output() toggleCreateEventModal = new EventEmitter<void>();
+  @Output() openCreateEventModal = new EventEmitter<void>();
 
   public onCreateEventClick(): void {
-    this.toggleCreateEventModal.emit();
+    this.openCreateEventModal.emit();
   }
 }
