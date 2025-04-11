@@ -1,10 +1,13 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 60px;
+.wrapper{
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
 
-  .content {
-    width: 400px;
+    .content {
+      width: 400px;
+    }
   }
 }

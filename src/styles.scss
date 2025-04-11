@@ -224,6 +224,13 @@ body {
   padding: 20px;
 }
 
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .container {
-  padding: 20px 120px 40px 120px;
+  flex: 1;
+  padding: 40px 120px 40px 120px;
 }

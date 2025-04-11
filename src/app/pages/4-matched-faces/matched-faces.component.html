@@ -1,30 +1,34 @@
-<app-header [showNav]="true" [event]="event"></app-header>
+<div class="wrapper">
 
-<ng-container *ngIf="!loadingHolderService.isLoading; else loading">
-  <div class="container">
-    <app-matched-faces-photo-gallery
-      [matchedPhotos]="matchedPhotos"
-      [selectedPhotos]="selectedPhotos"
-      (openUploadModal)="openUploadModal()"
-      (openDownloadModal)="openDownloadModal()"
-      (emitSelectedPhotos)="updateSelectedPhotosList($event)"
-    ></app-matched-faces-photo-gallery>
-  </div>
-</ng-container>
+  <app-header [showNav]="true" [event]="event"></app-header>
 
-<ng-template #loading>
-  <app-loading></app-loading>
-</ng-template>
+  <ng-container *ngIf="!loadingHolderService.isLoading; else loading">
+    <div class="container">
+      <app-matched-faces-photo-gallery
+        [matchedPhotos]="matchedPhotos"
+        [selectedPhotos]="selectedPhotos"
+        (openUploadModal)="openUploadModal()"
+        (openDownloadModal)="openDownloadModal()"
+        (emitSelectedPhotos)="updateSelectedPhotosList($event)"
+      ></app-matched-faces-photo-gallery>
+    </div>
+  </ng-container>
 
-<app-upload-photo-modal
-  *ngIf="showUploadModal"
-  [eventDto]="event"
-  (emitClose)="closeUploadModal()"
-></app-upload-photo-modal>
+  <ng-template #loading>
+    <app-loading></app-loading>
+  </ng-template>
 
-<app-download-photos-modal
-  *ngIf="showDownloadModal"
-  [selectedPhotos]="selectedPhotos"
-  (emitClose)="closeDownloadModal()"
-  (emitDownloadPhotos)="downloadPhotos($event)"
-></app-download-photos-modal>
+  <app-upload-photo-modal
+    *ngIf="showUploadModal"
+    [eventDto]="event"
+    (emitClose)="closeUploadModal()"
+  ></app-upload-photo-modal>
+
+  <app-download-photos-modal
+    *ngIf="showDownloadModal"
+    [selectedPhotos]="selectedPhotos"
+    (emitClose)="closeDownloadModal()"
+    (emitDownloadPhotos)="downloadPhotos($event)"
+  ></app-download-photos-modal>
+
+</div>

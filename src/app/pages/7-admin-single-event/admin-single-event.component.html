@@ -1,51 +1,55 @@
-<app-admin-header [event]="eventoDto"></app-admin-header>
+<div class="wrapper">
 
-<ng-container *ngIf="!loadingHolderService.isLoading; else loading">
-  <div class="container">
-    <button class="btn-primary" (click)="goBack()">
+  <app-admin-header [event]="eventoDto"></app-admin-header>
+
+  <ng-container *ngIf="!loadingHolderService.isLoading; else loading">
+    <div class="container">
+      <button class="btn-primary" (click)="goBack()">
       <span class="material-icons">arrow_back</span
       ><span class="btn-text">Voltar</span>
-    </button>
-    <app-admin-event-photo-gallery
-      [photos]="photos"
-      [selectedPhotos]="selectedPhotos"
-      (openUploadModal)="openUploadModal()"
-      (openDownloadModal)="openDownloadModal()"
-      (openDeleteModal)="openDeleteModal()"
-      (openBlockModal)="openBlockModal()"
-      (emitSelectedPhotos)="updateSelectedPhotosList($event)"
-    ></app-admin-event-photo-gallery>
-  </div>
-</ng-container>
+      </button>
+      <app-admin-event-photo-gallery
+        [photos]="photos"
+        [selectedPhotos]="selectedPhotos"
+        (openUploadModal)="openUploadModal()"
+        (openDownloadModal)="openDownloadModal()"
+        (openDeleteModal)="openDeleteModal()"
+        (openBlockModal)="openBlockModal()"
+        (emitSelectedPhotos)="updateSelectedPhotosList($event)"
+      ></app-admin-event-photo-gallery>
+    </div>
+  </ng-container>
 
-<ng-template #loading>
-  <app-loading></app-loading>
-</ng-template>
+  <ng-template #loading>
+    <app-loading></app-loading>
+  </ng-template>
 
-<app-block-users-modal
-  *ngIf="showBlockModal"
-  [selectedPhotos]="selectedPhotos"
-  (emitClose)="closeBlockModal()"
-  (emitBlockUsers)="blockUsers($event)"
-></app-block-users-modal>
+  <app-block-users-modal
+    *ngIf="showBlockModal"
+    [selectedPhotos]="selectedPhotos"
+    (emitClose)="closeBlockModal()"
+    (emitBlockUsers)="blockUsers($event)"
+  ></app-block-users-modal>
 
-<app-delete-photos-modal
-  *ngIf="showDeleteModal"
-  [selectedPhotos]="selectedPhotos"
-  (emitClose)="closeDeleteModal()"
-  (emitDeletePhotos)="deletePhotos($event)"
-></app-delete-photos-modal>
+  <app-delete-photos-modal
+    *ngIf="showDeleteModal"
+    [selectedPhotos]="selectedPhotos"
+    (emitClose)="closeDeleteModal()"
+    (emitDeletePhotos)="deletePhotos($event)"
+  ></app-delete-photos-modal>
 
-<app-upload-photo-modal
-  *ngIf="showUploadModal"
-  [eventDto]="eventoDto"
-  (emitClose)="closeUploadModal()"
-  (emitGetPhotos)="getPhotosFromHost()"
-></app-upload-photo-modal>
+  <app-upload-photo-modal
+    *ngIf="showUploadModal"
+    [eventDto]="eventoDto"
+    (emitClose)="closeUploadModal()"
+    (emitGetPhotos)="getPhotosFromHost()"
+  ></app-upload-photo-modal>
 
-<app-download-photos-modal
-  *ngIf="showDownloadModal"
-  [selectedPhotos]="selectedPhotos"
-  (emitClose)="closeDownloadModal()"
-  (emitDownloadPhotos)="downloadPhotos($event)"
-></app-download-photos-modal>
+  <app-download-photos-modal
+    *ngIf="showDownloadModal"
+    [selectedPhotos]="selectedPhotos"
+    (emitClose)="closeDownloadModal()"
+    (emitDownloadPhotos)="downloadPhotos($event)"
+  ></app-download-photos-modal>
+
+</div>

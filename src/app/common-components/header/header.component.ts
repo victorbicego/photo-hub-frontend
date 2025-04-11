@@ -13,4 +13,5 @@ import { EventDateComponent } from '../event-date/event-date.component';
 export class HeaderComponent {
   @Input() showNav: boolean = true;
   @Input() event: EventDto | null = null;
+  @Input() isAdmin: boolean = false
 }

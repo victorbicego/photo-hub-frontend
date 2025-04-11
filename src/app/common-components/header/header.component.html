@@ -1,10 +1,9 @@
 <header class="header">
-  <div class="top" [ngClass]="{ 'top--centered': !event && !showNav }">
+  <div class="content" [ngClass]="{ 'content--centered': !event && !showNav }">
     <div class="event-info" *ngIf="event">
       <h1 class="event-name">{{ event.name }}</h1>
       <app-event-date [event]="event"></app-event-date>
     </div>
-    <app-header-nav *ngIf="showNav" [isAdmin]="false"></app-header-nav>
-    <h2 class="brand">Instagram</h2>
+    <app-header-nav *ngIf="showNav" [isAdmin]="isAdmin"></app-header-nav>
   </div>
 </header>

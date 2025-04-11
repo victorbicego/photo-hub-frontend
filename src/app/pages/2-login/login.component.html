@@ -1,39 +1,43 @@
-<app-header [showNav]="false" [event]="null"></app-header>
+<div class="wrapper">
 
-<ng-container *ngIf="!loadingHolderService.isLoading; else loading">
-  <div class="container">
-    <app-qr-code-login-card
-      (emitOpenQrCodeModal)="openQrCodeModal()"
-      class="content"
-    ></app-qr-code-login-card>
-    <app-credentials-login-card
-      (emitOpenResetPasswordModal)="openResetPasswordModal()"
-      (emitLoginWithCredentials)="loginWithCredentials($event)"
-      class="content"
-    ></app-credentials-login-card>
-  </div>
-</ng-container>
+  <app-header [showNav]="false" [event]="null"></app-header>
 
-<ng-template #loading>
-  <app-loading></app-loading>
-</ng-template>
+  <ng-container *ngIf="!loadingHolderService.isLoading; else loading">
+    <div class="container">
+      <app-qr-code-login-card
+        (emitOpenQrCodeModal)="openQrCodeModal()"
+        class="content"
+      ></app-qr-code-login-card>
+      <app-credentials-login-card
+        (emitOpenResetPasswordModal)="openResetPasswordModal()"
+        (emitLoginWithCredentials)="loginWithCredentials($event)"
+        class="content"
+      ></app-credentials-login-card>
+    </div>
+  </ng-container>
 
-<app-qr-code-modal
-  *ngIf="showQrCodeModal"
-  (emitClose)="closeQrCodeModal()"
-  (emitLoginWithQrCode)="loginWithQrCode($event)"
-></app-qr-code-modal>
+  <ng-template #loading>
+    <app-loading></app-loading>
+  </ng-template>
 
-<app-reset-password-modal
-  *ngIf="showResetPasswordModal"
-  (emitClose)="closeResetPasswordModal()"
-  (emitSendEmail)="sendEmail($event)"
-  (emitResetPassword)="resetPassword($event)"
-></app-reset-password-modal>
+  <app-qr-code-modal
+    *ngIf="showQrCodeModal"
+    (emitClose)="closeQrCodeModal()"
+    (emitLoginWithQrCode)="loginWithQrCode($event)"
+  ></app-qr-code-modal>
 
-<app-error-modal
-  *ngIf="showErrorModal"
-  [title]="errorTitle"
-  [text]="errorText"
-  (emitClose)="closeErrorModal()"
-></app-error-modal>
+  <app-reset-password-modal
+    *ngIf="showResetPasswordModal"
+    (emitClose)="closeResetPasswordModal()"
+    (emitSendEmail)="sendEmail($event)"
+    (emitResetPassword)="resetPassword($event)"
+  ></app-reset-password-modal>
+
+  <app-error-modal
+    *ngIf="showErrorModal"
+    [title]="errorTitle"
+    [text]="errorText"
+    (emitClose)="closeErrorModal()"
+  ></app-error-modal>
+
+</div>

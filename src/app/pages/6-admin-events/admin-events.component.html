@@ -1,58 +1,62 @@
-<app-admin-header></app-admin-header>
+<div class="wrapper">
 
-<ng-container *ngIf="!loadingHolderService.isLoading; else loading">
-  <div class="container">
-    <div class="event-list">
-      <app-add-event-card
-        (openCreateEventModal)="openCreateEventModal()"
-      ></app-add-event-card>
+  <app-admin-header></app-admin-header>
 
-      <app-event-card
-        *ngFor="let event of eventList"
-        [event]="event"
-        (openDeleteEventModal)="openDeleteEventModal($event)"
-        (openEditEventModal)="openEditEventModal($event)"
-        (openEventHostsModal)="openEventHostsModal($event)"
-      >
-      </app-event-card>
+  <ng-container *ngIf="!loadingHolderService.isLoading; else loading">
+    <div class="container">
+      <div class="event-list">
+        <app-add-event-card
+          (openCreateEventModal)="openCreateEventModal()"
+        ></app-add-event-card>
+
+        <app-event-card
+          *ngFor="let event of eventList"
+          [event]="event"
+          (openDeleteEventModal)="openDeleteEventModal($event)"
+          (openEditEventModal)="openEditEventModal($event)"
+          (openEventHostsModal)="openEventHostsModal($event)"
+        >
+        </app-event-card>
+      </div>
     </div>
-  </div>
-</ng-container>
+  </ng-container>
 
-<ng-template #loading>
-  <app-loading></app-loading>
-</ng-template>
+  <ng-template #loading>
+    <app-loading></app-loading>
+  </ng-template>
 
-<app-delete-event-modal
-  *ngIf="showDeleteEventModal"
-  [eventDto]="selectedEvent"
-  (emitClose)="closeDeleteEventModal()"
-  (emitDeleteEvent)="deleteEvent($event)"
-></app-delete-event-modal>
+  <app-delete-event-modal
+    *ngIf="showDeleteEventModal"
+    [eventDto]="selectedEvent"
+    (emitClose)="closeDeleteEventModal()"
+    (emitDeleteEvent)="deleteEvent($event)"
+  ></app-delete-event-modal>
 
-<app-edit-event-modal
-  *ngIf="showEditEventModal"
-  [eventDto]="selectedEvent"
-  (emitClose)="closeEditEventModal()"
-  (emitEditEvent)="editEvent($event)"
-></app-edit-event-modal>
+  <app-edit-event-modal
+    *ngIf="showEditEventModal"
+    [eventDto]="selectedEvent"
+    (emitClose)="closeEditEventModal()"
+    (emitEditEvent)="editEvent($event)"
+  ></app-edit-event-modal>
 
-<app-create-event-modal
-  *ngIf="showCreateEventModal"
-  (emitClose)="closeCreateEventModal()"
-  (emitCreateEvent)="createEvent($event)"
-></app-create-event-modal>
+  <app-create-event-modal
+    *ngIf="showCreateEventModal"
+    (emitClose)="closeCreateEventModal()"
+    (emitCreateEvent)="createEvent($event)"
+  ></app-create-event-modal>
 
-<app-event-hosts-modal
-  *ngIf="showEventHostsModal"
-  [event]="selectedEvent"
-  (emitClose)="closeEventHostsModal()"
-  (emitSaveCoHostsEvent)="saveCoHosts($event)"
-></app-event-hosts-modal>
+  <app-event-hosts-modal
+    *ngIf="showEventHostsModal"
+    [event]="selectedEvent"
+    (emitClose)="closeEventHostsModal()"
+    (emitSaveCoHostsEvent)="saveCoHosts($event)"
+  ></app-event-hosts-modal>
 
-<app-error-modal
-  (emitClose)="closeErrorModal()"
-  *ngIf="showErrorModal"
-  [text]="errorText"
-  [title]="errorTitle"
-></app-error-modal>
+  <app-error-modal
+    (emitClose)="closeErrorModal()"
+    *ngIf="showErrorModal"
+    [text]="errorText"
+    [title]="errorTitle"
+  ></app-error-modal>
+
+</div>

@@ -1,40 +1,38 @@
 .header {
   padding: 20px 120px;
-  position: relative; // ensure absolute children are relative to header
+  position: relative;
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    border-bottom: 0.1px solid var(--border-color);
+    padding-bottom: 20px;
+
+    .event-info {
+      display: flex;
+      align-items: start;
+      flex-direction: column;
+
+      .event-name {
+        font-size: 2.5rem;
+        margin-left: 6px;
+      }
+    }
+
+    .brand {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      font-weight: bold;
+      font-family: "Pacifico", cursive;
+      font-style: normal;
+    }
+  }
 }
 
-.top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative; // container for absolutely positioned brand
-  border-bottom: 0.1px solid var(--border-color);
-  padding-bottom: 20px;
-}
-
-.brand {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2rem;
-  font-weight: bold;
-  font-family: "Pacifico", cursive;
-  font-style: normal;
-}
-
-.event-info {
-  display: flex;
-  align-items: start;
-  flex-direction: column;
-}
-
-.event-name {
-  font-size: 2.5rem;
-  margin-left: 6px;
-}
-
-/* Optional: if you still want to hide the content of event-info when there's no event
-   but keep its space, use the invisible class */
 .invisible {
   visibility: hidden;
 }

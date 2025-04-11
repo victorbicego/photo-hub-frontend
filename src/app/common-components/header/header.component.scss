@@ -1,33 +1,25 @@
 .header {
-  padding: 20px 120px 0 120px;
+  padding: 10px 120px;
+  border-bottom: 0.1px solid var(--border-color);
 
-  .top {
+  .content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 0.1px solid var(--border-color);
-    padding-bottom: 20px;
 
     &--centered {
       justify-content: center;
     }
-  }
 
-  .brand {
-    font-size: 2rem;
-    font-weight: bold;
-    font-family: "Pacifico", cursive;
-    font-style: normal;
-  }
+    .event-info {
+      display: flex;
+      align-items: end;
 
-  .event-info {
-    display: flex;
-    align-items: start;
-    flex-direction: column;
-  }
-
-  .event-name {
-    font-size: 2.5rem;
-    margin-left: 6px;
+      .event-name {
+        font-size: 2rem;
+        margin-right: 10px;
+        margin-bottom: -2px;
+      }
+    }
   }
 }

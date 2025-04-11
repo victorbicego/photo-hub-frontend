@@ -1,40 +1,44 @@
-<app-admin-header></app-admin-header>
+<div class="wrapper">
 
-<ng-container *ngIf="!loadingHolderService.isLoading; else loading">
-  <div class="container">
-    <app-account-info-card
-      (openDeleteAccountModal)="openDeleteAccountModal()"
-      (openEditNameModal)="openUploadUserModal()"
-      (openUpdatePasswordModal)="openUpdatePasswordModal()"
-      [hostDto]="hostDto"
-    ></app-account-info-card>
-  </div>
-</ng-container>
+  <app-admin-header></app-admin-header>
 
-<ng-template #loading>
-  <app-loading></app-loading>
-</ng-template>
+  <ng-container *ngIf="!loadingHolderService.isLoading; else loading">
+    <div class="container">
+      <app-account-info-card
+        (openDeleteAccountModal)="openDeleteAccountModal()"
+        (openEditNameModal)="openUploadUserModal()"
+        (openUpdatePasswordModal)="openUpdatePasswordModal()"
+        [hostDto]="hostDto"
+      ></app-account-info-card>
+    </div>
+  </ng-container>
 
-<app-update-user-modal
-  *ngIf="showUpdateUserModal"
-  (emitClose)="closeUpdateUserModal()"
-  (emitUpdateUser)="updateHostInfo($event)"
-  [hostDto]="hostDto"
-></app-update-user-modal>
+  <ng-template #loading>
+    <app-loading></app-loading>
+  </ng-template>
 
-<app-update-password-modal
-  *ngIf="showUpdatePasswordModal"
-  (emitClose)="closeUpdatePasswordModal()"
-  (emitUpdate)="updateHostPassword($event)"
-  [hostDto]="hostDto"
-></app-update-password-modal>
+  <app-update-user-modal
+    *ngIf="showUpdateUserModal"
+    (emitClose)="closeUpdateUserModal()"
+    (emitUpdateUser)="updateHostInfo($event)"
+    [hostDto]="hostDto"
+  ></app-update-user-modal>
 
-<app-confirmation-modal
-  *ngIf="showDeleteAccountModal"
-  (emitClose)="closeDeleteAccountModal()"
-  (emitConfirm)="deleteHost()"
-  [title]="'Excluir conta'"
-  [text]="
+  <app-update-password-modal
+    *ngIf="showUpdatePasswordModal"
+    (emitClose)="closeUpdatePasswordModal()"
+    (emitUpdate)="updateHostPassword($event)"
+    [hostDto]="hostDto"
+  ></app-update-password-modal>
+
+  <app-confirmation-modal
+    *ngIf="showDeleteAccountModal"
+    (emitClose)="closeDeleteAccountModal()"
+    (emitConfirm)="deleteHost()"
+    [title]="'Excluir conta'"
+    [text]="
     'Todos os seus dados serão permanentemente removidos e não poderão ser recuperados. Deseja realmente prosseguir?'
   "
-></app-confirmation-modal>
+  ></app-confirmation-modal>
+
+</div>
