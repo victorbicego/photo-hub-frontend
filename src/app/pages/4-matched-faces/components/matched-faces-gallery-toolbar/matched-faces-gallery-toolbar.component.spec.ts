@@ -8,9 +8,8 @@ describe('MatchedFacesGalleryToolbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatchedFacesGalleryToolbarComponent]
-    })
-    .compileComponents();
+      imports: [MatchedFacesGalleryToolbarComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MatchedFacesGalleryToolbarComponent);
     component = fixture.componentInstance;

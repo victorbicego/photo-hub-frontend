@@ -4,21 +4,25 @@
       <div class="title">
         <h2>Enviar Foto</h2>
       </div>
-      <button class="btn-primary" (click)="onClose()">
+      <button class="btn-primary" (click)="onClose()" title="Fechar">
         <span class="material-icons">close</span>
       </button>
     </div>
 
-    <div class="body">
-      <p>Selecione a foto que deseja enviar para o evento.</p>
+    <div class="body" *ngIf="selectedFiles.length === 0">
+      <p>Selecione as fotos que deseja enviar para o evento.</p>
     </div>
 
-    <div class="upload-input-group">
+    <div class="upload-input-group" *ngIf="!isUploading">
       <div class="file-container">
-        <ng-container *ngIf="selectedFile; else selectFile">
+        <ng-container *ngIf="selectedFiles.length > 0; else selectFile">
           <div class="file-info">
-            <div class="file-name">{{ selectedFile.name }}</div>
-            <button class="btn-primary" (click)="onRemoveFile()">
+            <p>{{ selectedFiles.length }} arquivos selecionados</p>
+            <button
+              class="btn-primary"
+              (click)="onClearFiles()"
+              title="Remover todos os arquivos"
+            >
               <span class="material-icons">delete</span>
             </button>
           </div>
@@ -26,12 +30,13 @@
         <ng-template #selectFile>
           <div class="no-file">
             <label class="btn-secondary" for="fileInput"
-              >Selecionar Arquivo</label
+              >Selecionar Arquivos</label
             >
             <input
               id="fileInput"
               type="file"
               (change)="onFileSelected($event)"
+              multiple
               hidden
             />
           </div>
@@ -39,16 +44,30 @@
       </div>
     </div>
 
+    <div class="body" *ngIf="isUploading">
+      <p>{{ uploadProgress }} / {{ selectedFiles.length }} arquivos enviados</p>
+      <progress
+        [value]="uploadProgress"
+        [max]="selectedFiles.length"
+      ></progress>
+    </div>
+
     <div class="actions">
       <button
         class="btn-secondary"
         (click)="onUpload()"
-        [disabled]="!selectedFile"
+        [disabled]="selectedFiles.length === 0 || isUploading"
+        title="Enviar arquivos"
       >
         <span class="material-icons">file_upload</span>
         <span class="btn-text">Enviar</span>
       </button>
-      <button class="btn-primary" (click)="onClose()">
+      <button
+        class="btn-primary"
+        (click)="onClose()"
+        [disabled]="isUploading"
+        title="Cancelar"
+      >
         <span>Cancelar</span>
       </button>
     </div>

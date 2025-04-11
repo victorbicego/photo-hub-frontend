@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import {HttpResponse} from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FileDownloadService {
-
-  public downloadFile(response: HttpResponse<Blob>, defaultFilename: string = 'download.zip'): void {
+  public downloadFile(
+    response: HttpResponse<Blob>,
+    defaultFilename: string = 'download.zip',
+  ): void {
     const contentDisposition = response.headers.get('content-disposition');
     let filename = defaultFilename;
     if (contentDisposition) {
@@ -15,7 +17,9 @@ export class FileDownloadService {
         filename = matches[1];
       }
     }
-    const blob = new Blob([response.body!], { type: 'application/octet-stream' });
+    const blob = new Blob([response.body!], {
+      type: 'application/octet-stream',
+    });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;

@@ -3,4 +3,10 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+
+  .btn-primary {
+    .btn-text {
+      margin-left: 6px;
+    }
+  }
 }

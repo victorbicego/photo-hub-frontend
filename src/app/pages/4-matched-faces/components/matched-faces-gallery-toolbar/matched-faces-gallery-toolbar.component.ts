@@ -1,9 +1,17 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ItemsPerRowHolderService } from '../../../../services/holders/items-per-row-holder/items-per-row-holder.service';
 import { MatchedFaceHolderService } from '../../../../services/holders/matched-face-holder/matched-face-holder.service';
-import {PhotoRecognitionDto} from '../../../../interfaces/photo-recognition-dto';
+import { PhotoRecognitionDto } from '../../../../interfaces/photo-recognition-dto';
+import { PhotoDto } from '../../../../interfaces/photo-dto';
 
 @Component({
   selector: 'app-matched-faces-gallery-toolbar',
@@ -11,8 +19,9 @@ import {PhotoRecognitionDto} from '../../../../interfaces/photo-recognition-dto'
   templateUrl: './matched-faces-gallery-toolbar.component.html',
   styleUrl: './matched-faces-gallery-toolbar.component.scss',
 })
-export class MatchedFacesGalleryToolbarComponent implements OnInit, OnDestroy{
+export class MatchedFacesGalleryToolbarComponent implements OnInit, OnDestroy {
   @Input() matchedPhotos: PhotoRecognitionDto[] = [];
+  @Input() selectedPhotos: PhotoDto[] = [];
   @Input() showBoundingBox: boolean = false;
 
   @Output() openUploadModal = new EventEmitter<void>();

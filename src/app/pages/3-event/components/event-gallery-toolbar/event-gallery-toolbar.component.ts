@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ItemsPerRowHolderService } from '../../../../services/holders/items-per-row-holder/items-per-row-holder.service';
-import {PhotoDto} from '../../../../interfaces/photo-dto';
-import {EventDto} from '../../../../interfaces/event-dto';
+import { PhotoDto } from '../../../../interfaces/photo-dto';
+import { EventDto } from '../../../../interfaces/event-dto';
 
 @Component({
   selector: 'app-event-gallery-toolbar',
@@ -14,6 +14,7 @@ import {EventDto} from '../../../../interfaces/event-dto';
 export class EventGalleryToolbarComponent {
   @Input() event: EventDto | null = null;
   @Input() photos: PhotoDto[] = [];
+  @Input() selectedPhotos: PhotoDto[] = [];
 
   @Output() openUploadModal = new EventEmitter<void>();
   @Output() openDownloadModal = new EventEmitter<void>();

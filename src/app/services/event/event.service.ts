@@ -19,7 +19,7 @@ export class EventService {
       `${environment.baseUrl}/event`,
       {
         withCredentials: true,
-      }
+      },
     );
   }
 
@@ -28,7 +28,7 @@ export class EventService {
       `${environment.baseUrl}/event/photos`,
       {
         withCredentials: true,
-      }
+      },
     );
   }
 
@@ -40,12 +40,12 @@ export class EventService {
       formData,
       {
         withCredentials: true,
-      }
+      },
     );
   }
 
   public getMatchedPhotos(
-    file: File
+    file: File,
   ): Observable<ApiResponse<PhotoRecognitionDto[]>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
@@ -54,12 +54,12 @@ export class EventService {
       formData,
       {
         withCredentials: true,
-      }
+      },
     );
   }
 
   public downloadSelectedPhotos(
-    downloadPhotoListDto: PhotoListDto
+    downloadPhotoListDto: PhotoListDto,
   ): Observable<HttpResponse<Blob>> {
     return this.http.post<Blob>(
       `${environment.baseUrl}/event/photos/download`,
@@ -68,7 +68,7 @@ export class EventService {
         withCredentials: true,
         observe: 'response',
         responseType: 'blob' as 'json',
-      }
+      },
     );
   }
 }

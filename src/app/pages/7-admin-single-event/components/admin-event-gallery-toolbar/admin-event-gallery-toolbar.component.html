@@ -19,22 +19,35 @@
     <button class="btn-primary" (click)="onUploadPhoto()">
       <span class="material-icons">upload</span>
     </button>
-    <button class="btn-primary" (click)="onDownload()">
+    <button
+      class="btn-primary badge-button"
+      [disabled]="photos.length <= 0"
+      (click)="onDownload()"
+    >
       <span class="material-icons">download</span>
+      <span *ngIf="selectedPhotos.length > 0" class="badge">
+        {{ selectedPhotos.length }}
+      </span>
     </button>
     <button
-      class="btn-primary"
+      class="btn-primary badge-button"
       [disabled]="selectedPhotos.length <= 0"
       (click)="onDelete()"
     >
       <span class="material-icons">delete</span>
+      <span *ngIf="selectedPhotos.length > 0" class="badge">
+        {{ selectedPhotos.length }}
+      </span>
     </button>
     <button
-      class="btn-primary"
+      class="btn-primary badge-button"
       [disabled]="selectedPhotos.length <= 0"
       (click)="onBlock()"
     >
       <span class="material-icons">block</span>
+      <span *ngIf="selectedPhotos.length > 0" class="badge">
+        {{ selectedPhotos.length }}
+      </span>
     </button>
   </div>
 </div>

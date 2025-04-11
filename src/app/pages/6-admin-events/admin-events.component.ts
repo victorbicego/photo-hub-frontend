@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdminHeaderComponent } from '../../common-components/admin-header/admin-header.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../common-components/loading/loading.component';
@@ -14,9 +14,9 @@ import { Router } from '@angular/router';
 import { HostEventService } from '../../services/host-event/host-event.service';
 import { EditEventModalComponent } from './components/edit-event-modal/edit-event-modal.component';
 import { UpdateEventDto } from '../../interfaces/update-event-dto';
-import {ConfirmationModalComponent} from '../../common-components/confirmation-modal/confirmation-modal.component';
-import {DeleteEventModalComponent} from './components/delete-event-modal/delete-event-modal.component';
-import {ErrorModalComponent} from '../../common-components/error-modal/error-modal.component';
+import { ConfirmationModalComponent } from '../../common-components/confirmation-modal/confirmation-modal.component';
+import { DeleteEventModalComponent } from './components/delete-event-modal/delete-event-modal.component';
+import { ErrorModalComponent } from '../../common-components/error-modal/error-modal.component';
 
 @Component({
   selector: 'app-admin-events',
@@ -30,12 +30,12 @@ import {ErrorModalComponent} from '../../common-components/error-modal/error-mod
     AddEventCardComponent,
     EditEventModalComponent,
     DeleteEventModalComponent,
-    ErrorModalComponent
+    ErrorModalComponent,
   ],
   templateUrl: './admin-events.component.html',
   styleUrl: './admin-events.component.scss',
 })
-export class AdminEventsComponent implements OnInit{
+export class AdminEventsComponent implements OnInit {
   public eventList: EventDto[] = [];
   public selectedEvent: EventDto | null = null;
 
@@ -156,7 +156,8 @@ export class AdminEventsComponent implements OnInit{
 
   public deleteEvent(eventDto: EventDto): void {
     this.loadingHolderService.isLoading = true;
-    this.hostEventService.deleteEvent(eventDto.id)
+    this.hostEventService
+      .deleteEvent(eventDto.id)
       .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
       .subscribe({
         next: () => {
@@ -168,5 +169,21 @@ export class AdminEventsComponent implements OnInit{
       });
   }
 
-  public saveCoHosts(): void {}
+  public saveCoHosts(eventDto: EventDto): void {
+    this.loadingHolderService.isLoading = true;
+    const coHostEmails = eventDto.coHosts.map((coHost) => coHost.username);
+    this.hostEventService
+      .addCoHosts(eventDto.id, {
+        coHostEmails: coHostEmails,
+      })
+      .pipe(finalize(() => (this.loadingHolderService.isLoading = false)))
+      .subscribe({
+        next: () => {
+          this.getHostEvents();
+        },
+        error: (error) => {
+          console.error('Error saving co-hosts', error);
+        },
+      });
+  }
 }

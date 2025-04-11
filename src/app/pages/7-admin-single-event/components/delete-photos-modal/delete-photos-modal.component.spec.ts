@@ -8,9 +8,8 @@ describe('DeletePhotosModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeletePhotosModalComponent]
-    })
-    .compileComponents();
+      imports: [DeletePhotosModalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DeletePhotosModalComponent);
     component = fixture.componentInstance;

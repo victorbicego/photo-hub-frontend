@@ -1,43 +1,60 @@
-/* Hero Section */
 .hero {
-  background: url('/background.png') center/cover no-repeat;
+  position: relative;
+  background: url("/background.png") center/cover no-repeat;
   color: var(--text-color);
-  padding: 60px 20px;
+  padding: 40px 120px;
   text-align: center;
 
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+
   .hero-content {
+    position: relative;
+    z-index: 2;
     max-width: 800px;
     margin: 0 auto;
-  }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-  }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
 
-  p {
-    font-size: 1.25rem;
-    margin-bottom: 30px;
-    line-height: 1.5;
-  }
+    p {
+      font-size: 1.25rem;
+      margin-bottom: 40px;
+      line-height: 1.5;
+      max-width: 650px;
+    }
 
-  .cta-button {
-    font-size: 1.1rem;
-    padding: 12px 24px;
+    .btn-primary {
+      font-size: 1rem;
+      padding: 20px 28px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
   }
 }
 
-/* Features Section */
 .features {
+  padding: 50px 120px 40px 120px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 40px 20px;
-  gap: 20px;
+  gap: 30px;
 
   .feature {
     flex: 1 1 250px;
-    background: var(--secondary-background-color);
+    max-width: 320px;
+    background: var(--text-color);
+    color: var(--background-color);
     border-radius: var(--standard-border-radius);
     padding: 20px;
     text-align: center;
@@ -49,34 +66,47 @@
     }
 
     h3 {
-      margin: 10px 0;
+      margin: 15px 0;
       font-size: 1.5rem;
-      color: var(--text-color);
+      color: var(--background-color);
     }
 
     p {
       font-size: 1rem;
       color: var(--secondary-text-color);
-      line-height: 1.4;
+      line-height: 1.6;
     }
   }
 }
 
-/* Call-to-Action Section */
 .cta {
-  background: var(--background-color);
   text-align: center;
-  padding: 40px 20px;
+  padding: 0 120px 40px 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 15px;
     color: var(--text-color);
   }
 
   p {
     font-size: 1.2rem;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
     color: var(--secondary-text-color);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .btn-secondary {
+    font-size: 1rem;
+    padding: 14px 28px;
+    font-weight: 600;
+    text-transform: uppercase;
   }
 }

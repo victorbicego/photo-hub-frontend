@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PhotoPreviewComponent } from '../../../../common-components/photo-preview/photo-preview.component';
 import { MatchedFacesGalleryToolbarComponent } from '../matched-faces-gallery-toolbar/matched-faces-gallery-toolbar.component';
 import { CommonModule } from '@angular/common';
@@ -7,7 +7,7 @@ import { ImageDimension } from '../../../../interfaces/image-dimension';
 import { ItemsPerRowHolderService } from '../../../../services/holders/items-per-row-holder/items-per-row-holder.service';
 import { PhotoRecognitionDto } from '../../../../interfaces/photo-recognition-dto';
 import { PhotoUrlPipe } from '../../../../services/pipes/photo-url-pipe/photo-url.pipe';
-import {MatchedFaceHolderService} from '../../../../services/holders/matched-face-holder/matched-face-holder.service';
+import { MatchedFaceHolderService } from '../../../../services/holders/matched-face-holder/matched-face-holder.service';
 
 @Component({
   selector: 'app-matched-faces-photo-gallery',
@@ -20,7 +20,7 @@ import {MatchedFaceHolderService} from '../../../../services/holders/matched-fac
   templateUrl: './matched-faces-photo-gallery.component.html',
   styleUrl: './matched-faces-photo-gallery.component.scss',
 })
-export class MatchedFacesPhotoGalleryComponent implements OnInit{
+export class MatchedFacesPhotoGalleryComponent implements OnInit {
   @Input() matchedPhotos: PhotoRecognitionDto[] = [];
   @Input() selectedPhotos: PhotoDto[] = [];
 
@@ -56,7 +56,10 @@ export class MatchedFacesPhotoGalleryComponent implements OnInit{
     return gapMap[this.itemsPerRowHolderService.photosPerRow] || '20px';
   }
 
-  constructor(public itemsPerRowHolderService: ItemsPerRowHolderService, public matchedFaceHolderService: MatchedFaceHolderService) {}
+  constructor(
+    public itemsPerRowHolderService: ItemsPerRowHolderService,
+    public matchedFaceHolderService: MatchedFaceHolderService
+  ) {}
 
   public ngOnInit(): void {
     if (window.innerWidth < 768) {
@@ -122,22 +125,12 @@ export class MatchedFacesPhotoGalleryComponent implements OnInit{
     this.showPhotoPreview = false;
   }
 
-  public onPhotoClick(photo: any, index: number): void {
-    if (this.clickTimeout) {
-      clearTimeout(this.clickTimeout);
-    }
-    this.clickTimeout = setTimeout(() => {
-      this.togglePhotoSelection(photo);
-      this.clickTimeout = null;
-    }, 175);
+  public onPhotoClick(index: number): void {
+    this.togglePreview(index);
   }
 
-  public onPhotoDblClick(index: number): void {
-    if (this.clickTimeout) {
-      clearTimeout(this.clickTimeout);
-      this.clickTimeout = null;
-    }
-    this.togglePreview(index);
+  public onPhotoSelection(photo: any): void {
+    this.togglePhotoSelection(photo);
   }
 
   public toggleBoundingBox(): void {

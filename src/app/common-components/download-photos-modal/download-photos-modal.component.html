@@ -8,6 +8,7 @@
         <span class="material-icons">close</span>
       </button>
     </div>
+
     <div *ngIf="selectedPhotos.length == 0" class="body">
       <p>Deseja fazer o download de todas as fotos disponíveis?</p>
     </div>
@@ -17,6 +18,7 @@
         <span>{{ selectedPhotos.length }}</span> fotos selecionadas?
       </p>
     </div>
+
     <div class="actions">
       <button class="btn-secondary" (click)="onDownload()">
         <span class="bnt-text">Confirmar</span>

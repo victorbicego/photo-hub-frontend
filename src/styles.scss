@@ -52,7 +52,7 @@ h6 {
      ========================================================================== */
 @mixin input-field {
   width: 100%;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid var(--secondary-text-color);
   border-radius: var(--standard-border-radius);
   font-size: 1rem;
@@ -103,7 +103,6 @@ body {
   }
 
   .btn-text {
-    margin-left: 6px;
   }
 
   &:disabled {

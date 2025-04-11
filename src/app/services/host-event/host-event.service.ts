@@ -8,6 +8,8 @@ import { CreateEventDto } from '../../interfaces/create-event-dto';
 import { PhotoDto } from '../../interfaces/photo-dto';
 import { PhotoListDto } from '../../interfaces/photo-list-dto';
 import { UpdateEventDto } from '../../interfaces/update-event-dto';
+import { CoHostsListDto } from '../../interfaces/co-host-list-dto';
+import { HostDto } from '../../interfaces/host-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +40,16 @@ export class HostEventService {
     );
   }
 
-  public createEvent(createEventDto: CreateEventDto): Observable<ApiResponse<EventDto>> {
+  public getEventById(id: number): Observable<ApiResponse<EventDto>> {
+    return this.http.get<ApiResponse<EventDto>>(
+      `${environment.baseUrl}/host/event/${id}`,
+      { withCredentials: true }
+    );
+  }
+
+  public createEvent(
+    createEventDto: CreateEventDto
+  ): Observable<ApiResponse<EventDto>> {
     return this.http.post<ApiResponse<EventDto>>(
       `${environment.baseUrl}/host/event`,
       createEventDto,
@@ -61,9 +72,7 @@ export class HostEventService {
     );
   }
 
-  public deleteEvent(
-    id: number
-  ): Observable<ApiResponse<EventDto>> {
+  public deleteEvent(id: number): Observable<ApiResponse<EventDto>> {
     return this.http.delete<ApiResponse<EventDto>>(
       `${environment.baseUrl}/host/event/${id}`,
       {
@@ -130,6 +139,30 @@ export class HostEventService {
       `${environment.baseUrl}/host/event/${id}/block`,
       photoListDto,
       {
+        withCredentials: true,
+      }
+    );
+  }
+
+  public addCoHosts(
+    id: number,
+    coHostListDto: CoHostsListDto
+  ): Observable<ApiResponse<EventDto>> {
+    return this.http.post<ApiResponse<EventDto>>(
+      `${environment.baseUrl}/host/event/${id}/cohosts`,
+      coHostListDto,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  public getCoHosts(username: string): Observable<ApiResponse<HostDto>> {
+    const params = new HttpParams().set('username', username);
+    return this.http.get<ApiResponse<HostDto>>(
+      `${environment.baseUrl}/host/event/cohosts`,
+      {
+        params,
         withCredentials: true,
       }
     );

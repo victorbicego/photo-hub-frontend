@@ -13,14 +13,14 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {}
 
   public authenticate(
-    loginRequestDto: LoginRequestDto
+    loginRequestDto: LoginRequestDto,
   ): Observable<ApiResponse<LoginResponseDto>> {
     return this.http.post<ApiResponse<LoginResponseDto>>(
       `${environment.baseUrl}/authentication/login`,
       loginRequestDto,
       {
         withCredentials: true,
-      }
+      },
     );
   }
 
@@ -30,7 +30,7 @@ export class AuthenticationService {
       {},
       {
         withCredentials: true,
-      }
+      },
     );
   }
 
@@ -38,7 +38,7 @@ export class AuthenticationService {
     return this.http.post<ApiResponse<void>>(
       `${environment.baseUrl}/authentication/event/${qrCode}`,
       {},
-      { withCredentials: true }
+      { withCredentials: true },
     );
   }
 }

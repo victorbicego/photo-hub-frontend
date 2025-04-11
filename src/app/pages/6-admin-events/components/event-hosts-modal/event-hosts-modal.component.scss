@@ -1,38 +1,55 @@
-.modal-primary {
-  .modal-content {
-    .modal-body {
-      .form-group {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
+.modal {
+  .content {
+    .body {
+      .cohosts-list {
+        margin-bottom: 10px;
 
-        .input-label {
-          text-align: left;
-          min-width: 50%;
+        .cohost-line {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 2px 0 2px 2px;
+
+          .cohost-name {
+            color: var(--text-color);
+            font-size: 1rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          .btn-primary {
+            color: var(--accent-color);
+          }
+        }
+      }
+
+      .add-cohost {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+
+        input.input-error {
+          border: 1px solid var(--attention-color);
         }
 
-        input[type="datetime-local"] {
-          max-width: 50%;
+        .btn-primary {
+          color: var(--accent-color);
+          .material-icons {
+            font-size: 1rem;
+            font-weight: 800;
+          }
         }
       }
     }
 
-    .modal-actions {
-      display: flex;
-      justify-content: space-around;
-      gap: 15px;
-
-      button {
-        flex: 1;
-      }
-
-      .btn-cancel {
+    .actions {
+      .btn-primary {
         border: 1px solid var(--accent-color);
-        background-color: transparent;
 
         &:hover {
-          background-color: var(--accent-hover);
+          background: var(--accent-hover);
         }
       }
     }

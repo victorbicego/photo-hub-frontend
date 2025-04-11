@@ -9,10 +9,15 @@
     <div
       class="photo-card"
       *ngFor="let photo of photos; let i = index; trackBy: trackByPhotoId"
-      (click)="onPhotoClick(photo, i)"
-      (dblclick)="onPhotoDblClick(i)"
+      (click)="onPhotoClick(i)"
       [class.selected]="isPhotoSelected(photo)"
     >
+      <input
+        type="checkbox"
+        class="photo-select-checkbox"
+        [checked]="isPhotoSelected(photo)"
+        (click)="onPhotoSelection(photo); $event.stopPropagation()"
+      />
       <div class="photo-container">
         <img
           [src]="photo.photoUrl | hostPhotoUrl"
@@ -25,6 +30,7 @@
 </ng-container>
 
 <app-admin-event-gallery-toolbar
+  [photos]="photos"
   [selectedPhotos]="selectedPhotos"
   (openDownloadModal)="onDownload()"
   (openUploadModal)="onUpload()"

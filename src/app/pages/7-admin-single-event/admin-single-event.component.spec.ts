@@ -8,9 +8,8 @@ describe('AdminSingleEventComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminSingleEventComponent]
-    })
-    .compileComponents();
+      imports: [AdminSingleEventComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AdminSingleEventComponent);
     component = fixture.componentInstance;

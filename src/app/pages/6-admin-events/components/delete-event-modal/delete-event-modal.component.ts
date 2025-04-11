@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {EventDto} from '../../../../interfaces/event-dto';
-import {UpdateEventDto} from '../../../../interfaces/update-event-dto';
+import { EventDto } from '../../../../interfaces/event-dto';
 
 @Component({
   selector: 'app-delete-event-modal',

@@ -18,8 +18,8 @@
 
 <app-upload-photo-modal
   *ngIf="showUploadModal"
+  [eventDto]="event"
   (emitClose)="closeUploadModal()"
-  (emitUploadPhoto)="onMatch($event)"
 ></app-upload-photo-modal>
 
 <app-download-photos-modal

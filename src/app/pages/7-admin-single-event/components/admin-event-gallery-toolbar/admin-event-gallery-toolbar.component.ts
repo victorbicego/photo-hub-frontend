@@ -2,14 +2,16 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ItemsPerRowHolderService } from '../../../../services/holders/items-per-row-holder/items-per-row-holder.service';
 import { FormsModule } from '@angular/forms';
 import { PhotoDto } from '../../../../interfaces/photo-dto';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-admin-event-gallery-toolbar',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './admin-event-gallery-toolbar.component.html',
   styleUrl: './admin-event-gallery-toolbar.component.scss',
 })
 export class AdminEventGalleryToolbarComponent {
+  @Input() photos: PhotoDto[] = [];
   @Input() selectedPhotos: PhotoDto[] = [];
 
   @Output() openUploadModal = new EventEmitter<void>();

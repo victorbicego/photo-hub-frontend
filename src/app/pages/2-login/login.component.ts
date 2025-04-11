@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../common-components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../common-components/loading/loading.component';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { LoginRequestDto } from '../../interfaces/login-request-dto';
 import { ResetPasswordRequestDto } from '../../interfaces/reset-password-request-dto';
@@ -15,6 +15,7 @@ import { QrCodeModalComponent } from './components/qr-code-modal/qr-code-modal.c
 import { ResetPasswordModalComponent } from './components/reset-password-modal/reset-password-modal.component';
 import { QrCodeLoginCardComponent } from './components/qr-code-login-card/qr-code-login-card.component';
 import { CredentialsLoginCardComponent } from './components/credentials-login-card/credentials-login-card.component';
+import { ErrorModalComponent } from '../../common-components/error-modal/error-modal.component';
 
 @Component({
   selector: 'app-login',
@@ -26,16 +27,21 @@ import { CredentialsLoginCardComponent } from './components/credentials-login-ca
     ResetPasswordModalComponent,
     QrCodeLoginCardComponent,
     CredentialsLoginCardComponent,
+    ErrorModalComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   public showQrCodeModal: boolean = false;
   public showResetPasswordModal: boolean = false;
+  public showErrorModal: boolean = false;
+
+  public errorTitle: string | null = null;
+  public errorText: string | null = null;
 
   constructor(
-    private activatedRoute:ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private eventService: EventService,
     private hostService: HostService,
@@ -47,7 +53,7 @@ export class LoginComponent implements OnInit{
   public ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
       if (params['qrCode']) {
-        this.loginWithQrCode((params['qrCode']));
+        this.loginWithQrCode(params['qrCode']);
       }
     });
 
@@ -105,6 +111,12 @@ export class LoginComponent implements OnInit{
     this.showResetPasswordModal = false;
   }
 
+  public closeErrorModal(): void {
+    this.showErrorModal = false;
+    this.errorTitle = null;
+    this.errorText = null;
+  }
+
   public loginWithCredentials(loginRequestDto: LoginRequestDto): void {
     this.loadingHolderService.isLoading = true;
     this.authenticationService
@@ -115,7 +127,16 @@ export class LoginComponent implements OnInit{
           this.router.navigate(['/admin/events']);
         },
         error: (error) => {
-          this.loadingHolderService.isLoading = false;
+          this.showErrorModal = true;
+
+          if (error.status === 401) {
+            this.errorTitle = 'Falha no login';
+            this.errorText = 'Usuário ou senha inválidos';
+          } else {
+            this.errorTitle = 'Erro de autenticação';
+            this.errorText =
+              'Houve um erro ao tentar autenticar. Tente novamente.';
+          }
           console.error('Login with credentials failed', error);
         },
       });
@@ -132,6 +153,16 @@ export class LoginComponent implements OnInit{
         },
         error: (error) => {
           this.router.navigate(['/login']);
+          this.showErrorModal = true;
+
+          if (error.status === 404) {
+            this.errorTitle = 'Falha no login';
+            this.errorText = 'Nenhum evento ativo encontrado';
+          } else {
+            this.errorTitle = 'Erro de autenticação';
+            this.errorText =
+              'Houve um erro ao tentar autenticar. Tente novamente.';
+          }
           console.error('QR code authentication failed', error);
         },
       });
@@ -147,6 +178,11 @@ export class LoginComponent implements OnInit{
       .subscribe({
         next: () => {},
         error: (error) => {
+          this.showErrorModal = true;
+
+          this.errorTitle = 'Erro ao enviar email';
+          this.errorText =
+            'Houve um erro ao tentar enviar o email. Tente novamente.';
           console.error('Error sending email:', error);
         },
       });
@@ -160,6 +196,11 @@ export class LoginComponent implements OnInit{
       .subscribe({
         next: () => {},
         error: (error) => {
+          this.showErrorModal = true;
+
+          this.errorTitle = 'Erro ao redefinir senha';
+          this.errorText =
+            'Houve um erro ao tentar redefinir a senha. Tente novamente.';
           console.error('Error resting password', error);
         },
       });

@@ -8,9 +8,8 @@ describe('BlockUsersModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BlockUsersModalComponent]
-    })
-    .compileComponents();
+      imports: [BlockUsersModalComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BlockUsersModalComponent);
     component = fixture.componentInstance;

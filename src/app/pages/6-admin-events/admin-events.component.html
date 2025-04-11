@@ -47,8 +47,12 @@
   *ngIf="showEventHostsModal"
   [event]="selectedEvent"
   (emitClose)="closeEventHostsModal()"
-  (emitSaveCoHostsEvent)="saveCoHosts()"
+  (emitSaveCoHostsEvent)="saveCoHosts($event)"
 ></app-event-hosts-modal>
 
-<app-error-modal (emitClose)="closeErrorModal()" *ngIf="showErrorModal"
-                 [text]="errorText" [title]="errorTitle"></app-error-modal>
+<app-error-modal
+  (emitClose)="closeErrorModal()"
+  *ngIf="showErrorModal"
+  [text]="errorText"
+  [title]="errorTitle"
+></app-error-modal>

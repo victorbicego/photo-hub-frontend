@@ -19,8 +19,8 @@
 
 <app-upload-photo-modal
   *ngIf="showUploadModal"
+  [eventDto]="event"
   (emitClose)="closeUploadModal()"
-  (emitUploadPhoto)="uploadPhoto($event)"
 ></app-upload-photo-modal>
 
 <app-download-photos-modal
@@ -29,3 +29,10 @@
   (emitClose)="closeDownloadModal()"
   (emitDownloadPhotos)="downloadPhotos($event)"
 ></app-download-photos-modal>
+
+<app-error-modal
+  *ngIf="showErrorModal"
+  [title]="errorTitle"
+  [text]="errorText"
+  (emitClose)="closeErrorModal()"
+></app-error-modal>

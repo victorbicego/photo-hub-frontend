@@ -28,7 +28,9 @@
 <app-confirmation-modal
   *ngIf="showLogoutModal"
   [title]="'Deixar o evento'"
-  [text]="'Você realmente deseja sair? Sua sessão será encerrada e será necessário fazer login novamente.'"
+  [text]="
+    'Você realmente deseja sair? Sua sessão será encerrada e será necessário fazer login novamente.'
+  "
   (emitClose)="closeLogoutModal()"
   (emitConfirm)="confirmLogout()"
 ></app-confirmation-modal>

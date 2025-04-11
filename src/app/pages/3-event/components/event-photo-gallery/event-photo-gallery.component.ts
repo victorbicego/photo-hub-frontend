@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PhotoDto } from '../../../../interfaces/photo-dto';
 import { ImageDimension } from '../../../../interfaces/image-dimension';
 import { ItemsPerRowHolderService } from '../../../../services/holders/items-per-row-holder/items-per-row-holder.service';
@@ -6,7 +6,7 @@ import { EventGalleryToolbarComponent } from '../event-gallery-toolbar/event-gal
 import { PhotoPreviewComponent } from '../../../../common-components/photo-preview/photo-preview.component';
 import { CommonModule } from '@angular/common';
 import { PhotoUrlPipe } from '../../../../services/pipes/photo-url-pipe/photo-url.pipe';
-import {EventDto} from '../../../../interfaces/event-dto';
+import { EventDto } from '../../../../interfaces/event-dto';
 
 @Component({
   selector: 'app-event-photo-gallery',
@@ -19,7 +19,7 @@ import {EventDto} from '../../../../interfaces/event-dto';
   templateUrl: './event-photo-gallery.component.html',
   styleUrl: './event-photo-gallery.component.scss',
 })
-export class EventPhotoGalleryComponent implements OnInit{
+export class EventPhotoGalleryComponent implements OnInit {
   @Input() event: EventDto | null = null;
   @Input() photos: PhotoDto[] = [];
   @Input() selectedPhotos: PhotoDto[] = [];
@@ -121,22 +121,12 @@ export class EventPhotoGalleryComponent implements OnInit{
     this.showPhotoPreview = false;
   }
 
-  public onPhotoClick(photo: any, index: number): void {
-    if (this.clickTimeout) {
-      clearTimeout(this.clickTimeout);
-    }
-    this.clickTimeout = setTimeout(() => {
-      this.togglePhotoSelection(photo);
-      this.clickTimeout = null;
-    }, 175);
+  public onPhotoClick(index: number): void {
+    this.togglePreview(index);
   }
 
-  public onPhotoDblClick(index: number): void {
-    if (this.clickTimeout) {
-      clearTimeout(this.clickTimeout);
-      this.clickTimeout = null;
-    }
-    this.togglePreview(index);
+  public onPhotoSelection(photo: any): void {
+    this.togglePhotoSelection(photo);
   }
 
   public trackByPhotoId(index: number, photo: PhotoDto): number {

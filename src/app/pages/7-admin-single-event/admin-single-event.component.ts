@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdminHeaderComponent } from '../../common-components/admin-header/admin-header.component';
 import { PhotoDto } from '../../interfaces/photo-dto';
 import { finalize } from 'rxjs';
@@ -12,8 +12,9 @@ import { DownloadPhotosModalComponent } from '../../common-components/download-p
 import { CommonModule } from '@angular/common';
 import { DeletePhotosModalComponent } from './components/delete-photos-modal/delete-photos-modal.component';
 import { AdminEventPhotoGalleryComponent } from './components/admin-event-photo-gallery/admin-event-photo-gallery.component';
-import {BlockUsersModalComponent} from './components/block-users-modal/block-users-modal.component';
-import {FileDownloadService} from '../../services/file-download/file-download.service';
+import { BlockUsersModalComponent } from './components/block-users-modal/block-users-modal.component';
+import { FileDownloadService } from '../../services/file-download/file-download.service';
+import { EventDto } from '../../interfaces/event-dto';
 
 @Component({
   selector: 'app-admin-single-event',
@@ -25,24 +26,25 @@ import {FileDownloadService} from '../../services/file-download/file-download.se
     DownloadPhotosModalComponent,
     DeletePhotosModalComponent,
     AdminEventPhotoGalleryComponent,
-    BlockUsersModalComponent
+    BlockUsersModalComponent,
   ],
   templateUrl: './admin-single-event.component.html',
   styleUrl: './admin-single-event.component.scss',
 })
-export class AdminSingleEventComponent implements OnInit{
+export class AdminSingleEventComponent implements OnInit {
   public photos: PhotoDto[] = [];
   public selectedPhotos: PhotoDto[] = [];
+  public eventoDto: EventDto | null = null;
   private eventId: number | null = null;
 
   public showUploadModal: boolean = false;
   public showDeleteModal: boolean = false;
   public showDownloadModal: boolean = false;
-  public showBlockModal:boolean = false;
+  public showBlockModal: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private fileDownloadService:FileDownloadService,
+    private fileDownloadService: FileDownloadService,
     private hostEventService: HostEventService,
     public loadingHolderService: LoadingHolderService,
     private router: Router
@@ -53,10 +55,24 @@ export class AdminSingleEventComponent implements OnInit{
     if (activeId) {
       this.eventId = parseInt(activeId);
     }
+    this.getActiveEvent();
     this.getPhotosFromHost();
   }
 
-  private getPhotosFromHost(): void {
+  private getActiveEvent(): void {
+    if (this.eventId) {
+      this.hostEventService.getEventById(this.eventId).subscribe({
+        next: (response) => {
+          this.eventoDto = response.data;
+        },
+        error: (error) => {
+          console.error('Error fetching event', error);
+        },
+      });
+    }
+  }
+
+  public getPhotosFromHost(): void {
     if (this.eventId) {
       this.loadingHolderService.isLoading = true;
       this.hostEventService
@@ -103,7 +119,7 @@ export class AdminSingleEventComponent implements OnInit{
     this.showDeleteModal = false;
   }
 
-  public openBlockModal():void{
+  public openBlockModal(): void {
     this.showBlockModal = true;
   }
 
@@ -115,26 +131,8 @@ export class AdminSingleEventComponent implements OnInit{
     this.selectedPhotos = selectedPhotos;
   }
 
-  public uploadPhoto(file: File): void {
-    if (this.eventId) {
-      this.loadingHolderService.isLoading = true;
-      this.hostEventService
-        .uploadPhoto(this.eventId, file)
-        .pipe(
-          finalize(() => {
-            this.loadingHolderService.isLoading = false;
-            this.selectedPhotos = [];
-          })
-        )
-        .subscribe({
-          next: () => {
-            this.getPhotosFromHost();
-          },
-          error: (error) => {
-            console.error('Error uploading photo', error);
-          },
-        });
-    }
+  public goBack(): void {
+    this.router.navigate(['/admin/events']);
   }
 
   public downloadPhotos(downloadPhotosList: PhotoDto[]): void {

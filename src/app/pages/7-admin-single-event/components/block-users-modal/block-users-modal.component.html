@@ -8,6 +8,7 @@
         <span class="material-icons">close</span>
       </button>
     </div>
+
     <div *ngIf="selectedPhotos.length == 0" class="body">
       <p>Nenhuma foto foi selecionada.</p>
     </div>
@@ -18,6 +19,7 @@
         impedindo novos envios?
       </p>
     </div>
+
     <div *ngIf="selectedPhotos.length > 0" class="actions">
       <button class="btn-secondary" (click)="onBlock()">
         <span class="bnt-text">Confirmar</span>

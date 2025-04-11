@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdminHeaderComponent } from '../../common-components/admin-header/admin-header.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -27,7 +27,7 @@ import { AccountInfoCardComponent } from './components/account-info-card/account
   templateUrl: './admin-account.component.html',
   styleUrl: './admin-account.component.scss',
 })
-export class AdminAccountComponent implements OnInit{
+export class AdminAccountComponent implements OnInit {
   public hostDto: HostDto | null = null;
   public showUpdateUserModal: boolean = false;
   public showUpdatePasswordModal: boolean = false;
@@ -36,7 +36,7 @@ export class AdminAccountComponent implements OnInit{
   constructor(
     private hostService: HostService,
     public loadingHolderService: LoadingHolderService,
-    private router: Router
+    private router: Router,
   ) {}
 
   public ngOnInit(): void {

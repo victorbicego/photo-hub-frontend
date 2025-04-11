@@ -8,6 +8,7 @@
         <span class="material-icons">close</span>
       </button>
     </div>
+
     <div *ngIf="selectedPhotos.length == 0" class="body">
       <p>Nenhuma foto foi selecionada.</p>
     </div>
@@ -17,6 +18,7 @@
         <span>{{ selectedPhotos.length }}</span> fotos selecionadas?
       </p>
     </div>
+
     <div *ngIf="selectedPhotos.length > 0" class="actions">
       <button class="btn-secondary" (click)="onDelete()">
         <span class="bnt-text">Confirmar</span>

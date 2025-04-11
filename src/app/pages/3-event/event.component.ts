@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../common-components/header/header.component';
 import { DownloadPhotosModalComponent } from '../../common-components/download-photos-modal/download-photos-modal.component';
 import { PhotoDto } from '../../interfaces/photo-dto';
@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../common-components/loading/loading.component';
 import { UploadPhotoModalComponent } from '../../common-components/upload-photo-modal/upload-photo-modal.component';
 import { EventPhotoGalleryComponent } from './components/event-photo-gallery/event-photo-gallery.component';
-import {FileDownloadService} from '../../services/file-download/file-download.service';
+import { FileDownloadService } from '../../services/file-download/file-download.service';
+import { ErrorModalComponent } from '../../common-components/error-modal/error-modal.component';
 
 @Component({
   selector: 'app-event',
@@ -22,21 +23,26 @@ import {FileDownloadService} from '../../services/file-download/file-download.se
     LoadingComponent,
     UploadPhotoModalComponent,
     EventPhotoGalleryComponent,
+    ErrorModalComponent,
   ],
   templateUrl: './event.component.html',
   styleUrl: './event.component.scss',
 })
-export class EventComponent implements OnInit{
+export class EventComponent implements OnInit {
   public photos: PhotoDto[] = [];
   public selectedPhotos: PhotoDto[] = [];
   public event: EventDto | null = null;
 
   public showUploadModal: boolean = false;
   public showDownloadModal: boolean = false;
+  public showErrorModal: boolean = false;
+
+  public errorTitle: string | null = null;
+  public errorText: string | null = null;
 
   constructor(
     private eventService: EventService,
-    private fileDownloadService:FileDownloadService,
+    private fileDownloadService: FileDownloadService,
     public loadingHolderService: LoadingHolderService,
     private router: Router
   ) {}
@@ -70,6 +76,11 @@ export class EventComponent implements OnInit{
           this.photos = response.data;
         },
         error: (err) => {
+          this.showErrorModal = true;
+
+          this.errorTitle = 'Erro ao buscar fotos';
+          this.errorText =
+            'Ocorreu um erro ao buscar as fotos. Por favor, tente novamente mais tarde.';
           console.error('Error fetching photos', err);
         },
       });
@@ -89,6 +100,12 @@ export class EventComponent implements OnInit{
 
   public closeDownloadModal(): void {
     this.showDownloadModal = false;
+  }
+
+  public closeErrorModal(): void {
+    this.showErrorModal = false;
+    this.errorTitle = null;
+    this.errorText = null;
   }
 
   public updateSelectedPhotosList(selectedPhotos: PhotoDto[]): void {

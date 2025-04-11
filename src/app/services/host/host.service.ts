@@ -20,22 +20,22 @@ export class HostService {
   }
 
   public updateHostInfo(
-    updateHostDto: UpdateHostDto
+    updateHostDto: UpdateHostDto,
   ): Observable<ApiResponse<HostDto>> {
     return this.http.put<ApiResponse<HostDto>>(
       `${environment.baseUrl}/host`,
       updateHostDto,
-      { withCredentials: true }
+      { withCredentials: true },
     );
   }
 
   public updateHostPassword(
-    passwordDto: PasswordDto
+    passwordDto: PasswordDto,
   ): Observable<ApiResponse<HostDto>> {
     return this.http.put<ApiResponse<HostDto>>(
       `${environment.baseUrl}/host/password`,
       passwordDto,
-      { withCredentials: true }
+      { withCredentials: true },
     );
   }
 

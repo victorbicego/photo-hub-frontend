@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../common-components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { PhotoRecognitionDto } from '../../interfaces/photo-recognition-dto';
@@ -14,7 +14,7 @@ import { UploadPhotoModalComponent } from '../../common-components/upload-photo-
 import { DownloadPhotosModalComponent } from '../../common-components/download-photos-modal/download-photos-modal.component';
 import { MatchedFacesPhotoGalleryComponent } from './components/matched-faces-photo-gallery/matched-faces-photo-gallery.component';
 import { LoadingComponent } from '../../common-components/loading/loading.component';
-import {FileDownloadService} from '../../services/file-download/file-download.service';
+import { FileDownloadService } from '../../services/file-download/file-download.service';
 
 @Component({
   selector: 'app-matched-faces',
@@ -29,7 +29,7 @@ import {FileDownloadService} from '../../services/file-download/file-download.se
   templateUrl: './matched-faces.component.html',
   styleUrl: './matched-faces.component.scss',
 })
-export class MatchedFacesComponent implements OnInit{
+export class MatchedFacesComponent implements OnInit {
   public matchedPhotos: PhotoRecognitionDto[] = [];
   public selectedPhotos: PhotoDto[] = [];
   public event: EventDto | null = null;
@@ -39,10 +39,10 @@ export class MatchedFacesComponent implements OnInit{
 
   constructor(
     private eventService: EventService,
-    private fileDownloadService:FileDownloadService,
+    private fileDownloadService: FileDownloadService,
     public loadingHolderService: LoadingHolderService,
     private matchedFaceHolderService: MatchedFaceHolderService,
-    private router: Router
+    private router: Router,
   ) {}
 
   public ngOnInit(): void {
@@ -97,7 +97,7 @@ export class MatchedFacesComponent implements OnInit{
         finalize(() => {
           this.loadingHolderService.isLoading = false;
           this.selectedPhotos = [];
-        })
+        }),
       )
       .subscribe({
         next: (response) => {
@@ -120,7 +120,7 @@ export class MatchedFacesComponent implements OnInit{
         finalize(() => {
           this.loadingHolderService.isLoading = false;
           this.selectedPhotos = [];
-        })
+        }),
       )
       .subscribe({
         next: (response: HttpResponse<Blob>) => {

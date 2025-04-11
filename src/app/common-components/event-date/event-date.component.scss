@@ -27,3 +27,8 @@
     color: var(--secondary-text-color);
   }
 }
+
+/* CSS class to hide content but keep element's space */
+.invisible {
+  visibility: hidden;
+}

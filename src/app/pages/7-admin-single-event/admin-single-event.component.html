@@ -1,7 +1,11 @@
-<app-admin-header></app-admin-header>
+<app-admin-header [event]="eventoDto"></app-admin-header>
 
 <ng-container *ngIf="!loadingHolderService.isLoading; else loading">
   <div class="container">
+    <button class="btn-primary" (click)="goBack()">
+      <span class="material-icons">arrow_back</span
+      ><span class="btn-text">Voltar</span>
+    </button>
     <app-admin-event-photo-gallery
       [photos]="photos"
       [selectedPhotos]="selectedPhotos"
@@ -34,8 +38,9 @@
 
 <app-upload-photo-modal
   *ngIf="showUploadModal"
+  [eventDto]="eventoDto"
   (emitClose)="closeUploadModal()"
-  (emitUploadPhoto)="uploadPhoto($event)"
+  (emitGetPhotos)="getPhotosFromHost()"
 ></app-upload-photo-modal>
 
 <app-download-photos-modal

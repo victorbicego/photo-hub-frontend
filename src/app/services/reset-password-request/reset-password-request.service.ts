@@ -10,26 +10,25 @@ import { ResetPasswordRequestDto } from '../../interfaces/reset-password-request
   providedIn: 'root',
 })
 export class ResetPasswordRequestService {
-
   constructor(private http: HttpClient) {}
 
   public sendResetPasswordEmail(
-    emailDto: EmailDto
+    emailDto: EmailDto,
   ): Observable<ApiResponse<void>> {
     return this.http.post<ApiResponse<void>>(
       `${environment.baseUrl}/password-reset/request`,
       emailDto,
-      { withCredentials: true }
+      { withCredentials: true },
     );
   }
 
   public confirmNewPassword(
-    resetPasswordRequestDto: ResetPasswordRequestDto
+    resetPasswordRequestDto: ResetPasswordRequestDto,
   ): Observable<ApiResponse<void>> {
     return this.http.post<ApiResponse<void>>(
       `${environment.baseUrl}/password-reset/confirm`,
       resetPasswordRequestDto,
-      { withCredentials: true }
+      { withCredentials: true },
     );
   }
 }

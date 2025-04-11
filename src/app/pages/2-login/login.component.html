@@ -30,3 +30,10 @@
   (emitSendEmail)="sendEmail($event)"
   (emitResetPassword)="resetPassword($event)"
 ></app-reset-password-modal>
+
+<app-error-modal
+  *ngIf="showErrorModal"
+  [title]="errorTitle"
+  [text]="errorText"
+  (emitClose)="closeErrorModal()"
+></app-error-modal>

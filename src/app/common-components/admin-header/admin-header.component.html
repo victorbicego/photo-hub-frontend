@@ -1,6 +1,14 @@
 <header class="header">
   <div class="top">
-    <h2 class="brand">Instagram</h2>
+    <div class="event-info" [class.invisible]="!event">
+      <h1 class="event-name">
+        {{ event ? event.name : "Event Name Placeholder" }}
+      </h1>
+      <app-event-date [event]="event"></app-event-date>
+    </div>
+
     <app-header-nav [isAdmin]="true"></app-header-nav>
+
+    <h2 class="brand">Instagram</h2>
   </div>
 </header>

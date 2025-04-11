@@ -16,11 +16,22 @@
   </div>
 
   <div class="action-container">
-    <button class="btn-primary" [disabled]="isUploadEnabled(event.startDate)" (click)="onUploadPhoto()">
+    <button
+      class="btn-primary"
+      [disabled]="isUploadEnabled(event.startDate)"
+      (click)="onUploadPhoto()"
+    >
       <span class="material-icons">upload</span>
     </button>
-    <button class="btn-primary"  [disabled]="photos.length <= 0" (click)="onDownload()">
+    <button
+      class="btn-primary download-button"
+      [disabled]="photos.length <= 0"
+      (click)="onDownload()"
+    >
       <span class="material-icons">download</span>
+      <span *ngIf="selectedPhotos.length > 0" class="badge">
+        {{ selectedPhotos.length }}
+      </span>
     </button>
   </div>
 </div>

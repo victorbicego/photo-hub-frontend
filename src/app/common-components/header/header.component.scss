@@ -1,5 +1,5 @@
 .header {
-  padding: 20px 120px;
+  padding: 20px 120px 0 120px;
 
   .top {
     display: flex;
@@ -28,5 +28,6 @@
 
   .event-name {
     font-size: 2.5rem;
+    margin-left: 6px;
   }
 }

@@ -8,9 +8,8 @@ describe('AdminEventGalleryToolbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminEventGalleryToolbarComponent]
-    })
-    .compileComponents();
+      imports: [AdminEventGalleryToolbarComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AdminEventGalleryToolbarComponent);
     component = fixture.componentInstance;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../common-components/header/header.component';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +9,7 @@ import {Router} from '@angular/router';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  constructor(private router: Router) {}
 
-  constructor(    private router: Router) {
-  }
-
-  public onEnter():void{
-
-  }
+  public onEnter(): void {}
 }

@@ -11,8 +11,11 @@
   </div>
 
   <div class="actions">
-
-    <button class="btn-primary" (click)="copyEventLink(event)">
+    <button
+      class="btn-primary"
+      (click)="copyEventLink(event)"
+      title="Copiar link"
+    >
       <i class="material-icons">content_copy</i>
     </button>
 
@@ -24,16 +27,16 @@
       <i class="material-icons">groups</i>
     </button>
 
-    <button  [disabled]="isPastEvent(event.startDate)" class="btn-primary" (click)="onEditClick()">
+    <button class="btn-primary" (click)="onEditClick()">
       <i class="material-icons">edit</i>
     </button>
 
-    <button  [disabled]="isPastEvent(event.startDate)" class="btn-primary" (click)="onDeleteClick()">
+    <button class="btn-primary" (click)="onDeleteClick()">
       <i class="material-icons">delete</i>
     </button>
   </div>
 
   <button class="btn-primary btn-event-details" (click)="goToEvent(event)">
-    Gerenciar Fotos
+    <span class="btn-text"> Gerenciar Fotos</span>
   </button>
 </div>

@@ -18,7 +18,7 @@ export class HeaderNavComponent {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
   ) {}
 
   public navigateToPhotos(): void {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AdminEventGalleryToolbarComponent } from '../admin-event-gallery-toolbar/admin-event-gallery-toolbar.component';
 import { PhotoPreviewComponent } from '../../../../common-components/photo-preview/photo-preview.component';
 import { PhotoDto } from '../../../../interfaces/photo-dto';
@@ -18,7 +18,7 @@ import { HostPhotoUrlPipe } from '../../../../services/pipes/host-photo-url-pipe
   templateUrl: './admin-event-photo-gallery.component.html',
   styleUrl: './admin-event-photo-gallery.component.scss',
 })
-export class AdminEventPhotoGalleryComponent implements OnInit{
+export class AdminEventPhotoGalleryComponent implements OnInit {
   @Input() photos: PhotoDto[] = [];
   @Input() selectedPhotos: PhotoDto[] = [];
 
@@ -129,22 +129,12 @@ export class AdminEventPhotoGalleryComponent implements OnInit{
     this.showPhotoPreview = false;
   }
 
-  public onPhotoClick(photo: any, index: number): void {
-    if (this.clickTimeout) {
-      clearTimeout(this.clickTimeout);
-    }
-    this.clickTimeout = setTimeout(() => {
-      this.togglePhotoSelection(photo);
-      this.clickTimeout = null;
-    }, 175);
+  public onPhotoClick(index: number): void {
+    this.togglePreview(index);
   }
 
-  public onPhotoDblClick(index: number): void {
-    if (this.clickTimeout) {
-      clearTimeout(this.clickTimeout);
-      this.clickTimeout = null;
-    }
-    this.togglePreview(index);
+  public onPhotoSelection(photo: any): void {
+    this.togglePhotoSelection(photo);
   }
 
   public trackByPhotoId(index: number, photo: PhotoDto): number {

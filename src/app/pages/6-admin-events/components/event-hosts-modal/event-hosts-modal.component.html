@@ -9,13 +9,35 @@
       </button>
     </div>
 
-    <div class="body"></div>
+    <div class="body">
+      <div class="cohosts-list">
+        <div *ngFor="let cohost of event?.coHosts" class="cohost-line">
+          <span class="cohost-name">{{ cohost.username }}</span>
+          <button class="btn-primary" (click)="onDeleteCohost(cohost)">
+            <span class="material-icons">delete</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="add-cohost">
+        <input
+          type="email"
+          placeholder="Novo CoHost"
+          [(ngModel)]="newCoHost"
+          [ngClass]="{ 'input-error': isInputError }"
+          (input)="resetInputError()"
+        />
+        <button class="btn-primary" (click)="onAddCohostField()">
+          <span class="material-icons">add</span>
+        </button>
+      </div>
+    </div>
 
     <div class="actions">
       <button class="btn-secondary" (click)="onAddCoHosts()">
         <span class="btn-text">Salvar</span>
       </button>
-      <button class="btn-secondary btn-cancel" (click)="onClose()">
+      <button class="btn-primary" (click)="onClose()">
         <span class="btn-text">Cancelar</span>
       </button>
     </div>

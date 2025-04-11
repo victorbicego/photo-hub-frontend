@@ -1,15 +1,19 @@
-<ng-container *ngIf="event">
-  <div class="event-dates">
-    <time class="chip" [attr.datetime]="event.startDate">
-      <i class="material-icons">event</i>
-      {{ event.startDate | date : "dd/MM/yyyy" }}
-      <small>{{ event.startDate | date : "hh:mm a" }}</small>
-    </time>
-    <span class="separator">–</span>
-    <time class="chip" [attr.datetime]="event.endDate">
-      <i class="material-icons">event</i>
-      {{ event.endDate | date : "dd/MM/yyyy" }}
-      <small>{{ event.endDate | date : "hh:mm a" }}</small>
-    </time>
-  </div>
-</ng-container>
+<div class="event-dates">
+  <time class="chip" [attr.datetime]="event?.startDate || 'placeholder'">
+    <i class="material-icons">event</i>
+    {{
+      event?.startDate ? (event!.startDate | date : "dd/MM/yyyy") : "00/00/0000"
+    }}
+    <small>{{
+      event?.startDate ? (event!.startDate | date : "hh:mm a") : "00:00"
+    }}</small>
+  </time>
+  <span class="separator">–</span>
+  <time class="chip" [attr.datetime]="event?.endDate || 'placeholder'">
+    <i class="material-icons">event</i>
+    {{ event?.endDate ? (event!.endDate | date : "dd/MM/yyyy") : "00/00/0000" }}
+    <small>{{
+      event?.endDate ? (event!.endDate | date : "hh:mm a") : "00:00"
+    }}</small>
+  </time>
+</div>

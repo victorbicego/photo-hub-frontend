@@ -1,5 +1,42 @@
 .modal {
   .content {
+    .body {
+      progress {
+        appearance: none;
+        width: 80%;
+        height: 10px;
+        border-radius: var(--standard-border-radius);
+        background-color: var(--backgorund-color);
+        overflow: hidden;
+        border: none;
+
+        &::-webkit-progress-bar {
+          border-radius: var(--standard-border-radius);
+          background-color: var(--backgorund-color);
+        }
+
+        &::-webkit-progress-value {
+          background: linear-gradient(
+            90deg,
+            var(--accent-color),
+            var(--accent-hover)
+          );
+          border-radius: var(--standard-border-radius);
+          transition: width 0.3s ease-in-out;
+        }
+
+        &::-moz-progress-bar {
+          background: linear-gradient(
+            90deg,
+            var(--accent-color),
+            var(--accent-hover)
+          );
+          border-radius: var(--standard-border-radius);
+          transition: width 0.3s ease-in-out;
+        }
+      }
+    }
+
     .upload-input-group {
       display: flex;
       align-items: center;
@@ -16,24 +53,13 @@
           justify-content: center;
           align-items: center;
           width: 100%;
-
-          .file-name {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            margin-right: 10px;
-            color: var(--text-color);
-          }
+          color: var(--secondary-text-color);
         }
       }
 
       .btn-primary {
         color: var(--accent-color);
-      }
-
-      .btn-primary:disabled {
-        color: var(--secondary-text-color);
-        border: none;
+        margin-left: 10px;
       }
     }
 
