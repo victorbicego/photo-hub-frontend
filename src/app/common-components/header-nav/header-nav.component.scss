@@ -4,9 +4,28 @@
   justify-content: center;
   gap: 10px;
 
-  .btn-primary {
-    .btn-text {
-      margin-left: 6px;
+  a {
+    color: var(--background-color);
+    text-decoration: none;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+
+    &:visited {
+      color: var(--background-color);
+    }
+
+    &:hover {
+      // Define aqui a cor de hover quando o link não está ativo.
+      color: darken(var(--background-color), 15%);
+    }
+
+    &.selected {
+      color: red;
+
+      &:hover {
+        // Se o item ativo receber hover, mantém em vermelho ou você pode definir outra cor.
+        color: red;
+      }
     }
   }
 }

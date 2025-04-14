@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminHeaderComponent } from '../../common-components/admin-header/admin-header.component';
 import { CommonModule } from '@angular/common';
 import { LoadingComponent } from '../../common-components/loading/loading.component';
 import { CreateEventModalComponent } from './components/create-event-modal/create-event-modal.component';
@@ -14,15 +13,14 @@ import { Router } from '@angular/router';
 import { HostEventService } from '../../services/host-event/host-event.service';
 import { EditEventModalComponent } from './components/edit-event-modal/edit-event-modal.component';
 import { UpdateEventDto } from '../../interfaces/update-event-dto';
-import { ConfirmationModalComponent } from '../../common-components/confirmation-modal/confirmation-modal.component';
 import { DeleteEventModalComponent } from './components/delete-event-modal/delete-event-modal.component';
 import { ErrorModalComponent } from '../../common-components/error-modal/error-modal.component';
+import { HeaderComponent } from '../../common-components/header/header.component';
 
 @Component({
   selector: 'app-admin-events',
   imports: [
     CommonModule,
-    AdminHeaderComponent,
     LoadingComponent,
     CreateEventModalComponent,
     EventHostsModalComponent,
@@ -31,6 +29,7 @@ import { ErrorModalComponent } from '../../common-components/error-modal/error-m
     EditEventModalComponent,
     DeleteEventModalComponent,
     ErrorModalComponent,
+    HeaderComponent,
   ],
   templateUrl: './admin-events.component.html',
   styleUrl: './admin-events.component.scss',

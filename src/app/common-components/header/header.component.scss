@@ -1,6 +1,7 @@
 .header {
+  background-color: var(--tertiary-background-color);
   padding: 10px 120px;
-  border-bottom: 0.1px solid var(--border-color);
+  //border-bottom: 0.1px solid var(--border-color);
 
   .content {
     display: flex;
@@ -19,6 +20,7 @@
         font-size: 2rem;
         margin-right: 10px;
         margin-bottom: -2px;
+        color: var(--background-color);
       }
     }
   }

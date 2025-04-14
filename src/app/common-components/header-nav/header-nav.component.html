@@ -1,28 +1,41 @@
 <nav class="dashboard-nav">
   <ng-container *ngIf="!isAdmin; else admin">
-    <button class="btn-primary" (click)="navigateToPhotos()">
-      <span class="material-icons">photo_library</span>
+    <a
+      routerLink="/event"
+      routerLinkActive="selected"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <span class="btn-text">Fotos do Evento</span>
-    </button>
-    <button class="btn-primary" (click)="navigateToFaceMatch()">
-      <span class="material-icons">face</span>
+    </a>
+    <a
+      routerLink="/match"
+      routerLinkActive="selected"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <span class="btn-text">Fotos com Você</span>
-    </button></ng-container
-  >
+    </a>
+  </ng-container>
+
   <ng-template #admin>
-    <button class="btn-primary" (click)="navigateToEvents()">
-      <span class="material-icons">event</span>
+    <a
+      routerLink="/admin/events"
+      routerLinkActive="selected"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <span class="btn-text">Eventos</span>
-    </button>
-    <button class="btn-primary" (click)="navigateToMyAccount()">
-      <span class="material-icons">person</span>
+    </a>
+    <a
+      routerLink="/admin/account"
+      routerLinkActive="selected"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       <span class="btn-text">Minha Conta</span>
-    </button></ng-template
-  >
-  <button class="btn-primary" (click)="openLogoutModal()">
-    <span class="material-icons">logout</span>
+    </a>
+  </ng-template>
+
+  <a href="javascript:void(0)" (click)="openLogoutModal()">
     <span class="btn-text">Sair</span>
-  </button>
+  </a>
 </nav>
 
 <app-confirmation-modal
